@@ -7,65 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.ControllerLogin">
    <left>
       <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #509854;" BorderPane.alignment="CENTER">
          <children>
-            <Circle layoutX="114.0" layoutY="200.0" radius="110.0" stroke="#a5d5a1" strokeType="INSIDE">
-               <fill>
-                  <RadialGradient centerX="0.5" centerY="0.495260663507109" radius="0.5">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.22770467400550842" green="0.9473684430122375" blue="0.16228070855140686" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="1.0" green="1.0" blue="1.0" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </RadialGradient>
-               </fill>
-            </Circle>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="157.0" opacity="0.1" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../image/airplane-md.png" />
-               </image>
-            </ImageView>
-            <Label alignment="CENTER" layoutY="163.0" prefHeight="17.0" prefWidth="228.0" text="AeroPlastics" textFill="WHITE">
-               <font>
-                  <Font name="Gill Sans MT Bold Italic" size="38.0" />
-               </font>
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" height="15.14" radius="8.535" />
-               </effect>
-            </Label>
-            <Label alignment="CENTER" layoutY="210.0" prefHeight="17.0" prefWidth="228.0" text="Reaching New Heights" textFill="WHITE">
-               <font>
-                  <Font name="Gill Sans MT Bold Italic" size="18.0" />
-               </font>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="15.14" radius="8.535" />
-               </effect>
-            </Label>
-            <Line endX="100.0" layoutX="114.0" layoutY="209.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Line>
             <Label alignment="CENTER" layoutY="369.0" prefHeight="17.0" prefWidth="228.0" text="Copyright (c). All RIghts Reserved." textFill="WHITE">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -110,14 +61,28 @@
             </PasswordField>
             <Button fx:id="loginButton" layoutX="13.0" layoutY="225.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #509854;" text="Login" textFill="WHITE">
                <effect>
-                  <DropShadow />
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0" />
+                           </bumpInput>
+                        </Lighting>
+                     </input></DropShadow>
                </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
             <Button fx:id="cancelButton" layoutX="13.0" layoutY="272.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #509854;" text="Cancel" textFill="WHITE">
                <effect>
-                  <DropShadow />
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0" />
+                           </bumpInput>
+                        </Lighting>
+                     </input></DropShadow>
                </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
