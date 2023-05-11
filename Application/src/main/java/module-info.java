@@ -4,9 +4,11 @@ module login.aeroplastics {
 
     //initiate javafx.fxml;
     opens login to javafx.fxml;
-    opens customer to javafx.fxml;
+    opens menu to javafx.fxml;
+    opens orders to javafx.fxml;
 
     //export sheet
     exports login;
-    exports customer;
+    exports menu;
+    exports orders;
 }
