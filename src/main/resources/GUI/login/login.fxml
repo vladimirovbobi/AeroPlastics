@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.login.LoginController">
+   <left>
+      <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #509854;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutY="369.0" prefHeight="17.0" prefWidth="228.0" text="Copyright (c). All RIghts Reserved." textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="15.14" radius="8.535" />
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="400.0" prefWidth="332.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="105.0" layoutY="53.0" text="Secure Login">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Label>
+            <Label layoutX="13.0" layoutY="102.0" text="Username:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="155.0" text="Password:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameTextField" layoutX="86.0" layoutY="99.0" prefHeight="26.0" prefWidth="184.0" promptText="Usename">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <PasswordField fx:id="passwordTextField" layoutX="84.0" layoutY="152.0" prefHeight="26.0" prefWidth="187.0" promptText="Password">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </PasswordField>
+            <Button fx:id="loginButton" layoutX="13.0" layoutY="225.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #509854;" text="Login" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0" />
+                           </bumpInput>
+                        </Lighting>
+                     </input></DropShadow>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="cancelButton" layoutX="13.0" layoutY="272.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #509854;" text="Cancel" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0" />
+                           </bumpInput>
+                        </Lighting>
+                     </input></DropShadow>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
