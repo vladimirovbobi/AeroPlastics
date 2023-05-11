@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
+<?import javafx.scene.paint.Color?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.orders.OrdersController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="900.0" />
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
+         <bottom>
+            <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView layoutX="83.0" layoutY="64.0" prefHeight="251.0" prefWidth="735.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                     <effect>
+                        <DropShadow height="19.525" radius="8.896249999999998" width="18.06">
+                           <color>
+                              <Color opacity="0.3091602921485901" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </TableView>
+                  <ImageView fitHeight="67.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </bottom></BorderPane>
    </children>
 </AnchorPane>
