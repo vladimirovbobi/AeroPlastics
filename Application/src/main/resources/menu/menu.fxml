@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="customer.ControllerCustomer">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.ControllerMenu">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <left>
-            <AnchorPane prefHeight="600.0" prefWidth="360.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="productsButton" layoutX="42.0" layoutY="275.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="277.0" style="-fx-background-color: #509854;" text="Products" textFill="WHITE">
                      <effect>
@@ -46,7 +46,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="ordersButton" layoutX="42.0" layoutY="188.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="277.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE">
+                  <Button fx:id="ordersButton" layoutX="42.0" layoutY="188.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="277.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE" AnchorPane.rightAnchor="581.0">
                      <effect>
                         <DropShadow>
                            <input>
@@ -97,9 +97,6 @@
                </children>
             </AnchorPane>
          </left>
-         <right>
-            <AnchorPane prefHeight="200.0" prefWidth="540.0" style="-fx-background-color: #509854;" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
    </children>
 </AnchorPane>
