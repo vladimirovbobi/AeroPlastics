@@ -42,7 +42,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button fx:id="ordersButton" layoutX="331.0" layoutY="250.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE" onAction="#handleOrdersButtonClick">
+                  <Button fx:id="ordersButton" layoutX="331.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleOrdersButtonClick" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -55,7 +55,7 @@
                         </DropShadow>
                      </effect>
                   </Button>
-                  <Button layoutX="331.0" layoutY="327.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Products" textFill="WHITE">
+                  <Button fx:id="productsButton" layoutX="331.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleProductsButtonClick" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Products" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -68,7 +68,7 @@
                         </DropShadow>
                      </effect>
                   </Button>
-                  <Button layoutX="331.0" layoutY="402.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Supplies" textFill="WHITE">
+                  <Button fx:id="suppliesButton" layoutX="331.0" layoutY="402.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Supplies" textFill="WHITE" onAction="#handleSuppliesButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
@@ -81,7 +81,7 @@
                         </DropShadow>
                      </effect>
                   </Button>
-                  <Button layoutX="331.0" layoutY="477.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Reports" textFill="WHITE">
+                  <Button fx:id="reportsButton" layoutX="331.0" layoutY="477.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Reports" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
