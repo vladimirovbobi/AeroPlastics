@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.orders.OrdersController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.products.ProductController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <bottom>
@@ -46,7 +46,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button layoutX="543.0" layoutY="313.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Order" textFill="WHITE">
+                  <Button layoutX="543.0" layoutY="313.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Product" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -62,7 +62,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="543.0" layoutY="434.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Orders" textFill="WHITE">
+                  <Button layoutX="543.0" layoutY="434.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Production Request" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -78,7 +78,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="543.0" layoutY="188.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Order" textFill="WHITE">
+                  <Button layoutX="543.0" layoutY="188.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Product" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
