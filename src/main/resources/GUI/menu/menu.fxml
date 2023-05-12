@@ -17,7 +17,7 @@
          <left>
             <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="331.0" layoutY="173.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Customers" textFill="WHITE">
+                  <Button fx:id="customerButton" layoutX="331.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleCustomersButtonClick" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Customers" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -42,7 +42,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button layoutX="331.0" layoutY="250.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE">
+                  <Button fx:id="ordersButton" layoutX="331.0" layoutY="250.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE" onAction="#handleOrdersButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
