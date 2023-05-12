@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Supply application.
+ */
 public class SupplyApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -18,6 +21,11 @@ public class SupplyApplication extends Application {
         stage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch();
     }

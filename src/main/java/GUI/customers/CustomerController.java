@@ -8,5 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * The type Customer controller.
+ */
 public class CustomerController {
 }
