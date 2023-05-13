@@ -1,0 +1,46 @@
+package GUI;
+
+import GUI.customers.CustomerApplication;
+import GUI.menu.MenuApplication;
+import GUI.orders.OrdersApplication;
+import GUI.products.ProductApplication;
+import GUI.supplies.SupplyApplication;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class ViewModel {
+    private Stage currentStage;
+
+    public void setCurrentStage(Stage stage) {
+        this.currentStage = stage;
+    }
+
+    public void showCustomersWindow() throws IOException {
+        CustomerApplication customerApp = new CustomerApplication();
+        Stage stage = new Stage();
+        customerApp.start(stage);
+        currentStage.close(); // Close the current window
+    }
+
+    public void showOrderWindow() throws IOException {
+        OrdersApplication orderApp = new OrdersApplication();
+        Stage stage = new Stage();
+        orderApp.start(stage);
+        currentStage.close(); // Close the current window
+    }
+
+    public void showProductWindow() throws IOException {
+        ProductApplication productApp = new ProductApplication();
+        Stage stage = new Stage();
+        productApp.start(stage);
+        currentStage.close(); // Close the current window
+    }
+
+    public void showSupplyWindow() throws IOException {
+        SupplyApplication supplyApp = new SupplyApplication();
+        Stage stage = new Stage();
+        supplyApp.start(stage);
+        currentStage.close(); // Close the current window
+    }
+}
