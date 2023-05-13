@@ -1,15 +1,8 @@
 package GUI.menu;
 
-//Import necessary Applications
-import GUI.customers.CustomerApplication;
-import GUI.orders.OrdersApplication;
-import GUI.products.ProductApplication;
-import GUI.supplies.SupplyApplication;
 import GUI.ViewModel;
-//Import libraries
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import java.io.IOException;
 
 
@@ -49,7 +42,7 @@ public class MenuController {
     }
 
     @FXML
-    private Button ProductsButton;
+    private Button productsButton;
     /**
      * Method that handles products button in menu page.
      * Redirects to ProductApplication

@@ -43,4 +43,11 @@ public class ViewModel {
         supplyApp.start(stage);
         currentStage.close(); // Close the current window
     }
+
+    public void showMenuWindow() throws IOException {
+        MenuApplication menuApp = new MenuApplication();
+        Stage stage = new Stage();
+        menuApp.start(stage);
+        currentStage.close(); // Close the current window
+    }
 }
