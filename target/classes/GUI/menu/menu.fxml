@@ -11,105 +11,118 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.menu.MenuController">
-   <children>
-      <BorderPane prefHeight="600.0" prefWidth="900.0">
-         <left>
-            <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
-               <children>
-                  <Button layoutX="331.0" layoutY="173.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Customers" textFill="WHITE">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-                  <ImageView fitHeight="135.0" fitWidth="177.0" layoutX="366.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/logo.png" />
-                     </image>
-                     <effect>
-                        <Reflection fraction="0.15" topOpacity="0.21">
-                           <input>
-                              <Blend opacity="0.0" />
-                           </input>
-                        </Reflection>
-                     </effect>
-                  </ImageView>
-                  <Button layoutX="331.0" layoutY="250.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Orders" textFill="WHITE">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-                  <Button layoutX="331.0" layoutY="327.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Products" textFill="WHITE">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-                  <Button layoutX="331.0" layoutY="402.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Supplies" textFill="WHITE">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-                  <Button layoutX="331.0" layoutY="477.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Reports" textFill="WHITE">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-                  <Button layoutX="776.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </left>
-      </BorderPane>
-   </children>
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.menu.MenuController">
+   <BorderPane prefHeight="600.0" prefWidth="900.0">
+      <left>
+         <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;"
+                     BorderPane.alignment="CENTER">
+            <Button fx:id="customersButton" layoutX="331.0" layoutY="173.0" mnemonicParsing="false"
+                    onAction="#handleCustomersButtonClick" prefHeight="58.0" prefWidth="239.0"
+                    style="-fx-background-color: #509854;" text="Customers" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38"
+                                  specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0"/>
+                           </bumpInput>
+                        </Lighting>
+                     </input>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="135.0" fitWidth="177.0" layoutX="366.0" layoutY="14.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.21">
+                     <input>
+                        <Blend opacity="0.0"/>
+                     </input>
+                  </Reflection>
+               </effect>
+               <Image url="@../../Images/logo.png"/>
+            </ImageView>
+            <Button fx:id="ordersButton" layoutX="331.0" layoutY="250.0" mnemonicParsing="false"
+                    onAction="#handleOrdersButtonClick" prefHeight="58.0" prefWidth="239.0"
+                    style="-fx-background-color: #509854;" text="Orders" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38"
+                                  specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0"/>
+                           </bumpInput>
+                        </Lighting>
+                     </input>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button fx:id="productsButton" layoutX="331.0" layoutY="327.0" mnemonicParsing="false"
+                    onAction="#handleProductsButtonClick" prefHeight="58.0" prefWidth="239.0"
+                    style="-fx-background-color: #509854;" text="Products" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38"
+                                  specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0"/>
+                           </bumpInput>
+                        </Lighting>
+                     </input>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button fx:id="suppliesButton" layoutX="331.0" layoutY="402.0" mnemonicParsing="false"
+                    prefHeight="58.0" prefWidth="239.0" style="-fx-background-color: #509854;" text="Supplies"
+                    textFill="WHITE" onAction="#handleSuppliesButtonClick">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38"
+                                  specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0"/>
+                           </bumpInput>
+                        </Lighting>
+                     </input>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button fx:id="reportsButton" layoutX="331.0" layoutY="477.0" mnemonicParsing="false" prefHeight="58.0"
+                    prefWidth="239.0" style="-fx-background-color: #509854;" text="Reports" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38"
+                                  specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0"/>
+                           </bumpInput>
+                        </Lighting>
+                     </input>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button layoutX="776.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0"
+                    style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38"
+                                  specularExponent="28.74" surfaceScale="1.16">
+                           <bumpInput>
+                              <Shadow height="79.0" radius="39.0" width="79.0"/>
+                           </bumpInput>
+                        </Lighting>
+                     </input>
+                  </DropShadow>
+               </effect>
+            </Button>
+         </AnchorPane>
+      </left>
+   </BorderPane>
 </AnchorPane>

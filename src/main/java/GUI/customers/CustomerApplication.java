@@ -1,7 +1,8 @@
-package GUI.orders;
+package GUI.customers;
 
 import GUI.ViewModel;
 import GUI.menu.MenuController;
+import GUI.orders.OrdersApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,22 +12,22 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * The type Orders application.
+ * The type Customer application.
  */
-public class OrdersApplication extends Application {
+public class CustomerApplication extends Application {
     @Override
-    public void start(Stage ordersStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("orders.fxml"));
+    public void start(Stage customerStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("customers.fxml"));
         Parent root = loader.load();
-        OrdersController controller = loader.getController();
+        CustomerController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
         controller.setViewModel(viewModel);
 
         Scene scene = new Scene(root);
-        ordersStage.setScene(scene);
-        ordersStage.show();
+        customerStage.setScene(scene);
+        customerStage.show();
 
-        viewModel.setCurrentStage(ordersStage);
+        viewModel.setCurrentStage(customerStage);
     }
 
     /**

@@ -1,5 +1,6 @@
-package GUI.login;
+package GUI.products;
 
+import GUI.orders.OrdersApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,14 +9,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * The type Login application.
+ * The type Product application.
  */
-public class LoginApplication extends Application {
+public class ProductApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 520, 400);
-        stage.setTitle("AeroPlastics Secure Login");
+        FXMLLoader fxmlLoader = new FXMLLoader(ProductApplication.class.getResource("products.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+        stage.setTitle("AeroPlastics - Products");
         stage.setScene(scene);
         stage.show();
     }
