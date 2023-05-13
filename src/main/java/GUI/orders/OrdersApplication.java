@@ -1,7 +1,10 @@
 package GUI.orders;
 
+import GUI.ViewModel;
+import GUI.menu.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -12,12 +15,18 @@ import java.io.IOException;
  */
 public class OrdersApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OrdersApplication.class.getResource("orders.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("AeroPlastics - Orders");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage ordersStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("orders.fxml"));
+        Parent root = loader.load();
+        OrdersController controller = loader.getController();
+        ViewModel viewModel = new ViewModel();
+        controller.setViewModel(viewModel);
+
+        Scene scene = new Scene(root);
+        ordersStage.setScene(scene);
+        ordersStage.show();
+
+        viewModel.setCurrentStage(ordersStage);
     }
 
     /**
