@@ -1,4 +1,4 @@
-module com.example.aeroplastics {
+module com.GUI.aeroplastics {
     requires javafx.controls;
     requires javafx.fxml;
 
