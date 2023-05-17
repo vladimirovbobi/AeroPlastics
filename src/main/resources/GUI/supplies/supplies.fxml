@@ -18,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.menu.MenuController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.supplies.SupplyController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <bottom>
@@ -125,7 +125,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="menuButton" layoutX="370.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
+                  <Button fx:id="menuButton" layoutX="370.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE" onAction="#handleMenuButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
