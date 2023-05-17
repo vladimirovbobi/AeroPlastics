@@ -52,8 +52,8 @@ public class CustomerController {
     @FXML
     private Button removeCustomerButton;
     /**
-     * Method that handles Add Customer button in customer page.
-     * Displays external window that has fields for adding a customer.
+     * Method that handles Remove Customer button in customer page.
+     * Displays external window that has fields for removing a customer.
      */
     @FXML
     private void handleRemoveCustomerButtonClick() throws IOException {
