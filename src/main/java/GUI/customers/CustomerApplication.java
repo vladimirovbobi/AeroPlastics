@@ -25,6 +25,7 @@ public class CustomerApplication extends Application {
 
         Scene scene = new Scene(root);
         customerStage.setScene(scene);
+        customerStage.setTitle("AeroPlastics - Customers");
         customerStage.show();
 
         viewModel.setCurrentStage(customerStage);

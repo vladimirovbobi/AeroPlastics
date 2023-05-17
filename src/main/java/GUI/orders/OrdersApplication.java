@@ -24,6 +24,7 @@ public class OrdersApplication extends Application {
 
         Scene scene = new Scene(root);
         ordersStage.setScene(scene);
+        ordersStage.setTitle("AeroPlastics - Orders");
         ordersStage.show();
 
         viewModel.setCurrentStage(ordersStage);

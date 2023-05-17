@@ -40,7 +40,7 @@
             </ImageView>
             <Button fx:id="removeCustomerButton" layoutX="529.0" layoutY="331.0" mnemonicParsing="false"
                     prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Customer"
-                    textFill="WHITE">
+                    textFill="WHITE" onAction="#handleRemoveCustomerButtonClick">
                <effect>
                   <DropShadow>
                      <input>
@@ -62,7 +62,7 @@
             </Button>
             <Button fx:id="addCustomerButton" layoutX="529.0" layoutY="233.0" mnemonicParsing="false"
                     prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Customer"
-                    textFill="WHITE">
+                    textFill="WHITE" onAction="#handleAddCustomerButtonClick">
                <effect>
                   <DropShadow>
                      <input>

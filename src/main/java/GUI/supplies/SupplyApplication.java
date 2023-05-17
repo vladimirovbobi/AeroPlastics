@@ -25,6 +25,7 @@ public class SupplyApplication extends Application {
 
         Scene scene = new Scene(root);
         supplyStage.setScene(scene);
+        supplyStage.setTitle("AeroPlastics - Supplies");
         supplyStage.show();
 
         viewModel.setCurrentStage(supplyStage);

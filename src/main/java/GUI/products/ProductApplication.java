@@ -25,6 +25,7 @@ public class ProductApplication extends Application {
 
         Scene scene = new Scene(root);
         productsStage.setScene(scene);
+        productsStage.setTitle("AeroPlastics - Products");
         productsStage.show();
 
         viewModel.setCurrentStage(productsStage);

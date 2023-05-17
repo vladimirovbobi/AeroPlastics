@@ -1,6 +1,9 @@
 package GUI.customers;
 
 import GUI.ViewModel;
+import GUI.customers.addCustomer.AddCustomerApplication;
+import GUI.customers.removeCustomer.RemoveCustomerApplication;
+import GUI.products.ProductApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,5 +34,31 @@ public class CustomerController {
     @FXML
     private void handleMenuButtonClick() throws IOException {
         viewModel.showMenuWindow();
+    }
+
+    @FXML
+    private Button addCustomerButton;
+    /**
+     * Method that handles Add Customer button in customer page.
+     * Displays external window that has fields for adding a customer.
+     */
+    @FXML
+    private void handleAddCustomerButtonClick() throws IOException {
+        AddCustomerApplication addCustomerApp = new AddCustomerApplication();
+        Stage stage = new Stage();
+        addCustomerApp.start(stage);
+    }
+
+    @FXML
+    private Button removeCustomerButton;
+    /**
+     * Method that handles Add Customer button in customer page.
+     * Displays external window that has fields for adding a customer.
+     */
+    @FXML
+    private void handleRemoveCustomerButtonClick() throws IOException {
+        RemoveCustomerApplication removeCustomerApp = new RemoveCustomerApplication();
+        Stage stage = new Stage();
+        removeCustomerApp.start(stage);
     }
 }

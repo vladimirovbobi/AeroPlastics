@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class MenuApplication extends Application {
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage menuStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
         Parent root = loader.load();
         MenuController controller = loader.getController();
@@ -23,10 +23,11 @@ public class MenuApplication extends Application {
         controller.setViewModel(viewModel);
 
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        menuStage.setScene(scene);
+        menuStage.setTitle("AeroPlastics - Menu");
+        menuStage.show();
 
-        viewModel.setCurrentStage(primaryStage);
+        viewModel.setCurrentStage(menuStage);
     }
 
     /**
