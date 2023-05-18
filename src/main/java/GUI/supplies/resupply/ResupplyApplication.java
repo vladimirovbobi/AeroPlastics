@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Resupply application.
+ */
 public class ResupplyApplication extends Application {
 
     @Override
@@ -23,6 +26,12 @@ public class ResupplyApplication extends Application {
         resupplyStage.show();
 
     }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

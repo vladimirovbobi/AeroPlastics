@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Remove supply controller.
+ */
 public class RemoveSupplyController {
 
 }

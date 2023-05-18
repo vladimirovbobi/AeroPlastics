@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Remove supply application.
+ */
 public class RemoveSupplyApplication extends Application {
 
     @Override
@@ -23,6 +26,12 @@ public class RemoveSupplyApplication extends Application {
         removeSupplyStage.show();
 
     }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

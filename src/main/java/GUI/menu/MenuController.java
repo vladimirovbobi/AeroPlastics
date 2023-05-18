@@ -7,10 +7,8 @@ import java.io.IOException;
 
 
 /**
- * This is a controller class for MenuApplication.
- * Controls the Menu Application.
+ * The type Menu Controller.
  *
- * @author Michael Barry
  */
 public class MenuController {
 
