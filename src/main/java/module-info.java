@@ -3,7 +3,6 @@ module com.GUI.aeroplastics {
     requires javafx.fxml;
 
     //initiate javafx.fxml;
-    opens GUI.example to javafx.fxml;
     opens GUI.login to javafx.fxml;
     opens GUI.menu to javafx.fxml;
     opens GUI.orders to javafx.fxml;
@@ -12,9 +11,12 @@ module com.GUI.aeroplastics {
         opens GUI.customers.removeCustomer to javafx.fxml;
     opens GUI.products to javafx.fxml;
     opens GUI.supplies to javafx.fxml;
+        opens GUI.supplies.removeSupply;
+        opens GUI.supplies.addSupply;
+        opens GUI.supplies.resupply;
+
 
     //export sheet
-    exports GUI.example;
     exports GUI.login;
     exports GUI.menu;
     exports GUI.orders;
@@ -23,4 +25,7 @@ module com.GUI.aeroplastics {
         exports GUI.customers.removeCustomer;
     exports GUI.products;
     exports GUI.supplies;
+        exports GUI.supplies.removeSupply;
+        exports GUI.supplies.addSupply;
+        exports GUI.supplies.resupply;
 }
