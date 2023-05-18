@@ -6,6 +6,8 @@ module com.GUI.aeroplastics {
     opens GUI.login to javafx.fxml;
     opens GUI.menu to javafx.fxml;
     opens GUI.orders to javafx.fxml;
+        opens GUI.orders.addOrder to javafx.fxml;
+        opens GUI.orders.removeOrder to javafx.fxml;
     opens GUI.customers to javafx.fxml;
         opens GUI.customers.addCustomer to javafx.fxml;
         opens GUI.customers.removeCustomer to javafx.fxml;
@@ -20,6 +22,8 @@ module com.GUI.aeroplastics {
     exports GUI.login;
     exports GUI.menu;
     exports GUI.orders;
+        exports GUI.orders.addOrder;
+        exports GUI.orders.removeOrder;
     exports GUI.customers;
         exports GUI.customers.addCustomer;
         exports GUI.customers.removeCustomer;
