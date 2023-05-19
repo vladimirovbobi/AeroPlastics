@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import GUI.ViewModel;
 
+/**
+ * The type Add customer controller.
+ */
 public class AddCustomerController {
     @FXML
     private TextField firstNameTextField;
