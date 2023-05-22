@@ -14,6 +14,7 @@ module com.GUI.aeroplastics {
     opens GUI.products to javafx.fxml;
     opens GUI.supplies to javafx.fxml;
 
+
     //export sheet
     exports GUI.example;
     exports GUI.login;

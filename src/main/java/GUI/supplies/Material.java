@@ -1,3 +1,5 @@
+package GUI.supplies;
+
 public class Material {
     int materialID;
     String materialName;

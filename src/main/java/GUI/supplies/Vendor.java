@@ -1,8 +1,8 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+package GUI.supplies;
+
+import GUI.JavaConnector;
+
+import java.sql.*;
 import java.util.HashMap;
 
 public class Vendor {
@@ -31,13 +31,24 @@ public class Vendor {
         return companyName;
     }
 
+
     public void addToDatabase() throws SQLException {
-        JavaConnector connector = new JavaConnector();
-        String query = "Select * From materials";
-        Connection connection = connector.getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        ResultSet result = statement.executeQuery();
-        System.out.println(result.getInt("materialID"));
+
+        try {
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "Select * From materials";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            if(result.next()) {
+                System.out.println(result.getString(2));
+            }
+        }catch(NumberFormatException numF1) {
+
+        }catch(Exception e1) {
+            e1.printStackTrace();
+        }
+
 
     }
 

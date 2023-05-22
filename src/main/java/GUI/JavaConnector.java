@@ -1,3 +1,5 @@
+package GUI;
+
 import java.sql.*;
 
 public class JavaConnector {
@@ -10,7 +12,7 @@ public class JavaConnector {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, userName, pass);
+            this.connection = DriverManager.getConnection(url, userName, pass);
 
 
         }catch(NumberFormatException numF1) {

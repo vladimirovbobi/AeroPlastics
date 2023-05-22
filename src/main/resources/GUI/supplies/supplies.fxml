@@ -49,7 +49,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button fx:id="removeMaterialButton" layoutX="655.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Material" textFill="WHITE">
+                  <Button fx:id="removeMaterialButton" layoutX="655.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Material" textFill="WHITE" onAction="#handleRemoveMaterialButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
@@ -68,7 +68,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="resupplyButton" layoutX="411.0" layoutY="337.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Resupply" textFill="WHITE">
+                  <Button fx:id="resupplyButton" layoutX="411.0" layoutY="337.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Resupply" textFill="WHITE" onAction="#handleResupplyButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
@@ -87,7 +87,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addMaterialButton" layoutX="411.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Material" textFill="WHITE">
+                  <Button fx:id="addMaterialButton" layoutX="411.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Material" textFill="WHITE" onAction="#handleAddMaterialButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
@@ -106,7 +106,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="logoutButton" layoutX="774.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
+                  <Button fx:id="logoutButton" layoutX="774.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE" onAction="#handleLogOutButtonClick">
                      <effect>
                         <DropShadow>
                            <input>

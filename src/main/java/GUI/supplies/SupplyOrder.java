@@ -1,11 +1,16 @@
+package GUI.supplies;
+
+import GUI.Date;
+
 import java.util.ArrayList;
+
 
 public class SupplyOrder extends Vendor{
     private Date arrivalDate;
     private Date orderDate;
     private Vendor vendor;
     ArrayList<Material> materials;
-    public SupplyOrder(Date placed, Date arrival, ArrayList<Material> materials,  Vendor vendor){
+    public SupplyOrder(Date placed, Date arrival, ArrayList<Material> materials, Vendor vendor){
         super(vendor.getVendorID(), vendor.getCompanyName());
         this.vendor = vendor;
         this.materials = materials;
