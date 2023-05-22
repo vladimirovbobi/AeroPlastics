@@ -1,6 +1,7 @@
 module com.GUI.aeroplastics {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
     //initiate javafx.fxml;
     opens GUI.example to javafx.fxml;

@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class Employee {
+package PACKAGE_NAME;
+public class Employee {
 }
