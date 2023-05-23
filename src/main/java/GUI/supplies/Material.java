@@ -1,11 +1,13 @@
 package GUI.supplies;
 
 public class Material {
+    int inventoryLevel;
     int materialID;
     String materialName;
     int moldTemperature;
     int plasticDensity;
     public Material(int inventoryLevel, int materialID, String materialName, int moldTemperature, int plasticDensity){
+        this.inventoryLevel = inventoryLevel;
         this.materialID = materialID;
         this.materialName = materialName;
         this.moldTemperature = moldTemperature;
@@ -26,5 +28,9 @@ public class Material {
 
     public String getMaterialName() {
         return materialName;
+    }
+
+    public int getInventoryLevel() {
+        return inventoryLevel;
     }
 }

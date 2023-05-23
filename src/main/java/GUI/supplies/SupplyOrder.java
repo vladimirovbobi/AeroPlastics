@@ -71,7 +71,7 @@ public class SupplyOrder{
             ResultSet result = statement.executeQuery();
 
 
-            if (result.next()) {
+            while (result.next()) {
                 if (minPrice > result.getDouble("price")) {
 
                     vendorID = result.getInt("vendorID");

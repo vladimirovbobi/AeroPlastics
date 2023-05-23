@@ -9,7 +9,7 @@ import java.util.List;
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "@Ziemlupr2072";
+    private static final String PASSWORD = "Bob4oSirop4o";
 
     public Connection getConnection() throws SQLException{
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -27,7 +27,7 @@ public class JavaConnector {
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Execute a SQL query to retrieve materials data
-            String query = "SELECT inventoryLevel, materialID, materialName, moldTemperature, plasticDensity FROM materials";
+            String query = "SELECT  materialID,inventoryLevel, materialName, moldTemperature, plasticDensity FROM materials";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
