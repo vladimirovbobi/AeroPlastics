@@ -25,10 +25,10 @@
             <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
                   <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="341.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
+                     <columns>
+                        <TableColumn prefWidth="75.0" text="C1" />
+                        <TableColumn prefWidth="75.0" text="C2" />
+                     </columns>
                      <effect>
                         <DropShadow height="19.0" radius="8.75" width="18.0">
                            <color>
@@ -49,7 +49,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button fx:id="removeOrderButton" layoutX="529.0" layoutY="331.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Order" textFill="WHITE">
+                  <Button fx:id="removeOrderButton" layoutX="529.0" layoutY="331.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Order" textFill="WHITE" onAction="#handleRemoveOrderButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
@@ -68,7 +68,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addOrderButton" layoutX="529.0" layoutY="233.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Order" textFill="WHITE">
+                  <Button fx:id="addOrderButton" layoutX="529.0" layoutY="233.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Order" textFill="WHITE" onAction="#handleAddOrderButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
