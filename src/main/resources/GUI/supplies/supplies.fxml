@@ -24,10 +24,13 @@
          <center>
             <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="341.0">
+                  <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="377.0">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Quantity" />
+                        <TableColumn fx:id="tempColumn" prefWidth="75.0" text="Temp" />
+                        <TableColumn fx:id="densityColumn" prefWidth="75.0" text="Density" />
                      </columns>
                      <effect>
                         <DropShadow height="19.0" radius="8.75" width="18.0">
@@ -37,7 +40,7 @@
                         </DropShadow>
                      </effect>
                   </TableView>
-                  <ImageView fx:id="logo" fitHeight="122.0" fitWidth="175.0" layoutX="553.0" layoutY="16.0" opacity="0.61" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logo" fitHeight="122.0" fitWidth="175.0" layoutX="574.0" layoutY="16.0" opacity="0.61" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../Images/logo.png" />
                      </image>
@@ -49,7 +52,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button fx:id="removeMaterialButton" layoutX="528.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleRemoveMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Material" textFill="WHITE">
+                  <Button fx:id="removeMaterialButton" layoutX="553.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleRemoveMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -68,7 +71,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="resupplyButton" layoutX="531.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleResupplyMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Material" textFill="WHITE">
+                  <Button fx:id="resupplyButton" layoutX="553.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleResupplyMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -87,7 +90,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="logoutButton" layoutX="774.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
+                  <Button fx:id="logoutButton" layoutX="763.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -106,7 +109,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="menuButton" layoutX="370.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
+                  <Button fx:id="menuButton" layoutX="416.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -125,13 +128,13 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="materialTextField" layoutX="508.0" layoutY="176.0" prefHeight="25.0" prefWidth="236.0" />
-                  <Label fx:id="materialSearchLabel" layoutX="404.0" layoutY="180.0" text="Search Inventory">
+                  <TextField fx:id="materialTextField" layoutX="532.0" layoutY="176.0" prefHeight="25.0" prefWidth="236.0" />
+                  <Label fx:id="materialSearchLabel" layoutX="426.0" layoutY="180.0" text="Search Inventory: ">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="viewAllButton" layoutX="528.0" layoutY="426.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Materials" textFill="WHITE" onAction="#handleViewAllButtonClick">
+                  <Button fx:id="viewAllButton" layoutX="553.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleViewAllButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Materials" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -150,7 +153,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="singleViewButton" layoutX="760.0" layoutY="176.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="90.0" style="-fx-background-color: #509854;" text="View" textFill="WHITE">
+                  <Button fx:id="singleViewButton" layoutX="774.0" layoutY="176.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="90.0" style="-fx-background-color: #509854;" text="View" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>

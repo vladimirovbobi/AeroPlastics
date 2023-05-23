@@ -72,11 +72,12 @@ public class Vendor {
 
 
     }
+    /*
     public static void main() {
-        Material material = new Material(1,"PLA",190,4);
-        Material material2 = new Material(2,"PTGE",240,5);
-        Material material3 = new Material(3,"FLK",308,7);
-        Material material4 = new Material(4,"TPK",120,1);
+        Material material = new Material(inventoryLevel, 1,"PLA",190,4);
+        Material material2 = new Material(inventoryLevel, 2,"PTGE",240,5);
+        Material material3 = new Material(inventoryLevel, 3,"FLK",308,7);
+        Material material4 = new Material(inventoryLevel, 4,"TPK",120,1);
         HashMap<Material, Double> priceMat = new HashMap<>();
         priceMat.put(material,40.2);
         priceMat.put(material2,75.7);
@@ -87,5 +88,5 @@ public class Vendor {
         vendor.addVendorToDatabase();
     }
 
-
+*/
 }

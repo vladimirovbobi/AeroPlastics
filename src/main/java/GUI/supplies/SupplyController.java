@@ -1,14 +1,22 @@
 package GUI.supplies;
 
+import GUI.JavaConnector;
 import GUI.ViewModel;
 import GUI.supplies.removeSupply.RemoveSupplyApplication;
 import GUI.supplies.resupply.ResupplyApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 /**
  * The type Supply controller.
@@ -20,6 +28,7 @@ public class SupplyController {
         this.viewModel = viewModel;
     }
 
+    //Menu Button
     @FXML
     private Button menuButton;
     /**
@@ -31,6 +40,7 @@ public class SupplyController {
         viewModel.showMenuWindow();
     }
 
+    //Remove Material Button
     @FXML
     private Button removeMaterialButton;
     /**
@@ -44,8 +54,7 @@ public class SupplyController {
         removeSupplyApp.start(stage);
 
     }
-    @FXML
-    private TableView displayTable;
+
     //@FXML
     //private Button addMaterialButton;
     /**
@@ -59,6 +68,7 @@ public class SupplyController {
         addSupplyApp.start(stage);
     }
 */
+    //Resupply Button
     @FXML
     private Button resupplyButton;
     /**
@@ -72,14 +82,47 @@ public class SupplyController {
         resupplyApp.start(stage);
     }
 
+    //View All Button
     @FXML
     private Button viewAllButton;
+    @FXML
+    private TableView<Material> displayTable;
+    @FXML
+    private TableColumn<Material, String> nameColumn;
+    @FXML
+    private TableColumn<Material, Integer> idColumn;
+    @FXML
+    private TableColumn<Material, Integer> quantityColumn;
+    @FXML
+    private TableColumn<Material, Integer> tempColumn;
+    @FXML
+    private TableColumn<Material, Integer> densityColumn;
     /**
      * Method that handles view all button in supply page.
      * Displays table in GUI.
      */
     @FXML
     private void handleViewAllButtonClick() throws IOException {
+        populateMaterialsTable();
+    }
 
+    public void initialize() {
+        // Initialize table columns
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("materialName"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("materialID"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("inventoryLevel"));
+        tempColumn.setCellValueFactory(new PropertyValueFactory<>("moldTemperature"));
+        densityColumn.setCellValueFactory(new PropertyValueFactory<>("plasticDensity"));
+    }
+
+    public void populateMaterialsTable() {
+        // Retrieve materials data from the database (example code)
+        List<Material> materials = JavaConnector.getAllMaterials(); // Replace with your actual code to fetch data from the database
+
+        // Clear existing data from the table
+        displayTable.getItems().clear();
+
+        // Populate the table with materials data
+        displayTable.getItems().addAll(materials);
     }
 }
