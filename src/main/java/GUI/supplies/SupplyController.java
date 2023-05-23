@@ -32,7 +32,7 @@ public class SupplyController {
     }
 
     @FXML
-    private Button removeSupplyButton;
+    private Button removeMaterialButton;
     /**
      * Method that handles remove button in supply page.
      * Displays external window that has fields for removing a material.
@@ -45,7 +45,7 @@ public class SupplyController {
     }
 
     @FXML
-    private Button addSupplyButton;
+    private Button addMaterialButton;
     /**
      * Method that handles add button in supply page.
      * Displays external window that has fields for adding a material.
@@ -58,7 +58,7 @@ public class SupplyController {
     }
 
     @FXML
-    private Button rsupplyButton;
+    private Button resupplyButton;
     /**
      * Method that handles add button in supply page.
      * Displays external window that has fields for adding a material.
