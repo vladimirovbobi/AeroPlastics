@@ -27,62 +27,12 @@ public class SupplyController {
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
-
-    //Menu Button
     @FXML
     private Button menuButton;
-    /**
-     * Method that handles menu button in supply page.
-     * Redirects to MenuApplication.
-     */
-    @FXML
-    private void handleMenuButtonClick() throws IOException {
-        viewModel.showMenuWindow();
-    }
-
-    //Remove Material Button
     @FXML
     private Button removeMaterialButton;
-    /**
-     * Method that handles remove button in supply page.
-     * Displays external window that has fields for removing a material.
-     */
-    @FXML
-    private void handleRemoveMaterialButtonClick() throws IOException {
-        RemoveSupplyApplication removeSupplyApp = new RemoveSupplyApplication();
-        Stage stage = new Stage();
-        removeSupplyApp.start(stage);
-
-    }
-
-    //@FXML
-    //private Button addMaterialButton;
-    /**
-     * Method that handles add button in supply page.
-     * Displays external window that has fields for adding a material.
-     */
-   /* @FXML
-    private void handleAddMaterialButtonClick() throws IOException {
-        AddSupplyApplication addSupplyApp = new AddSupplyApplication();
-        Stage stage = new Stage();
-        addSupplyApp.start(stage);
-    }
-*/
-    //Resupply Button
     @FXML
     private Button resupplyButton;
-    /**
-     * Method that handles add button in supply page.
-     * Displays external window that has fields for adding a material.
-     */
-    @FXML
-    private void handleResupplyMaterialButtonClick() throws IOException {
-        ResupplyApplication resupplyApp = new ResupplyApplication();
-        Stage stage = new Stage();
-        resupplyApp.start(stage);
-    }
-
-    //View All Button
     @FXML
     private Button viewAllButton;
     @FXML
@@ -97,6 +47,39 @@ public class SupplyController {
     private TableColumn<Material, Integer> tempColumn;
     @FXML
     private TableColumn<Material, Integer> densityColumn;
+
+    /**
+     * Method that handles menu button in supply page.
+     * Redirects to MenuApplication.
+     */
+    @FXML
+    private void handleMenuButtonClick() throws IOException {
+        viewModel.showMenuWindow();
+    }
+
+    /**
+     * Method that handles remove button in supply page.
+     * Displays external window that has fields for removing a material.
+     */
+    @FXML
+    private void handleRemoveMaterialButtonClick() throws IOException {
+        RemoveSupplyApplication removeSupplyApp = new RemoveSupplyApplication();
+        Stage stage = new Stage();
+        removeSupplyApp.start(stage);
+
+    }
+
+    /**
+     * Method that handles add button in supply page.
+     * Displays external window that has fields for adding a material.
+     */
+    @FXML
+    private void handleResupplyMaterialButtonClick() throws IOException {
+        ResupplyApplication resupplyApp = new ResupplyApplication();
+        Stage stage = new Stage();
+        resupplyApp.start(stage);
+    }
+
     /**
      * Method that handles view all button in supply page.
      * Displays table in GUI.
@@ -106,6 +89,9 @@ public class SupplyController {
         populateMaterialsTable();
     }
 
+    /**
+     * Method that initializes table in supply window.
+     */
     public void initialize() {
         // Initialize table columns
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("materialName"));
@@ -115,6 +101,9 @@ public class SupplyController {
         densityColumn.setCellValueFactory(new PropertyValueFactory<>("plasticDensity"));
     }
 
+    /**
+     * Method that populates table in supply window.
+     */
     public void populateMaterialsTable() {
         // Retrieve materials data from the database (example code)
         List<Material> materials = JavaConnector.getAllMaterials(); // Replace with your actual code to fetch data from the database

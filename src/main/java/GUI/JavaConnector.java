@@ -23,7 +23,7 @@ public class JavaConnector {
         List<Material> materials = new ArrayList<>();
 
         try {
-            // Establish a connection to the database
+            //Establish a connection to the database
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Execute a SQL query to retrieve materials data
@@ -31,7 +31,7 @@ public class JavaConnector {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            // Process the result set
+            //Process the result set
             while (resultSet.next()) {
                 int inventoryLevel = resultSet.getInt("inventoryLevel");
                 int materialID = resultSet.getInt("materialID");
@@ -39,12 +39,12 @@ public class JavaConnector {
                 int moldTemperature = resultSet.getInt("moldTemperature");
                 int plasticDensity = resultSet.getInt("plasticDensity");
 
-                // Create a Material object and add it to the list
+                //Create a Material object and add it to the list
                 Material material = new Material(inventoryLevel, materialID, materialName, moldTemperature, plasticDensity);
                 materials.add(material);
             }
 
-            // Close the database connection and resources
+            //Close the database connection and resources
             resultSet.close();
             statement.close();
             connection.close();
