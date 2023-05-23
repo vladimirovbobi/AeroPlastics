@@ -15,7 +15,7 @@ module com.GUI.aeroplastics {
     opens GUI.products to javafx.fxml;
     opens GUI.supplies to javafx.fxml;
         opens GUI.supplies.removeSupply;
-        opens GUI.supplies.addSupply;
+      //  opens GUI.supplies.addSupply;
         opens GUI.supplies.resupply;
 
 
@@ -31,6 +31,6 @@ module com.GUI.aeroplastics {
     exports GUI.products;
     exports GUI.supplies;
         exports GUI.supplies.removeSupply;
-        exports GUI.supplies.addSupply;
+        //exports GUI.supplies.addSupply;
         exports GUI.supplies.resupply;
 }

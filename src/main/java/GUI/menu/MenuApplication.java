@@ -1,5 +1,6 @@
 package GUI.menu;
 
+import GUI.Date;
 import GUI.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,8 @@ public class MenuApplication extends Application {
         menuStage.setScene(scene);
         menuStage.setTitle("AeroPlastics - Menu");
         menuStage.show();
+
+
 
         viewModel.setCurrentStage(menuStage);
     }

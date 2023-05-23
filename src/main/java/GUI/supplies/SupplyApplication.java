@@ -15,6 +15,7 @@ import java.io.IOException;
  * The type Supply application.
  */
 public class SupplyApplication extends Application {
+
     @Override
     public void start(Stage supplyStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("supplies.fxml"));

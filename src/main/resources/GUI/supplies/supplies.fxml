@@ -21,7 +21,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.supplies.SupplyController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
-         <bottom>
+         <center>
             <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
                   <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="341.0">
@@ -49,7 +49,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button fx:id="removeMaterialButton" layoutX="655.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Material" textFill="WHITE" onAction="#handleRemoveMaterialButtonClick">
+                  <Button fx:id="removeMaterialButton" layoutX="528.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleRemoveMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -68,26 +68,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="resupplyButton" layoutX="411.0" layoutY="337.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Resupply" textFill="WHITE" onAction="#handleResupplyMaterialButtonClick">
-                     <effect>
-                        <DropShadow>
-                           <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
-                                 <bumpInput>
-                                    <Shadow height="79.0" radius="39.0" width="79.0" />
-                                 </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
-                              </Lighting>
-                           </input>
-                        </DropShadow>
-                     </effect>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="addMaterialButton" layoutX="411.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Add Material" textFill="WHITE" onAction="#handleAddMaterialButtonClick">
+                  <Button fx:id="resupplyButton" layoutX="531.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleResupplyMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -125,7 +106,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="menuButton" layoutX="370.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE" onAction="#handleMenuButtonClick">
+                  <Button fx:id="menuButton" layoutX="370.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -145,12 +126,12 @@
                      </font>
                   </Button>
                   <TextField fx:id="materialTextField" layoutX="508.0" layoutY="176.0" prefHeight="25.0" prefWidth="236.0" />
-                  <Label fx:id="materialSearchLabel" layoutX="404.0" layoutY="180.0" text="Material Search:">
+                  <Label fx:id="materialSearchLabel" layoutX="404.0" layoutY="180.0" text="Search Inventory">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="viewAllButton" layoutX="655.0" layoutY="337.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Materials" textFill="WHITE">
+                  <Button fx:id="viewAllButton" layoutX="528.0" layoutY="426.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Materials" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -190,6 +171,6 @@
                   </Button>
                </children>
             </AnchorPane>
-         </bottom></BorderPane>
+         </center></BorderPane>
    </children>
 </AnchorPane>

@@ -1,11 +1,11 @@
 package GUI.supplies;
 
 import GUI.ViewModel;
-import GUI.supplies.addSupply.AddSupplyApplication;
 import GUI.supplies.removeSupply.RemoveSupplyApplication;
 import GUI.supplies.resupply.ResupplyApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,21 +42,23 @@ public class SupplyController {
         RemoveSupplyApplication removeSupplyApp = new RemoveSupplyApplication();
         Stage stage = new Stage();
         removeSupplyApp.start(stage);
-    }
 
+    }
     @FXML
-    private Button addSupplyButton;
+    private TableView displayTable;
+    //@FXML
+    //private Button addSupplyButton;
     /**
      * Method that handles add button in supply page.
      * Displays external window that has fields for adding a material.
      */
-    @FXML
+   /* @FXML
     private void handleAddMaterialButtonClick() throws IOException {
         AddSupplyApplication addSupplyApp = new AddSupplyApplication();
         Stage stage = new Stage();
         addSupplyApp.start(stage);
     }
-
+*/
     @FXML
     private Button rsupplyButton;
     /**
@@ -68,5 +70,10 @@ public class SupplyController {
         ResupplyApplication resupplyApp = new ResupplyApplication();
         Stage stage = new Stage();
         resupplyApp.start(stage);
+
+        int columns = 2;
+        String [] columnName = new String[columns];
+        columnName[0] = "mIke";
+        columnName[1] = "Bob";
     }
 }
