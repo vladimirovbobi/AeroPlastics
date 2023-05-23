@@ -24,9 +24,6 @@ import java.util.List;
 public class SupplyController {
 
     private ViewModel viewModel;
-    public void setViewModel(ViewModel viewModel){
-        this.viewModel = viewModel;
-    }
     @FXML
     private Button menuButton;
     @FXML
@@ -47,6 +44,15 @@ public class SupplyController {
     private TableColumn<Material, Integer> tempColumn;
     @FXML
     private TableColumn<Material, Integer> densityColumn;
+
+    /**
+     * Set view model.
+     *
+     * @param viewModel the view model
+     */
+    public void setViewModel(ViewModel viewModel){
+        this.viewModel = viewModel;
+    }
 
     /**
      * Method that handles menu button in supply page.
