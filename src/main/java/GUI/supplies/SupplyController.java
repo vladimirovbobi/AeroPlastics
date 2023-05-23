@@ -32,7 +32,7 @@ public class SupplyController {
     }
 
     @FXML
-    private Button removeSupplyButton;
+    private Button removeMaterialButton;
     /**
      * Method that handles remove button in supply page.
      * Displays external window that has fields for removing a material.
@@ -47,7 +47,7 @@ public class SupplyController {
     @FXML
     private TableView displayTable;
     //@FXML
-    //private Button addSupplyButton;
+    //private Button addMaterialButton;
     /**
      * Method that handles add button in supply page.
      * Displays external window that has fields for adding a material.
@@ -60,7 +60,7 @@ public class SupplyController {
     }
 */
     @FXML
-    private Button rsupplyButton;
+    private Button resupplyButton;
     /**
      * Method that handles add button in supply page.
      * Displays external window that has fields for adding a material.
@@ -70,10 +70,16 @@ public class SupplyController {
         ResupplyApplication resupplyApp = new ResupplyApplication();
         Stage stage = new Stage();
         resupplyApp.start(stage);
+    }
 
-        int columns = 2;
-        String [] columnName = new String[columns];
-        columnName[0] = "mIke";
-        columnName[1] = "Bob";
+    @FXML
+    private Button viewAllButton;
+    /**
+     * Method that handles view all button in supply page.
+     * Displays table in GUI.
+     */
+    @FXML
+    private void handleViewAllButtonClick() throws IOException {
+
     }
 }

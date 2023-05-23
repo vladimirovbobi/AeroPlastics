@@ -131,7 +131,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="viewAllButton" layoutX="528.0" layoutY="426.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Materials" textFill="WHITE">
+                  <Button fx:id="viewAllButton" layoutX="528.0" layoutY="426.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Materials" textFill="WHITE" onAction="#handleViewAllButtonClick">
                      <effect>
                         <DropShadow>
                            <input>
