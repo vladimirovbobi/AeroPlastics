@@ -18,9 +18,16 @@ public class MenuController {
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
-
     @FXML
     private Button customersButton;
+    @FXML
+    private Button ordersButton;
+    @FXML
+    private Button productsButton;
+    @FXML
+    private Button suppliesButton;
+
+
     /**
      * Method that handles customer button in menu page.
      * Redirects to CustomerApplication.
@@ -30,8 +37,6 @@ public class MenuController {
         viewModel.showCustomersWindow();
     }
 
-    @FXML
-    private Button ordersButton;
     /**
      * Method that handles orders button in menu page.
      * Redirects to OrdersApplication.
@@ -41,8 +46,6 @@ public class MenuController {
         viewModel.showOrderWindow();
     }
 
-    @FXML
-    private Button productsButton;
     /**
      * Method that handles products button in menu page.
      * Redirects to ProductApplication
@@ -52,8 +55,6 @@ public class MenuController {
         viewModel.showProductWindow();
     }
 
-    @FXML
-    private Button suppliesButton;
     /**
      * Method that handles supplies button in menu page.
      * Redirects to SupplyApplication
