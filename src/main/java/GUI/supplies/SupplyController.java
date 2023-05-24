@@ -86,6 +86,7 @@ public class SupplyController {
         ResupplyApplication resupplyApp = new ResupplyApplication();
         Stage stage = new Stage();
         resupplyApp.start(stage);
+
     }
 
     /**

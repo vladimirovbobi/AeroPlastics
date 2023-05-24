@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.supplies.resupply.ResupplyController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
+         <right>
+            <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="377.0">
+                     <columns>
+                        <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="materialColumn" prefWidth="75.0" text="Material" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Quantity" />
+                        <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price" />
+                     </columns>
+                     <effect>
+                        <DropShadow height="19.0" radius="8.75" width="18.0">
+                           <color>
+                              <Color opacity="0.3091602921485901" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </TableView>
+                  <ImageView fx:id="logo" fitHeight="122.0" fitWidth="175.0" layoutX="574.0" layoutY="16.0" opacity="0.61" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../Images/logo.png" />
+                     </image>
+                     <effect>
+                        <Reflection fraction="0.27" topOpacity="0.49">
+                           <input>
+                              <Blend opacity="0.0" />
+                           </input>
+                        </Reflection>
+                     </effect>
+                  </ImageView>
+                  <Button fx:id="orderMaterialButton" layoutX="552.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleOrderMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Material" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="logoutButton" layoutX="763.0" layoutY="549.0" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="menuButton" layoutX="416.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="materialTextField" layoutX="532.0" layoutY="176.0" prefHeight="25.0" prefWidth="236.0" />
+                  <Label fx:id="materialSearchLabel" layoutX="432.0" layoutY="180.0" text="Search Material: ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="singleViewButton" layoutX="774.0" layoutY="176.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="90.0" style="-fx-background-color: #509854;" text="View" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="ViewByPrice" layoutX="665.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleViewByPriceButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Sorted By Price" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="viewByID" layoutX="430.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleViewByIDClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Sorted By ID" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="viewCart" layoutX="552.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewCartButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Cart" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </right></BorderPane>
+   </children>
+</AnchorPane>

@@ -17,6 +17,7 @@ module com.GUI.aeroplastics {
         opens GUI.supplies.removeSupply;
       //  opens GUI.supplies.addSupply;
         opens GUI.supplies.resupply;
+        opens GUI.supplies.resupply.resupplyPop;
 
 
     //export sheet
@@ -33,4 +34,5 @@ module com.GUI.aeroplastics {
         exports GUI.supplies.removeSupply;
         //exports GUI.supplies.addSupply;
         exports GUI.supplies.resupply;
+        exports GUI.supplies.resupply.resupplyPop;
 }

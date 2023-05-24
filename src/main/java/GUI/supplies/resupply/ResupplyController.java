@@ -1,9 +1,16 @@
 package GUI.supplies.resupply;
 
 import GUI.JavaConnector;
+import GUI.ViewModel;
+import GUI.supplies.removeSupply.RemoveSupplyApplication;
+import GUI.supplies.resupply.resupplyPop.ResupplyPopApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,13 +21,23 @@ import java.util.Random;
  */
 public class ResupplyController {
 
-    @FXML
-    TextField materialTextField;
-    @FXML
-    TextField materialIdTextField;
-    @FXML
-    TextField quantityField;
 
+
+    private ViewModel viewModel;
+    public void setViewModel(ViewModel viewModel){
+        this.viewModel = viewModel;
+    }
+
+    @FXML
+    private Button menuButton;
+    /**
+     * Method that handles menu button in product page.
+     * Redirects to MenuApplication.
+     */
+    @FXML
+    private void handleMenuButtonClick() throws IOException {
+        viewModel.showMenuWindow();
+    }
     public void makeOrder(){
 
         try {
@@ -40,5 +57,21 @@ public class ResupplyController {
         }catch(Exception e1) {
             e1.printStackTrace();
         }
+    }
+
+    public void handleViewByPriceButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void handleViewByIDClick(ActionEvent actionEvent) {
+    }
+
+    public void handleViewCartButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void handleOrderMaterialButtonClick(ActionEvent actionEvent) throws IOException {
+       viewModel.showResupplyWindow();
+    }
+
+    public void logOutButtonClicked(ActionEvent actionEvent) {
     }
 }
