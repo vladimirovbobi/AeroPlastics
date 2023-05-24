@@ -63,7 +63,7 @@ public class SupplyOrder{
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        System.out.println(max);
+
         return max;
     }
     public int getVendorIDwithLowestPrice(String material){
@@ -146,7 +146,7 @@ public class SupplyOrder{
             JavaConnector javaConnector = new JavaConnector();
             Connection con = javaConnector.getConnection();
             String query = "Insert into supplyorder (supplyOrderID,vendorID,rawMaterial,price,quantity, orderPlaced,arrivalDate)" +
-                    "values (" + (getLastOrderId()+1)+","+ v.getVendorID() +",'"+ material+"'," + price+","+quantity+",'"+placed+"',"+"'"+arrival+"');" ;
+                    "values (" + (getLastOrderId()+1) +","+ v.getVendorID() +",'"+ material+"'," + price+","+quantity+",'"+placed+"',"+"'"+arrival+"');" ;
 
             PreparedStatement statement = con.prepareStatement(query);
             statement.executeUpdate();
