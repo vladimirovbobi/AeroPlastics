@@ -31,14 +31,29 @@ public class LoginController {
     private Button cancelButton;
     private JavaConnector javaConnector;
     private ViewModel viewModel;
+
+    /**
+     * Set view model.
+     *
+     * @param viewModel the view model
+     */
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
 
+    /**
+     * Instantiates a new Login controller.
+     */
     public LoginController() {
         javaConnector = new JavaConnector();
     }
 
+    /**
+     * Handles login button.
+     * Shows menu if login is valid. Otherwise, shows login has failed.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
         String username = usernameTextField.getText();
@@ -52,6 +67,13 @@ public class LoginController {
         }
     }
 
+    /**
+     * Validates the username and password.
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     private boolean validateCredentials(String username, String password) {
         String query = "SELECT * FROM employee WHERE username = ? AND password = ?";
         try (Connection connection = javaConnector.getConnection();
@@ -68,6 +90,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Shows alert window when login credentials are invalid.
+     */
     private void showLoginFailedAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Login Failed");
