@@ -37,11 +37,10 @@ public class ViewModel {
         customerApp.start(stage);
         currentStage.close(); //close the current window
     }
-    public void showResupplyWindow() throws IOException {
+    public void showResupplyPopWindow() throws IOException {
         ResupplyPopApplication resupplyPopApp = new ResupplyPopApplication();
         Stage stage = new Stage();
         resupplyPopApp.start(stage);
-        currentStage.close(); //close the current window
     }
     /**
      * Show order window.

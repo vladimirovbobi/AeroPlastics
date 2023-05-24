@@ -83,10 +83,7 @@ public class SupplyController {
      */
     @FXML
     private void handleResupplyMaterialButtonClick() throws IOException {
-        ResupplyApplication resupplyApp = new ResupplyApplication();
-        Stage stage = new Stage();
-        resupplyApp.start(stage);
-
+        viewModel.showSupplyOrderWindow();
     }
 
     /**

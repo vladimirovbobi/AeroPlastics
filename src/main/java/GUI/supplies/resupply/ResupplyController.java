@@ -69,7 +69,7 @@ public class ResupplyController {
     }
 
     public void handleOrderMaterialButtonClick(ActionEvent actionEvent) throws IOException {
-       viewModel.showResupplyWindow();
+       viewModel.showResupplyPopWindow();
     }
 
     public void logOutButtonClicked(ActionEvent actionEvent) {
