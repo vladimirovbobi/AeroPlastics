@@ -6,12 +6,14 @@ public class Material {
     String materialName;
     int moldTemperature;
     int plasticDensity;
+    int inventoryLevel;
     public Material(int inventoryLevel, int materialID, String materialName, int moldTemperature, int plasticDensity){
         this.inventoryLevel = inventoryLevel;
         this.materialID = materialID;
         this.materialName = materialName;
         this.moldTemperature = moldTemperature;
         this.plasticDensity = plasticDensity;
+        this.inventoryLevel = inventoryLevel;
     }
 
     public int getMaterialID() {

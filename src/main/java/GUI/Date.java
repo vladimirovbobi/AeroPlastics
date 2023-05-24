@@ -4,13 +4,33 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Timer;
 
+/**
+ * The type Date.
+ */
 public class Date {
 
+    /**
+     * The Day.
+     */
     int day;
+    /**
+     * The Month.
+     */
     int month;
+    /**
+     * The Year.
+     */
     int year;
     private static Time localTime;
-     public Date (int days, int months, int years){
+
+    /**
+     * Instantiates a new Date.
+     *
+     * @param days   the days
+     * @param months the months
+     * @param years  the years
+     */
+    public Date (int days, int months, int years){
          day = days;
          month = months;
          year = years;
@@ -18,6 +38,10 @@ public class Date {
     public String toString(){
          return month+"/"+day+"/"+year;
     }
+
+    /**
+     * Today's date.
+     */
     public static void todaysDate(){
         while (true) {
             localTime = Time.valueOf(LocalTime.now());
@@ -29,6 +53,12 @@ public class Date {
             }
         }
     }
+
+    /**
+     * Get local time.
+     *
+     * @return the time
+     */
     public static Time getLocalTime(){
          return localTime;
     }
