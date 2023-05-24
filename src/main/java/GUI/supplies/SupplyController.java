@@ -4,6 +4,7 @@ import GUI.JavaConnector;
 import GUI.ViewModel;
 import GUI.supplies.removeSupply.RemoveSupplyApplication;
 import GUI.supplies.resupply.ResupplyApplication;
+import GUI.supplies.resupply.ResupplyController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,8 +35,10 @@ public class SupplyController {
     private Button resupplyButton;
     @FXML
     private Button viewAllButton;
+
     @FXML
     private TableView<Material> displayTable;
+
     @FXML
     private TableColumn<Material, String> nameColumn;
     @FXML
@@ -84,6 +87,8 @@ public class SupplyController {
     @FXML
     private void handleResupplyMaterialButtonClick() throws IOException {
         viewModel.showSupplyOrderWindow();
+        Vendor.sortByPrice = false;
+        Vendor.sortByName = false;
     }
 
     /**
@@ -120,6 +125,7 @@ public class SupplyController {
         // Populate the table with materials data
         displayTable.getItems().addAll(materials);
     }
+
 
     public void logOutButtonClicked(ActionEvent actionEvent) {
 

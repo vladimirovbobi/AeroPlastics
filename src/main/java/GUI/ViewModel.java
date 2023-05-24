@@ -5,6 +5,7 @@ import GUI.menu.MenuApplication;
 import GUI.orders.OrdersApplication;
 import GUI.products.ProductApplication;
 import GUI.supplies.SupplyApplication;
+import GUI.supplies.removeSupply.RemoveSupplyApplication;
 import GUI.supplies.resupply.ResupplyApplication;
 import GUI.supplies.resupply.resupplyPop.ResupplyPopApplication;
 import javafx.stage.Stage;
@@ -41,6 +42,11 @@ public class ViewModel {
         ResupplyPopApplication resupplyPopApp = new ResupplyPopApplication();
         Stage stage = new Stage();
         resupplyPopApp.start(stage);
+    }
+    public void showRemoveSupplyOrderPopWindow() throws IOException {
+        RemoveSupplyApplication removePopApp = new RemoveSupplyApplication();
+        Stage stage = new Stage();
+        removePopApp.start(stage);
     }
     /**
      * Show order window.

@@ -52,7 +52,7 @@
                         </Reflection>
                      </effect>
                   </ImageView>
-                  <Button fx:id="orderMaterialButton" layoutX="552.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleOrderMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Material" textFill="WHITE">
+                  <Button fx:id="orderMaterialButton" layoutX="429.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleOrderMaterialButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -153,7 +153,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="viewByID" layoutX="430.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleViewByIDClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Sorted By ID" textFill="WHITE">
+                  <Button fx:id="viewByID" layoutX="430.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleViewByIDClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Sorted By Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -173,6 +173,44 @@
                      </font>
                   </Button>
                   <Button fx:id="viewCart" layoutX="552.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewCartButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Cart" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="backButton" layoutX="552.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleBackButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Back" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="removeSupplyOrderButton" layoutX="665.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleRemoveSupplyOrderButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Remove Supply Order" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
