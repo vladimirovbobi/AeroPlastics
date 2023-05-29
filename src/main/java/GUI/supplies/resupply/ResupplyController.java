@@ -2,6 +2,7 @@ package GUI.supplies.resupply;
 
 import GUI.JavaConnector;
 import GUI.ViewModel;
+import GUI.supplies.Material;
 import GUI.supplies.Vendor;
 import GUI.supplies.resupply.resupplyPop.ResupplyPopController;
 import javafx.event.ActionEvent;
@@ -31,24 +32,24 @@ public class ResupplyController {
     @FXML
     private TableColumn<Vendor, String> materialColumn;
     @FXML
-    private TableColumn<Vendor, Integer> quantityColumn;
+    private TableColumn<Material, Integer> quantityColumn;
     @FXML
     private TableColumn<Vendor, Double>  priceColumn;
     private ViewModel viewModel;
 
-
-
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
-    public void initialize() {
+
+    public void initializeTable() {
         // Initialize table columns
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameColumn"));
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("idColumn"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("materialColumn"));
-        materialColumn.setCellValueFactory(new PropertyValueFactory<>("quantityColumn"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("priceColumn"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("vendorID"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("inventoryLevel"));
+        materialColumn.setCellValueFactory(new PropertyValueFactory<>("rawMaterial"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
+
     @FXML
     private Button menuButton;
     /**
@@ -60,7 +61,7 @@ public class ResupplyController {
         viewModel.showMenuWindow();
     }
     public void populateVendorsTable(){
-        List<Vendor> vendors =  JavaConnector.getAllVendor();
+        List<Vendor> vendors =  JavaConnector.getVendor();
         displayTable.getItems().clear();
         // Populate the table with materials data
         displayTable.getItems().addAll(vendors);
@@ -88,12 +89,6 @@ public class ResupplyController {
 
     public void handleViewByPriceButtonClick(ActionEvent actionEvent) {
 
-        List<Vendor> vendors =  Vendor.getVendorsByPrice();
-        displayTable.getItems().clear();
-        // Populate the table with materials data
-        displayTable.getItems().addAll(vendors);
-
-
     }
     public void handleRemoveSupplyOrderButtonClick (ActionEvent actionEvent) throws IOException {
         viewModel.showRemoveSupplyOrderPopWindow();
@@ -115,13 +110,13 @@ public class ResupplyController {
         viewModel.showSupplyWindow();
     }
 
-    public void hadleResetCartButtonPress(ActionEvent actionEvent) {
+    public void handleResetCartButtonPress(ActionEvent actionEvent) {
         Cart cart = Cart.getInstance();
         cart.deleteCart();
         ResupplyPopController.setFirstTime(true);
     }
 
-    public void handleViewByMateialClick(ActionEvent actionEvent) {
+    public void handleViewByMaterialClick(ActionEvent actionEvent) {
         List<Vendor> vendors = Vendor.getVendorsByMaterial();
     }
 

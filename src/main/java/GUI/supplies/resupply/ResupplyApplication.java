@@ -1,8 +1,6 @@
 package GUI.supplies.resupply;
 
 import GUI.ViewModel;
-import GUI.supplies.SupplyController;
-import GUI.supplies.removeSupply.RemoveSupplyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +21,7 @@ public class ResupplyApplication extends Application {
         ResupplyController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
         controller.setViewModel(viewModel);
-        controller.initialize();
+        controller.initializeTable();
         controller.populateVendorsTable();
 
         Scene scene = new Scene(root);

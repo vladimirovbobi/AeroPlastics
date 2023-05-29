@@ -1,8 +1,6 @@
 package GUI.supplies;
 
 import GUI.ViewModel;
-import GUI.products.ProductApplication;
-import GUI.products.ProductController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
