@@ -75,7 +75,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Button fx:id="loginButton" layoutX="13.0" layoutY="225.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #509854;" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="13.0" layoutY="225.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #509854;" text="Login" textFill="WHITE" onAction="#handleLoginButtonAction">
                <effect>
                   <DropShadow>
                      <input>

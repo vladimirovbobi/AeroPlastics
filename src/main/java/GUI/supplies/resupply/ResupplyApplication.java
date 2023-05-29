@@ -1,5 +1,7 @@
 package GUI.supplies.resupply;
 
+import GUI.ViewModel;
+import GUI.supplies.SupplyController;
 import GUI.supplies.removeSupply.RemoveSupplyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,15 +18,19 @@ public class ResupplyApplication extends Application {
 
     @Override
     public void start(Stage resupplyStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("resupply.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("resupplyMain.fxml"));
         Parent root = loader.load();
         ResupplyController controller = loader.getController();
+        ViewModel viewModel = new ViewModel();
+        controller.setViewModel(viewModel);
+
 
         Scene scene = new Scene(root);
         resupplyStage.setScene(scene);
-        resupplyStage.setTitle("Resupply");
+        resupplyStage.setTitle("AeroPlastics - Order Supplies");
         resupplyStage.show();
 
+        viewModel.setCurrentStage(resupplyStage);
     }
 
     /**
@@ -33,6 +39,6 @@ public class ResupplyApplication extends Application {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }

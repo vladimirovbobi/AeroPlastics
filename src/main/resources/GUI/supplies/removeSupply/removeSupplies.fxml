@@ -4,14 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="195.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.supplies.removeSupply.RemoveSupplyController">
    <children>
-      <Label layoutX="19.0" layoutY="29.0" text="Material: " />
-      <TextField fx:id="materialTextField" layoutX="87.0" layoutY="25.0" />
+      <Label layoutX="8.0" layoutY="30.0" prefWidth="85.0" text="Supply Order ID:">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+      <TextField fx:id="orderIdTextField" layoutX="87.0" layoutY="25.0" />
       <TextField fx:id="materialIdTextField" layoutX="87.0" layoutY="76.0" />
-      <Button fx:id="removeButton" layoutX="147.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Remove" />
+      <Button fx:id="removeButton" layoutX="147.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Remove" onAction="#removeSupplyOrderButtonClicked"/>
       <Label layoutX="19.0" layoutY="80.0" text="Material ID: " />
-      <Button fx:id="cancelButton" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" onAction="#cancelSupplyOrderButtonClicked" />
    </children>
 </AnchorPane>
