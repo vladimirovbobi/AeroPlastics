@@ -98,7 +98,6 @@ public class SupplyController {
      */
     @FXML
     private void handleViewAllButtonClick() throws IOException {
-        Cart.print();
         populateMaterialsTable();
     }
 

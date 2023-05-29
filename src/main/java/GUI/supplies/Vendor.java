@@ -69,11 +69,34 @@ public class Vendor {
         return companyName;
     }
 
+    public String getRawMaterial() {
+        return rawMaterial;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public static double getPriceByVendorID(int vendorID, String materialName) throws SQLException {
+                materialName.toUpperCase();
+                JavaConnector javaConnector = new JavaConnector();
+                Connection con = javaConnector.getConnection();
+                String query = "Select price from vendor where vendorID = "+ vendorID+ " AND rawMaterial = '" + materialName +"';";
+                PreparedStatement statement = con.prepareStatement(query);
+                ResultSet result = statement.executeQuery();
+                if(result.next()) {
+                    return result.getDouble("price");
+                }
+        return result.getDouble("price");
+
+    }
+
+
     /**
      * Fetches and retreves a list of materials and their vendors sorted by Price
      * @return List of Vendors
      */
-    public List<Vendor> getVendorsByPrice() {
+    public static List<Vendor> getVendorsByPrice() {
         String sortWay;
         List<Vendor> vendors = new ArrayList<>();
         if (sortByPrice) {
@@ -120,7 +143,7 @@ public class Vendor {
      * Fetches List of Vendors sorted by Material
      * @return List of Vendors
      */
-    public List<Vendor> getVendorsByMaterial() {
+    public static List<Vendor> getVendorsByMaterial() {
         String sortWay;
         List<Vendor> vendors = new ArrayList<>();
         if (sortByName) {

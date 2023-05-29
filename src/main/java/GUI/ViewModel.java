@@ -26,7 +26,6 @@ public class ViewModel {
     public void setCurrentStage(Stage stage) {
         this.currentStage = stage;
     }
-    public void closeCurrentStage(){this.currentStage.close();}
     /**
      * Show customers window.
      *
