@@ -4,20 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.supplies.resupply.resupplyPop.ResupplyPopController">
    <children>
       <TextField fx:id="materialNameTextField" layoutX="79.0" layoutY="49.0" />
-      <Button fx:id="addButton" layoutX="154.0" layoutY="187.0" mnemonicParsing="false" onAction="#addButtonPressed" prefHeight="25.0" prefWidth="89.0" text="Add" />
+      <Button fx:id="addButton" layoutX="149.0" layoutY="181.0" mnemonicParsing="false" onAction="#addButtonPressed" prefHeight="25.0" prefWidth="89.0" text="Add" />
       <Label layoutX="29.0" layoutY="53.0" text="Material:" />
       <Label layoutX="26.0" layoutY="81.0" text="Quantity: " />
       <TextField fx:id="quantityField" layoutX="79.0" layoutY="77.0" />
-      <Button fx:id="cancelButton" layoutX="14.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="9.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
       <Label layoutX="12.0" layoutY="116.0" text="Current Spending $" />
       <Label layoutX="18.0" layoutY="149.0" text="Shopping Total   $" />
       <TextField fx:id="currentSpendingField" alignment="CENTER_RIGHT" editable="false" layoutX="123.0" layoutY="113.0" prefHeight="26.0" prefWidth="114.0" />
       <TextField fx:id="totalSpendingField" alignment="CENTER_RIGHT" editable="false" layoutX="123.0" layoutY="145.0" prefHeight="26.0" prefWidth="114.0" />
       <Label layoutX="14.0" layoutY="23.0" text="Vendor ID:" />
       <TextField fx:id="vendorIdTextField" layoutX="79.0" layoutY="19.0" />
+      <Button fx:id="checkButton" layoutX="81.0" layoutY="212.0" mnemonicParsing="false" onAction="#checkSpendingButtonClicked" prefHeight="25.0" prefWidth="89.0" text="Check Spending">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -54,4 +54,8 @@ public class ResupplyPopController {
         materialNameTextField.setText("");
         quantityField.setText("");
     }
+
+    public void checkSpendingButtonClicked(ActionEvent actionEvent) {
+
+    }
 }

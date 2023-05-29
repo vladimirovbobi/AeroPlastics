@@ -3,6 +3,7 @@ package GUI.supplies;
 import GUI.JavaConnector;
 import GUI.ViewModel;
 import GUI.supplies.removeSupply.RemoveSupplyApplication;
+import GUI.supplies.resupply.Cart;
 import GUI.supplies.resupply.ResupplyApplication;
 import GUI.supplies.resupply.ResupplyController;
 import javafx.event.ActionEvent;
@@ -97,6 +98,7 @@ public class SupplyController {
      */
     @FXML
     private void handleViewAllButtonClick() throws IOException {
+        Cart.print();
         populateMaterialsTable();
     }
 

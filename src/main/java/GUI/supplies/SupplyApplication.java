@@ -22,7 +22,7 @@ public class SupplyApplication extends Application {
         Parent root = loader.load();
         SupplyController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
-        controller.setViewModel(viewModel);
+        controller.setViewModel(viewModel);//
         controller.populateMaterialsTable();
 
         Scene scene = new Scene(root);

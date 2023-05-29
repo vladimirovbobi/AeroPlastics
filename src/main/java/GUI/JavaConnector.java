@@ -10,9 +10,15 @@ import java.util.List;
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "@Ziemlupr2072";
+    private static final String PASSWORD = "Bob4oSirop4o";
 
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     * @throws SQLException the sql exception
+     */
     public Connection getConnection() throws SQLException{
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
     }
