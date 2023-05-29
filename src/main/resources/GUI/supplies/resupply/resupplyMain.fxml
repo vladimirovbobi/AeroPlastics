@@ -153,7 +153,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="viewByID" layoutX="430.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleViewByIDClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Sorted By Material" textFill="WHITE">
+                  <Button fx:id="viewByMaterial" layoutX="430.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleViewByMateialClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Sorted By Material" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -229,6 +229,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
+                  <Button layoutX="779.0" layoutY="450.0" mnemonicParsing="false" onAction="#hadleResetCartButtonPress" text="Reset Cart" />
                </children>
             </AnchorPane>
          </right></BorderPane>

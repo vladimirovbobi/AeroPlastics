@@ -2,33 +2,53 @@ package GUI.supplies.resupply;
 
 import GUI.JavaConnector;
 import GUI.ViewModel;
-import GUI.supplies.Material;
 import GUI.supplies.Vendor;
-import GUI.supplies.removeSupply.RemoveSupplyApplication;
-import GUI.supplies.resupply.resupplyPop.ResupplyPopApplication;
+import GUI.supplies.resupply.resupplyPop.ResupplyPopController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 /**
  * The type Resupply controller.
  */
 public class ResupplyController {
+    @FXML
 
+    private TableView<Vendor> displayTable;
 
+    @FXML
+    private TableColumn<Vendor, String> nameColumn;
+    @FXML
+    private TableColumn<Vendor, Integer> idColumn;
+    @FXML
+    private TableColumn<Vendor, String> materialColumn;
+    @FXML
+    private TableColumn<Vendor, Integer> quantityColumn;
+    @FXML
+    private TableColumn<Vendor, Double>  priceColumn;
     private ViewModel viewModel;
+
+
+
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
-
+    public void initialize() {
+        // Initialize table columns
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameColumn"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("idColumn"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("materialColumn"));
+        materialColumn.setCellValueFactory(new PropertyValueFactory<>("quantityColumn"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("priceColumn"));
+    }
     @FXML
     private Button menuButton;
     /**
@@ -39,6 +59,12 @@ public class ResupplyController {
     private void handleMenuButtonClick() throws IOException {
         viewModel.showMenuWindow();
     }
+    public void populateVendorsTable(){
+        List<Vendor> vendors =  JavaConnector.getAllVendor();
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(vendors);
+    }
     public void makeOrder(){
 
         try {
@@ -47,7 +73,7 @@ public class ResupplyController {
             Connection con = javaConnector.getConnection();
             String query = "Insert Into supplyOrder (supplyOrderID int, " +
                     "vendorID int, rawMaterial varchar(50),price double, quantity int, orderPlaced int, arrivalDate int)"+
-                    "values (" +", "+",";
+                    "values (1,"+", "+",";
             PreparedStatement statement = con.prepareStatement(query);
             ResultSet result = statement.executeQuery();
             if(result.next()) {
@@ -62,16 +88,17 @@ public class ResupplyController {
 
     public void handleViewByPriceButtonClick(ActionEvent actionEvent) {
 
+        List<Vendor> vendors =  Vendor.getVendorsByPrice();
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(vendors);
+
 
     }
     public void handleRemoveSupplyOrderButtonClick (ActionEvent actionEvent) throws IOException {
         viewModel.showRemoveSupplyOrderPopWindow();
     }
 
-
-    public void handleViewByIDClick(ActionEvent actionEvent) {
-
-    }
 
     public void handleViewCartButtonClick(ActionEvent actionEvent) {
     }
@@ -86,6 +113,16 @@ public class ResupplyController {
 
     public void handleBackButtonClick(ActionEvent actionEvent) throws IOException {
         viewModel.showSupplyWindow();
+    }
+
+    public void hadleResetCartButtonPress(ActionEvent actionEvent) {
+        Cart cart = Cart.getInstance();
+        cart.deleteCart();
+        ResupplyPopController.setFirstTime(true);
+    }
+
+    public void handleViewByMateialClick(ActionEvent actionEvent) {
+        List<Vendor> vendors = Vendor.getVendorsByMaterial();
     }
 
     /*

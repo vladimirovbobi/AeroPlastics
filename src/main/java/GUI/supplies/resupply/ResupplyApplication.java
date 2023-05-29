@@ -23,7 +23,8 @@ public class ResupplyApplication extends Application {
         ResupplyController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
         controller.setViewModel(viewModel);
-
+        controller.initialize();
+        controller.populateVendorsTable();
 
         Scene scene = new Scene(root);
         resupplyStage.setScene(scene);
