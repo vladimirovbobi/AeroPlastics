@@ -22,7 +22,7 @@ public class Customer {
         try {
             JavaConnector javaConnector = new JavaConnector();
             Connection con = javaConnector.getConnection();
-            String query = "SELECT customerID FROM customers";
+            String query = "SELECT customerID FROM customer";
             PreparedStatement statement = con.prepareStatement(query);
             ResultSet result = statement.executeQuery();
 
