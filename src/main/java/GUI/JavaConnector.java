@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.customers.Customer;
 import GUI.supplies.Material;
+import GUI.supplies.Vendor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -96,4 +97,41 @@ public class JavaConnector {
 
         return customers;
     }
+
+    public static List<Vendor> getAllVendor() {
+        List<Vendor> vendors = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve materials data
+            String query = "SELECT vendorID,companyName, rawMaterial, price FROM vendor";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            //Process the result set
+            while (resultSet.next()) {
+
+                int vendorID = resultSet.getInt("vendorID");
+                String vendorName = resultSet.getString("companyName");
+                String rawMaterial = resultSet.getString("rawMaterial");
+                double price  = resultSet.getDouble("price");
+
+                //Create a Vendor object and add it to the list
+                Vendor vendor = new Vendor(vendorID, vendorName,rawMaterial,price);
+                vendors.add(vendor);
+            }
+
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return vendors;
+    }
+
 }
