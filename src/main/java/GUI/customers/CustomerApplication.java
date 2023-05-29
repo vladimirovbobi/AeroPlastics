@@ -1,8 +1,8 @@
 package GUI.customers;
 
 import GUI.ViewModel;
-import GUI.menu.MenuController;
-import GUI.orders.OrdersApplication;
+//import GUI.menu.MenuController;
+//import GUI.orders.OrdersApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +22,7 @@ public class CustomerApplication extends Application {
         CustomerController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
         controller.setViewModel(viewModel);
+        controller.populateCustomersTable();
 
         Scene scene = new Scene(root);
         customerStage.setScene(scene);

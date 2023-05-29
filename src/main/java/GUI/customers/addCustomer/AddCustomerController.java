@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import GUI.ViewModel;
+import GUI.JavaConnector;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * The type Add customer controller.
@@ -20,7 +24,7 @@ public class AddCustomerController {
     @FXML
     private Button cancelButton;
 
-    private ViewModel viewModel;
+    public ViewModel viewModel;
 
 
     public void setViewModel(ViewModel viewModel) {
@@ -39,14 +43,31 @@ public class AddCustomerController {
         String lastName = lastNameTextField.getText();
         String affiliation = affiliationTextField.getText();
 
+        int customerId = Customer.getLastCustomerId() + 1;
+
         // Create a new Customer object
         Customer newCustomer = new Customer(firstName, lastName, affiliation);
 
+        // Insert the new customer into the database
+        try {
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "INSERT INTO customer (customerID, firstName, lastName, affiliation) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1, newCustomer.getCustomerID());
+            statement.setString(2, newCustomer.getFirstName());
+            statement.setString(3, newCustomer.getLastName());
+            statement.setString(4, newCustomer.getCompany());
+            statement.executeUpdate();
+            System.out.println("Added customer successful!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-
-        // you can also close the Add Customer window after processing
+        // Close the Add Customer window
         cancelButton.getScene().getWindow().hide();
     }
+
 
     @FXML
     private void handleCancelButtonClick() {

@@ -14,6 +14,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import GUI.JavaConnector;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import java.util.List;
 
 /**
  * The type Customer controller.
@@ -21,6 +26,14 @@ import java.io.IOException;
 public class CustomerController {
 
     private ViewModel viewModel;
+    @FXML
+    private TableView<Customer> displayTable;
+    @FXML
+    private TableColumn<Customer, String> firstNameColumn;
+    @FXML
+    private TableColumn<Customer, String> lastNameColumn;
+    @FXML
+    private TableColumn<Customer, String> affiliationColumn;
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
@@ -61,4 +74,30 @@ public class CustomerController {
         Stage stage = new Stage();
         removeCustomerApp.start(stage);
     }
+
+    @FXML
+    private void initialize() {
+        // Initialize table columns
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        affiliationColumn.setCellValueFactory(new PropertyValueFactory<>("affiliation"));
+    }
+
+    @FXML
+    private void handleViewAllButtonClick() {
+        populateCustomersTable();
+    }
+
+    public void populateCustomersTable() {
+        // Retrieve customer data from the database
+        List<Customer> customers = JavaConnector.getAllCustomers();
+
+        // Clear existing data from the table
+        displayTable.getItems().clear();
+
+        // Populate the table with customer data
+        displayTable.getItems().addAll(customers);
+    }
+
 }
+

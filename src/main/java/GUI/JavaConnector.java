@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.supplies.Material;
+import GUI.customers.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ import java.util.List;
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "@Ziemlupr2072";
-
+    private static final String PASSWORD = "saigon";
+//@Ziemlupr2072
     public Connection getConnection() throws SQLException{
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
     }
@@ -54,4 +55,44 @@ public class JavaConnector {
 
         return materials;
     }
+
+    /**
+     * Connection to customer table to display on customer window.
+     * @return customer table display on customer window.
+     */
+    public static List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
+
+        try {
+            // Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve customer data
+            String query = "SELECT customerID, firstName, lastName, company FROM customer";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                int customerID = resultSet.getInt("customerID");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String company = resultSet.getString("company");
+
+                // Create a Customer object and add it to the list
+                Customer customer = new Customer(firstName, lastName, company);
+                customers.add(customer);
+            }
+
+            // Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customers;
+    }
 }
+
+
