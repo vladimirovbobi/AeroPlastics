@@ -33,9 +33,10 @@ public class Material {
 
                 JavaConnector javaConnector = new JavaConnector();
                 Connection con = javaConnector.getConnection();
-                String query = "Select materialID from materials where materialName = '" + name + "');";
+                String query = "SELECT materialID FROM materials WHERE materialName = ?";
                 PreparedStatement statement = con.prepareStatement(query);
-                ResultSet resultSet= statement.executeQuery(query);
+                statement.setString(1, name);
+                ResultSet resultSet = statement.executeQuery();
                 if(resultSet.next()){
                     return resultSet.getInt("materialID");
                 }

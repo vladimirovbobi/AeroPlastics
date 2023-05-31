@@ -32,7 +32,7 @@ public class ResupplyController {
     @FXML
     private TableColumn<Vendor, String> materialColumn;
     @FXML
-    private TableColumn<Material, Integer> quantityColumn;
+    private TableColumn<Vendor, Integer> quantityColumn;
     @FXML
     private TableColumn<Vendor, Double>  priceColumn;
     private ViewModel viewModel;
@@ -45,7 +45,7 @@ public class ResupplyController {
         // Initialize table columns
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         idColumn.setCellValueFactory(new PropertyValueFactory<>("vendorID"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("inventoryLevel"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("productQuantity"));
         materialColumn.setCellValueFactory(new PropertyValueFactory<>("rawMaterial"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
@@ -61,41 +61,30 @@ public class ResupplyController {
         viewModel.showMenuWindow();
     }
     public void populateVendorsTable(){
-        List<Vendor> vendors =  JavaConnector.getVendor();
+        List<Vendor> vendors =  JavaConnector.getAllVendors();
         displayTable.getItems().clear();
         // Populate the table with materials data
         displayTable.getItems().addAll(vendors);
     }
-    public void makeOrder(){
-
-        try {
-
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            String query = "Insert Into supplyOrder (supplyOrderID int, " +
-                    "vendorID int, rawMaterial varchar(50),price double, quantity int, orderPlaced int, arrivalDate int)"+
-                    "values (1,"+", "+",";
-            PreparedStatement statement = con.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-            if(result.next()) {
-                System.out.println(result.getString(2));
-            }
-        }catch(NumberFormatException numF1) {
-
-        }catch(Exception e1) {
-            e1.printStackTrace();
-        }
-    }
 
     public void handleViewByPriceButtonClick(ActionEvent actionEvent) {
-
+        List<Vendor> vendors =  Vendor.getVendorsByPrice();
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(vendors);
     }
     public void handleRemoveSupplyOrderButtonClick (ActionEvent actionEvent) throws IOException {
         viewModel.showRemoveSupplyOrderPopWindow();
     }
 
 
-    public void handleViewCartButtonClick(ActionEvent actionEvent) {
+    public void handleViewCartButtonClick(ActionEvent actionEvent) throws SQLException {
+        Cart.updateAmount();
+        List<Vendor> vendors =  JavaConnector.getCart();
+
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(vendors);
     }
 
     public void handleOrderMaterialButtonClick(ActionEvent actionEvent) throws IOException {
@@ -113,11 +102,14 @@ public class ResupplyController {
     public void handleResetCartButtonPress(ActionEvent actionEvent) {
         Cart cart = Cart.getInstance();
         cart.deleteCart();
-        ResupplyPopController.setFirstTime(true);
+
     }
 
     public void handleViewByMaterialClick(ActionEvent actionEvent) {
-        List<Vendor> vendors = Vendor.getVendorsByMaterial();
+        List<Vendor> vendors =  Vendor.getVendorsByMaterial();
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(vendors);
     }
 
     /*
