@@ -1,10 +1,7 @@
 package GUI;
 
 import java.sql.Time;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.StringTokenizer;
 import java.util.Timer;
 
 /**
@@ -45,78 +42,16 @@ public class Date {
     /**
      * Today's date.
      */
-    public static String todaysDate(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        return (dtf.format(now));
-    }
-    public static String changeTodaysDateByDays(int days){
-        String todaysDate = todaysDate();
-        StringBuilder stringBuilder = new StringBuilder(todaysDate);
-        char day1 = todaysDate.charAt(3);
-        char day2 = todaysDate.charAt(4);
-
-        char year = todaysDate.charAt(9);
-        int daytoInt = Character.getNumericValue(day1) * 10 + Character.getNumericValue(day2);
-        daytoInt += days;
-        int yearToInt = Character.getNumericValue(year);
-        char month1 = todaysDate.charAt(0);
-        char month2 = todaysDate.charAt(1);
-        String years = stringBuilder.substring(5);
-        int monthToInt=Character.getNumericValue(month1) * 10 + Character.getNumericValue(month2);
-        if(daytoInt > 31){
-
-            if(month1 == '1' && month2 == '2'){
-                stringBuilder.replace(5,9,"202"+Character.toString(yearToInt+1));
-                years = stringBuilder.substring(5);
-            }else if(month2 == '9'){
-                month1 = '1';
-                month2 = '0';
-            }else{
-                monthToInt = Character.getNumericValue(month2);
-                monthToInt +=1;
-                month2 = Character.forDigit(monthToInt,10);
+    public static void todaysDate(){
+        while (true) {
+            localTime = Time.valueOf(LocalTime.now());
+            System.out.println(localTime);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            daytoInt -= 31;
-            if(daytoInt > 10){
-                if(daytoInt > 20){
-                    daytoInt -= 20;
-                    day2 = Character.forDigit(daytoInt,10);
-                    day1 = '2';
-                }else if (daytoInt > 29 && daytoInt < 31){
-                    daytoInt -= 30;
-                    day2 = Character.forDigit(daytoInt,10);
-                    day1 = '3';
-                } else if (daytoInt > 31) {
-                    todaysDate =  changeTodaysDateByDays(daytoInt - 31);
-                }else{
-                    daytoInt -= 10;
-                    day2 = Character.forDigit(daytoInt,10);
-                    day1 = '1';
-
-                }
-
-
-
-            }else{
-                day2 = Character.forDigit(daytoInt,10);
-                day1 = '0';
-            }
-
         }
-        StringBuilder build  = new StringBuilder();
-
-        build.append(month1);
-        build.append(month2);
-        build.append('/');
-        build.append(day1);
-        build.append(day2);
-        build.append(years);
-
-        String str  = build.toString();
-
-        stringBuilder.replace(0,10,str);
-        return stringBuilder.toString();
     }
 
     /**
