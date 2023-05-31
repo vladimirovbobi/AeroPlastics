@@ -8,6 +8,7 @@ import GUI.supplies.Vendor;
 import GUI.supplies.resupply.Cart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -22,7 +23,7 @@ import java.util.Random;
  * The type ResupplyPop controller.
  */
 public class ResupplyPopController {
-    static boolean firstTime = false;
+
     @FXML
     TextField  currentSpendingField;
     @FXML
@@ -34,7 +35,7 @@ public class ResupplyPopController {
     @FXML
     TextField quantityField;
 
-    private Cart cart;
+    private Cart cart = Cart.getInstance();
 
     public void setCurrentSpendingText() throws SQLException {
         String materialName = materialNameTextField.getText();
@@ -50,35 +51,25 @@ public class ResupplyPopController {
         }
         currentSpendingField.setText(Double.toString(Vendor.getPriceByVendorID(vendorID,materialName)*quantity));
     }
-    public void setShoppingTotalText(){
+    public void setShoppingTotalText() throws SQLException {
+        Cart.updateAmount();
         totalSpendingField.setText(Double.toString(cart.getAmount()));
     }
 
     public void addButtonPressed(ActionEvent actionEvent) throws SQLException {
-        String materialName = materialNameTextField.getText();
-        int vendorID = 0;
-        int quantity = 0;
 
-            try {
-                vendorID = Integer.parseInt(vendorIdTextField.getText());
-                quantity = Integer.parseInt(quantityField.getText());
-            } catch (Exception ex) {
-                vendorIdTextField.setText("Incorrect Material Information");
-                return;
-            }
-            if(firstTime) {
-                cart = cart.createCart();
-                firstTime = false;
-            }
-            cart.addToCart(vendorID,materialName,quantity);
-            setShoppingTotalText();
-            setCurrentSpendingText();
+                String materialName = materialNameTextField.getText();
+                int vendorID = Integer.parseInt(vendorIdTextField.getText());
+                int quantity = Integer.parseInt(quantityField.getText());
+                if(Vendor.checkAvailability(materialName)){
+                    cart.addToCart(vendorID,materialName,quantity);
+                    setShoppingTotalText();
+                    setCurrentSpendingText();
+                }else{
+                    materialNameTextField.setText("Unavailable");
+                }
+
     }
-
-    public static void setFirstTime(boolean b) {
-        firstTime = b;
-    }
-
 
     public void cancelButtonPressed(ActionEvent actionEvent) {
         vendorIdTextField.setText("");
@@ -96,4 +87,6 @@ public class ResupplyPopController {
         SupplyOrder supplyOrder = new SupplyOrder();
        //supplyOrder.makeSupplyOrder(materialName,materialid,quantity);
     }
+
+
 }
