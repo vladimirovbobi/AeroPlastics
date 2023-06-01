@@ -49,10 +49,12 @@ public class Vendor {
         materialPrice = supply;
     }
 
-    public Vendor(String companyName, double amount) {
+    public Vendor(String companyName, double amount, int quantity) {
         this.companyName = companyName;
         this.price = amount;
+        this.productQuantity = quantity;
     }
+
 
     /**
      * Get the last VendorID
