@@ -165,15 +165,17 @@ public class JavaConnector {
 
             ResultSet resultSet = null;
             PreparedStatement statement = null;
+            int quantity = 0;
             for (int i = 0; i <= vendorIDs.size(); i++) {
                 // Execute a SQL query to retrieve materials data
 
                 if (i == vendorIDs.size()) {
 
                     Cart.updateAmount();
-                    Vendor vendor = new Vendor("Total: ", Cart.getInstance().getAmount());
+                    Vendor vendor = new Vendor("Total: ", Cart.getInstance().getAmount(), quantity);
                     vendors.add(vendor);
                 } else {
+                    quantity += productQuantity.get(i);
                     String query = "SELECT * FROM vendor WHERE vendorID = ? AND rawMaterial = ?";
                     statement = connection.prepareStatement(query);
                     statement.setInt(1, vendorIDs.get(i));

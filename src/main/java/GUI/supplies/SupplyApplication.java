@@ -1,8 +1,6 @@
 package GUI.supplies;
 
 import GUI.ViewModel;
-import GUI.products.ProductApplication;
-import GUI.products.ProductController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +20,7 @@ public class SupplyApplication extends Application {
         Parent root = loader.load();
         SupplyController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
-        controller.setViewModel(viewModel);
+        controller.setViewModel(viewModel);//
         controller.populateMaterialsTable();
 
         Scene scene = new Scene(root);
