@@ -1,6 +1,9 @@
 package GUI.supplies;
 
 import GUI.JavaConnector;
+import GUI.supplies.resupply.ResupplyController;
+import GUI.supplies.resupply.resupplyPop.ResupplyPopController;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +21,8 @@ public class Vendor {
 
     private String rawMaterial;
     private double price;
+    private int productQuantity;
+
 
     public  Vendor (){}
     public Vendor(int vendorID,String companyName,String rawMaterial,double price){
@@ -26,10 +31,27 @@ public class Vendor {
         this.rawMaterial = rawMaterial;
         this.price = price;
     }
+    public Vendor(String companyName,int vendorID, String rawMaterial,int quantity,double price){
+        this.vendorID = vendorID;
+        this.companyName = companyName;
+        this.rawMaterial = rawMaterial;
+        this.price = price;
+        this.productQuantity = quantity;
+    }
+
+    public int getProductQuantity() {
+        return productQuantity;
+    }
+
     public Vendor(String companyName, HashMap <Material, Double> supply){
         this.vendorID = getLastVendorId() + 1;
         this.companyName = companyName;
         materialPrice = supply;
+    }
+
+    public Vendor(String companyName, double amount) {
+        this.companyName = companyName;
+        this.price = amount;
     }
 
     /**
@@ -69,19 +91,72 @@ public class Vendor {
         return companyName;
     }
 
+    public String getRawMaterial() {
+        return rawMaterial;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+    public static boolean checkAvailability (String rawMaterial){
+        try {
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "Select rawMaterial from vendor";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+
+
+            while (result.next()) {
+                if(result.getString("rawMaterial").toUpperCase().equals(rawMaterial.toUpperCase())) {
+                    return true;
+                }
+            }
+
+        } catch (NumberFormatException numF1) {
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return false;
+    }
+
+    public static double getPriceByVendorID(int vendorID, String materialName) {
+        try {
+            materialName.toUpperCase();
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "Select price from vendor where vendorID = " + vendorID + " AND rawMaterial = '" + materialName + "';";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getDouble("price");
+            }
+            return result.getDouble("price");
+
+        } catch (SQLException exception) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Material Unavailable");
+            alert.showAndWait();
+        }
+        return 0;
+    }
+
     /**
      * Fetches and retreves a list of materials and their vendors sorted by Price
      * @return List of Vendors
      */
-    public List<Vendor> getVendorsByPrice() {
+    public static List<Vendor> getVendorsByPrice() {
         String sortWay;
         List<Vendor> vendors = new ArrayList<>();
         if (sortByPrice) {
             sortWay = "asc";
-            sortByPrice = true;
+            sortByPrice = false;
         } else {
             sortWay = "desc";
-            sortByPrice = false;
+            sortByPrice = true;
         }
         try {
             JavaConnector connector = new JavaConnector();
@@ -89,19 +164,20 @@ public class Vendor {
             Connection connection = connector.getConnection();
 
             // Execute a SQL query to retrieve materials data
-            String query = "SELECT  vendorID, companyName, rawMaterial,price from vendor order by price " + sortWay + ";";
+            String query = "SELECT  vendorID, companyName, rawMaterial,productQuantity,price from vendor order by price " + sortWay + ";";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             //Process the result set
             while (resultSet.next()) {
                 int vendorID = resultSet.getInt("vendorID");
+                int productQuantity = resultSet.getInt("productQuantity");
                 String companyName = resultSet.getString("companyName");
                 String rawMaterial = resultSet.getString("rawMaterial");
                 double price = resultSet.getDouble("price");
 
                 //Create a Material object and add it to the list
-                Vendor vendor = new Vendor(vendorID, companyName, rawMaterial, price);
+                Vendor vendor = new Vendor( companyName,vendorID, rawMaterial, productQuantity, price);
                 vendors.add(vendor);
             }
 
@@ -120,15 +196,15 @@ public class Vendor {
      * Fetches List of Vendors sorted by Material
      * @return List of Vendors
      */
-    public List<Vendor> getVendorsByMaterial() {
+    public static List<Vendor> getVendorsByMaterial() {
         String sortWay;
         List<Vendor> vendors = new ArrayList<>();
         if (sortByName) {
             sortWay = "asc";
-            sortByName = true;
+            sortByName = false;
         } else {
             sortWay = "desc";
-            sortByName = false;
+            sortByName = true;
         }
         try {
             JavaConnector connector = new JavaConnector();
@@ -136,19 +212,20 @@ public class Vendor {
             Connection connection = connector.getConnection();
 
             // Execute a SQL query to retrieve materials data
-            String query = "SELECT  vendorID, companyName, rawMaterial,price from vendor order by rawMaterial " + sortWay + ";";
+            String query = "SELECT  vendorID, companyName, rawMaterial,productQuantity, price from vendor order by rawMaterial " + sortWay + ";";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             //Process the result set
             while (resultSet.next()) {
                 int vendorID = resultSet.getInt("vendorID");
+                int productQuantity = resultSet.getInt("productQuantity");
                 String companyName = resultSet.getString("companyName");
                 String rawMaterial = resultSet.getString("rawMaterial");
                 double price = resultSet.getDouble("price");
 
                 //Create a Material object and add it to the list
-                Vendor vendor = new Vendor(vendorID, companyName, rawMaterial, price);
+                Vendor vendor = new Vendor( companyName,vendorID, rawMaterial, productQuantity, price);
                 vendors.add(vendor);
             }
 
