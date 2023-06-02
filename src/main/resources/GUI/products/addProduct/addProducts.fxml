@@ -10,7 +10,7 @@
       <Label layoutX="25.0" layoutY="29.0" text="ID:" />
       <TextField fx:id="idTextField" layoutX="79.0" layoutY="25.0" />
       <TextField fx:id="productNameTextField" layoutX="79.0" layoutY="76.0" />
-      <Button fx:id="addButton" layoutX="147.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Add" />
+      <Button fx:id="addButton" layoutX="147.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Add" onAction="#handleAddButtonClick" />
       <Label layoutX="25.0" layoutY="80.0" text="Name: " />
       <Label layoutX="26.0" layoutY="129.0" text="Price: " />
       <TextField fx:id="priceTextField" layoutX="79.0" layoutY="125.0" />

@@ -29,6 +29,11 @@ public class JavaConnector {
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
     }
 
+    public PreparedStatement prepareStatement(String query) throws SQLException {
+        Connection connection = getConnection();
+        return connection.prepareStatement(query);
+    }
+
     /**
      * Connection to material table to display on supply window.
      * @return material table display on supply window.
