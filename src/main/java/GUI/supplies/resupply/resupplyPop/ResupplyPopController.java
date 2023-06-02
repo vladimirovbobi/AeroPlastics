@@ -77,15 +77,15 @@ public class ResupplyPopController {
         quantityField.setText("");
     }
 
-    public void checkSpendingButtonClicked(ActionEvent actionEvent) throws SQLException {
-        setShoppingTotalText();
-        setCurrentSpendingText();
-    }
 
-    public void submitOrderButtonClicked(ActionEvent actionEvent) {
+    public void submitOrderButtonClicked(ActionEvent actionEvent) throws SQLException {
 
-        SupplyOrder supplyOrder = new SupplyOrder();
-       //supplyOrder.makeSupplyOrder(materialName,materialid,quantity);
+       SupplyOrder.submitOrder();
+       materialNameTextField.setText("Order Submitted");
+       quantityField.setText("");
+       vendorIdTextField.setText("");
+       currentSpendingField.setText("");
+
     }
 
 

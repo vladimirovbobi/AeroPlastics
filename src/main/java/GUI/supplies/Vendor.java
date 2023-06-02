@@ -31,6 +31,12 @@ public class Vendor {
         this.rawMaterial = rawMaterial;
         this.price = price;
     }
+    public Vendor(int vendorID,String rawMaterial,int productQuantity, double price){
+        this.vendorID = vendorID;
+        this.productQuantity = productQuantity;
+        this.rawMaterial = rawMaterial;
+        this.price = price;
+    }
     public Vendor(String companyName,int vendorID, String rawMaterial,int quantity,double price){
         this.vendorID = vendorID;
         this.companyName = companyName;
@@ -122,6 +128,31 @@ public class Vendor {
         }
         return false;
     }
+    public static String getVendorByID (int vendorID){
+        try {
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "Select companyName,rawMaterial from vendor where vendorID = " + vendorID +";";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+
+
+
+            while (result.next()) {
+
+                return result.getString("companyName");
+
+            }
+
+        } catch (NumberFormatException numF1) {
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        return "No company found";
+
+    }
 
     public static double getPriceByVendorID(int vendorID, String materialName) {
         try {
@@ -142,8 +173,9 @@ public class Vendor {
             alert.setHeaderText(null);
             alert.setContentText("Material Unavailable");
             alert.showAndWait();
+            return 0 ;
         }
-        return 0;
+
     }
 
     /**
