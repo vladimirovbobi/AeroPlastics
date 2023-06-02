@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.customers.Customer;
+import GUI.products.Product;
 import GUI.products.ProductApplication;
 import GUI.supplies.Material;
 import GUI.supplies.Vendor;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Bob4oSirop4o";
+    private static final String PASSWORD = "@Ziemlupr2072";
 
 
     /**
@@ -318,6 +319,46 @@ public class JavaConnector {
         }
 
         return vendors;
+    }
+
+    /**
+     * Connection to product table to display on product window.
+     * @return product table display on product window.
+     */
+    public static List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve materials data
+            String query = "SELECT productID, productName, price, rawMaterial, inventoryLevel FROM products";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            //Process the result set
+            while (resultSet.next()) {
+                int inventoryLevel = resultSet.getInt("inventoryLevel");
+                int productID = resultSet.getInt("productID");
+                String productName = resultSet.getString("productName");
+                double price = resultSet.getDouble("price");
+                String rawMaterial = resultSet.getString("rawMaterial");
+
+                //Create a Material object and add it to the list
+                Product product = new Product(productID, productName, price, rawMaterial, inventoryLevel);
+                products.add(product);
+            }
+
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
     }
 
 }

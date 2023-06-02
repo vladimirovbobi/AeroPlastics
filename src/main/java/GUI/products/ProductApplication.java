@@ -22,6 +22,7 @@ public class ProductApplication extends Application {
         ProductController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
         controller.setViewModel(viewModel);
+        controller.populateProductsTable();
 
         Scene scene = new Scene(root);
         productsStage.setScene(scene);
