@@ -14,7 +14,7 @@
       <Label layoutX="25.0" layoutY="80.0" text="Name: " />
       <Label layoutX="26.0" layoutY="129.0" text="Price: " />
       <TextField fx:id="priceTextField" layoutX="79.0" layoutY="125.0" />
-      <Button fx:id="cancelButton" layoutX="19.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="19.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" onAction="#handleCancelButtonClick"/>
       <TextField fx:id="materialTextField" layoutX="79.0" layoutY="174.0" />
       <Label layoutX="26.0" layoutY="178.0" text="Material:  " />
    </children>

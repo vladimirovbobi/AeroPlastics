@@ -59,26 +59,41 @@ public class AddProductController {
         try {
             // Establish a connection to the database
             JavaConnector connection = new JavaConnector();
-            connection.getConnection();
+            Connection con = connection.getConnection();
 
             // Prepare the SQL statement
-            String query = "INSERT INTO products (productID, productName, price, rawMaterial, inventoryLevel) VALUES (?, ?, ?, ?, 0)";
-            PreparedStatement statement = connection.prepareStatement(query);
+            String query;
+            PreparedStatement statement;
+
+            // Prepare the SQL statement
+            query = "INSERT INTO products (productID, productName, price, rawMaterial, inventoryLevel) VALUES (?, ?, ?, ?, 0)";
+            statement = con.prepareStatement(query);
             statement.setInt(1, Integer.parseInt(productID));
             statement.setString(2, productName);
             statement.setDouble(3, Double.parseDouble(price));
             statement.setString(4, rawMaterial);
 
             // Execute the SQL statement
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
 
             // Close the database connection and resources
             statement.close();
+            con.close();
 
-            String successMessage = "Product Added Successfully.";
-            successBox(successMessage);
+            if (rowsAffected > 0) {
+                String successMessage = "Product Added Successfully.";
+                successBox(successMessage);
+            } else {
+                String errorMessage = "Product not added.";
+                errorBox(errorMessage);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleCancelButtonClick() {
+        cancelButton.getScene().getWindow().hide();
     }
 }
