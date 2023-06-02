@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.util.List;
  * The type Resupply controller.
  */
 public class ResupplyController {
+    @FXML
+    private TextField materialTextField;
     @FXML
 
     private TableView<Vendor> displayTable;
@@ -112,18 +115,20 @@ public class ResupplyController {
         displayTable.getItems().addAll(vendors);
     }
 
-    /*
-    public void populateVendorsTable() {
-        Vendor vendor = new Vendor();
-        // Retrieve Vendors data from the database (example code)
-        List<Vendor> vendors = vendor.getVendorsByPrice(); // Replace with your actual code to fetch data from the database
 
-        // Clear existing data from the table
+    public void handleViewButtonClick(ActionEvent actionEvent) {
+        String name = materialTextField.getText();
+
+        List<Vendor> vendors =  JavaConnector.searchVendorMaterialByName(name);
         displayTable.getItems().clear();
-
         // Populate the table with materials data
         displayTable.getItems().addAll(vendors);
     }
 
-     */
+    public void handleViewSupplyOrderButtonClick(ActionEvent actionEvent) {
+        List<Vendor> vendors =  JavaConnector.getSupplyOrders();
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(vendors);
+    }
 }

@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.customers.Customer;
+import GUI.products.Product;
 import GUI.products.ProductApplication;
 import GUI.supplies.Material;
 import GUI.supplies.Vendor;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Bob4oSirop4o";
+    private static final String PASSWORD = "@Ziemlupr2072";
 
 
     /**
@@ -26,6 +27,11 @@ public class JavaConnector {
      */
     public Connection getConnection() throws SQLException{
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+    }
+
+    public PreparedStatement prepareStatement(String query) throws SQLException {
+        Connection connection = getConnection();
+        return connection.prepareStatement(query);
     }
 
     /**
@@ -155,13 +161,12 @@ public class JavaConnector {
             ArrayList<Integer> vendorIDs = new ArrayList<>();
             ArrayList<String> rawMaterials = new ArrayList<>();
             while (resultSet2.next()) {
+
                 productQuantity.add(resultSet2.getInt("productQuantity"));
                 productIDs.add(resultSet2.getInt("productID"));
                 vendorIDs.add(resultSet2.getInt("vendorID"));
                 rawMaterials.add(resultSet2.getString("rawMaterial"));
             }
-
-
 
             ResultSet resultSet = null;
             PreparedStatement statement = null;
@@ -170,9 +175,10 @@ public class JavaConnector {
                 // Execute a SQL query to retrieve materials data
 
                 if (i == vendorIDs.size()) {
+                    Cart cart = Cart.getInstance();
+                    cart.updateAmount();
 
-                    Cart.updateAmount();
-                    Vendor vendor = new Vendor("Total: ", Cart.getInstance().getAmount(), quantity);
+                    Vendor vendor = new Vendor("Total: ", cart.getAmount(), quantity);
                     vendors.add(vendor);
                 } else {
                     quantity += productQuantity.get(i);
@@ -200,6 +206,164 @@ public class JavaConnector {
         }
 
         return vendors;
+    }
+    public static List<Vendor> searchVendorMaterialByName(String name){
+            name =name.toUpperCase();
+
+            List<Vendor> vendors = new ArrayList<>();
+
+            try {
+                //Establish a connection to the database
+                Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+                // Execute a SQL query to retrieve materials data
+                String query = "SELECT vendorID,companyName, rawMaterial,productQuantity, price FROM vendor where rawMaterial = '"+name+"';" ;
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                //Process the result set
+                while (resultSet.next()) {
+
+                    int vendorID = resultSet.getInt("vendorID");
+                    String vendorName = resultSet.getString("companyName");
+                    int productQuantity = resultSet.getInt("productQuantity");
+                    String rawMaterial = resultSet.getString("rawMaterial");
+                    double price  = resultSet.getDouble("price");
+
+                    //Create a Vendor object and add it to the list
+                    Vendor vendor = new Vendor( vendorName,vendorID, rawMaterial, productQuantity, price);
+                    vendors.add(vendor);
+                }
+
+                //Close the database connection and resources
+                resultSet.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return vendors;
+        }
+    public static List<Material> searchMaterialsByName(String name) {
+        List<Material> materials = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve materials data
+            String query = "SELECT inventoryLevel, materialID, materialName, moldTemperature, plasticDensity FROM materials where materialName = '"+name+"';";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            //Process the result set
+            while (resultSet.next()) {
+                int inventoryLevel = resultSet.getInt("inventoryLevel");
+                int materialID = resultSet.getInt("materialID");
+                String materialName = resultSet.getString("materialName");
+                int moldTemperature = resultSet.getInt("moldTemperature");
+                int plasticDensity = resultSet.getInt("plasticDensity");
+
+                //Create a Material object and add it to the list
+                Material material = new Material(inventoryLevel, materialID, materialName, moldTemperature, plasticDensity);
+                materials.add(material);
+            }
+
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return materials;
+    }
+    public static List<Vendor> getSupplyOrders() {
+        List<Vendor> vendors = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve materials data
+            String query = "SELECT * FROM supplyOrder";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            int totalQuantity = 0;
+            int supplyOrderID = 0;
+            //Process the result set
+            while (resultSet.next()) {
+                if(resultSet.getInt("supplyOrderID") != supplyOrderID){
+                    supplyOrderID = resultSet.getInt("supplyOrderID");
+                    totalQuantity = 0;
+                }
+
+                int vendorID = resultSet.getInt("vendorID");
+                int productQuantity = resultSet.getInt("quantity");
+                String rawMaterial = resultSet.getString("rawMaterial");
+                double price  = resultSet.getDouble("price");
+                if(rawMaterial.equals("Total")){
+                    Vendor vendor = new Vendor( supplyOrderID,rawMaterial, totalQuantity, price);
+                    vendors.add(vendor);
+                }else {
+                    totalQuantity += productQuantity;
+                    //Create a Vendor object and add it to the list
+                    Vendor vendor = new Vendor(Vendor.getVendorByID(vendorID), supplyOrderID, rawMaterial, productQuantity, price);
+                    vendors.add(vendor);
+                }
+            }
+
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return vendors;
+    }
+
+    /**
+     * Connection to product table to display on product window.
+     * @return product table display on product window.
+     */
+    public static List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve materials data
+            String query = "SELECT productID, productName, price, rawMaterial, inventoryLevel FROM products";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            //Process the result set
+            while (resultSet.next()) {
+                int inventoryLevel = resultSet.getInt("inventoryLevel");
+                int productID = resultSet.getInt("productID");
+                String productName = resultSet.getString("productName");
+                double price = resultSet.getDouble("price");
+                String rawMaterial = resultSet.getString("rawMaterial");
+
+                //Create a Material object and add it to the list
+                Product product = new Product(productID, productName, price, rawMaterial, inventoryLevel);
+                products.add(product);
+            }
+
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
     }
 
 }

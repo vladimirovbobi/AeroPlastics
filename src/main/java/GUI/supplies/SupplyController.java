@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -18,7 +19,8 @@ import java.util.List;
  * The type Supply controller.
  */
 public class SupplyController {
-
+    @FXML
+    private TextField materialTextField;
     private ViewModel viewModel;
     @FXML
     private Button menuButton;
@@ -122,20 +124,15 @@ public class SupplyController {
 
     public void logOutButtonClicked(ActionEvent actionEvent) {
 
-        //Add Vendors to the database + the materials they offer
 
+    }
 
-        Material material = new Material(200, 6,"PLA",220,5);
-        Material material2 = new Material(120, 7,"PTGE",270,7);
-        Material material3 = new Material(21, 8,"TPK",350,13);
-        Material material4 = new Material(2, 9,"PEBA",600,45);
-        HashMap<Material, Double> priceMat = new HashMap<>();
-        priceMat.put(material,35.2);
-        priceMat.put(material2,85.7);
-        priceMat.put(material3,143.9);
-        priceMat.put(material4,190.5);
+    public void handleSingleViewButtonClicked(ActionEvent actionEvent) {
+        String name = materialTextField.getText();
 
-        Vendor vendor = new Vendor("Seattle Plastic", priceMat);
-        vendor.addVendorToDatabase();
+        List<Material> materials =  JavaConnector.searchMaterialsByName(name);
+        displayTable.getItems().clear();
+        // Populate the table with materials data
+        displayTable.getItems().addAll(materials);
     }
 }

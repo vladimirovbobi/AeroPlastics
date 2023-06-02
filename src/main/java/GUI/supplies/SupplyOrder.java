@@ -2,11 +2,11 @@ package GUI.supplies;
 
 import GUI.Date;
 import GUI.JavaConnector;
+import GUI.supplies.resupply.Cart;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLOutput;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -121,44 +121,61 @@ public class SupplyOrder{
         }
         return minPrice;
     }
-    public void makeSupplyOrder(String materialName, int vendorId, int quantity){
-        materialName.toUpperCase();
-        try {
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            String query = "Select * from vendor where rawMaterial ='" + materialName + "' AND vendorID =" + vendorId +";";
-            PreparedStatement statement = con.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-            if(result.next()) {
-                Vendor newVendor = new Vendor(result.getInt("vendorID"), result.getString("companyName"),
-                        result.getString("rawMaterial"), result.getDouble("price"));
-                createSupplyOrderInDataBase(newVendor, materialName, result.getDouble("price"), quantity, "05/23/2023", "05/30/2023");
-            }
+    public static void submitOrder() throws SQLException {
+        Cart cart = Cart.getInstance();
+        JavaConnector connector = new JavaConnector();
+        Connection connection = connector.getConnection();
+        String query = "Select * from cart;";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
 
-        } catch (NumberFormatException numF1) {
+        ArrayList<String> rawMaterials  = new ArrayList<>();
+        ArrayList<String> orderDate = new ArrayList<>();
+        ArrayList<String> arrivalDate = new ArrayList<>();
+        ArrayList<Integer> vendorID = new ArrayList<>();
+        ArrayList<Integer> quantities = new ArrayList<>();
+        ArrayList<Double>  price = new ArrayList<>();
 
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        while (resultSet.next()){
+            rawMaterials.add(resultSet.getString("rawMaterial"));
+            orderDate.add(resultSet.getString("orderDate"));
+            arrivalDate.add(resultSet.getString("arrivalDate"));
+            vendorID.add(resultSet.getInt("vendorID"));
+            quantities.add(resultSet.getInt("productQuantity"));
+            price.add(resultSet.getDouble("price"));
         }
-    }
-    public void createSupplyOrderInDataBase(Vendor v, String material, double price,  int quantity, String placed, String arrival){
-        try {
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            String query = "Insert into supplyorder (supplyOrderID,vendorID,rawMaterial,price,quantity, orderPlaced,arrivalDate)" +
-                    "values (" + (getLastOrderId()+1) +","+ v.getVendorID() +",'"+ material+"'," + price+","+quantity+",'"+placed+"',"+"'"+arrival+"');" ;
+        //add total for every cart
+        rawMaterials.add("Total");
+        double total = 0.0;
+        int quantity = 0;
+        for(int i = 0 ; i < quantities.size(); i++){
+            quantity += quantities.get(i);
+            total += quantities.get(i) * price.get(i);
+        }
+        double number = total;
+        BigDecimal bd = new BigDecimal(Double.toString(number));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        total = bd.doubleValue();
+        price.add(total);
 
-            PreparedStatement statement = con.prepareStatement(query);
+
+        for(int i = 0 ; i < quantities.size(); i++) {
+
+            query = "Insert into supplyOrder (supplyOrderID, vendorID, rawMaterial,price,quantity, orderPlaced,arrivalDate) values ("
+                    + cart.getCartID() + "," + vendorID.get(i) +",'"+rawMaterials.get(i)+"',"+ price.get(i)+"," + quantities.get(i) + ",'"
+                    + orderDate.get(i) + "','" + arrivalDate.get(i)+ "');";
+            statement = connection.prepareStatement(query);
             statement.executeUpdate();
-
-
-        } catch (NumberFormatException numF1) {
-
-        } catch (Exception e1) {
-            e1.printStackTrace();
         }
-    }
+        query = "Insert into supplyOrder(supplyOrderID, rawMaterial, price, quantity) values("+ cart.getCartID() +",'"+ rawMaterials.get(rawMaterials.size()-1)
+                +"'," +price.get(rawMaterials.size()-1)+", " + quantity +");";
 
+        cart.deleteCart();
+        statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+
+        connection.close();
+    }
 
 
     public int getVendorID() {

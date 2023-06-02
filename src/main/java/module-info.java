@@ -13,6 +13,8 @@ module com.GUI.aeroplastics {
         opens GUI.customers.addCustomer to javafx.fxml;
         opens GUI.customers.removeCustomer to javafx.fxml;
     opens GUI.products to javafx.fxml;
+        opens GUI.products.addProduct;
+        opens GUI.products.removeProduct;
     opens GUI.supplies to javafx.fxml;
         opens GUI.supplies.removeSupply;
       //  opens GUI.supplies.addSupply;

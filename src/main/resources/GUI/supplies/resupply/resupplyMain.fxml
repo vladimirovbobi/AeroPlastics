@@ -21,7 +21,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.supplies.resupply.ResupplyController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
-         <right>
+         <bottom>
             <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
                   <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="377.0">
@@ -115,7 +115,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="singleViewButton" layoutX="774.0" layoutY="176.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="90.0" style="-fx-background-color: #509854;" text="View" textFill="WHITE">
+                  <Button fx:id="singleViewButton" layoutX="774.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleViewButtonClick" prefHeight="13.0" prefWidth="90.0" style="-fx-background-color: #509854;" text="View" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -172,7 +172,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="viewCart" layoutX="552.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewCartButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Cart" textFill="WHITE">
+                  <Button fx:id="viewCart" layoutX="434.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewCartButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Cart" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -229,9 +229,28 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="779.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleResetCartButtonPress" text="Reset Cart" />
+                  <Button layoutX="679.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleResetCartButtonPress" text="Reset Cart" />
+                  <Button fx:id="viewSupplyOrderButton1" layoutX="665.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewSupplyOrderButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Supply Orders" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                                 <bumpInput>
+                                    <Shadow height="79.0" radius="39.0" width="79.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
-         </right></BorderPane>
+         </bottom></BorderPane>
    </children>
 </AnchorPane>
