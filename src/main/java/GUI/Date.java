@@ -64,21 +64,22 @@ public class Date {
         char month2 = todaysDate.charAt(1);
         String years = stringBuilder.substring(5);
         int monthToInt=Character.getNumericValue(month1) * 10 + Character.getNumericValue(month2);
-        if(daytoInt > 31){
+        if(daytoInt > 31) {
 
-            if(month1 == '1' && month2 == '2'){
-                stringBuilder.replace(5,9,"202"+Character.toString(yearToInt+1));
+            if (month1 == '1' && month2 == '2') {
+                stringBuilder.replace(5, 9, "202" + Character.toString(yearToInt + 1));
                 years = stringBuilder.substring(5);
-            }else if(month2 == '9'){
+            } else if (month2 == '9') {
                 month1 = '1';
                 month2 = '0';
-            }else{
+            } else {
                 monthToInt = Character.getNumericValue(month2);
-                monthToInt +=1;
-                month2 = Character.forDigit(monthToInt,10);
+                monthToInt += 1;
+                month2 = Character.forDigit(monthToInt, 10);
             }
-            daytoInt -= 31;
-            if(daytoInt > 10){
+        }
+
+            if(daytoInt > 9){
                 if(daytoInt > 20){
                     daytoInt -= 20;
                     day2 = Character.forDigit(daytoInt,10);
@@ -103,7 +104,7 @@ public class Date {
                 day1 = '0';
             }
 
-        }
+
         StringBuilder build  = new StringBuilder();
 
         build.append(month1);
