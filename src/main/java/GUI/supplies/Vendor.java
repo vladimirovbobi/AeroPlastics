@@ -23,20 +23,47 @@ public class Vendor {
     private double price;
     private int productQuantity;
 
-
+    /**
+     * Constructor
+     */
     public  Vendor (){}
+
+    /**
+     * Contructor
+     * @param vendorID
+     * @param companyName
+     * @param rawMaterial
+     * @param price
+     */
     public Vendor(int vendorID,String companyName,String rawMaterial,double price){
         this.vendorID = vendorID;
         this.companyName = companyName;
         this.rawMaterial = rawMaterial;
         this.price = price;
     }
+
+    /**
+     * Constructor
+     * @param vendorID
+     * @param rawMaterial
+     * @param productQuantity
+     * @param price
+     */
     public Vendor(int vendorID,String rawMaterial,int productQuantity, double price){
         this.vendorID = vendorID;
         this.productQuantity = productQuantity;
         this.rawMaterial = rawMaterial;
         this.price = price;
     }
+
+    /**
+     * Constructor
+     * @param companyName
+     * @param vendorID
+     * @param rawMaterial
+     * @param quantity
+     * @param price
+     */
     public Vendor(String companyName,int vendorID, String rawMaterial,int quantity,double price){
         this.vendorID = vendorID;
         this.companyName = companyName;
@@ -45,9 +72,11 @@ public class Vendor {
         this.productQuantity = quantity;
     }
 
-    public int getProductQuantity() {
-        return productQuantity;
-    }
+    /**
+     * Constructor
+     * @param companyName
+     * @param supply
+     */
 
     public Vendor(String companyName, HashMap <Material, Double> supply){
         this.vendorID = getLastVendorId() + 1;
@@ -55,6 +84,12 @@ public class Vendor {
         materialPrice = supply;
     }
 
+    /**
+     * Constructor
+     * @param companyName
+     * @param amount
+     * @param quantity
+     */
     public Vendor(String companyName, double amount, int quantity) {
         this.companyName = companyName;
         this.price = amount;
@@ -91,6 +126,10 @@ public class Vendor {
         return max;
     }
 
+    /**
+     * Retrieve vendorID
+     * @return
+     */
     public int getVendorID() {
         return vendorID;
     }
@@ -98,14 +137,35 @@ public class Vendor {
     public String getCompanyName() {
         return companyName;
     }
+    /**
+     * Retrieve product quantity
+     * @return
+     */
+    public int getProductQuantity() {
+        return productQuantity;
+    }
 
+    /**
+     * Retrieve Raw Material name
+     * @return
+     */
     public String getRawMaterial() {
         return rawMaterial;
     }
 
+    /**
+     * Retrieve the price
+     * @return
+     */
     public double getPrice() {
         return price;
     }
+
+    /**
+     * Check if a specific raw material is so sold by anyone
+     * @param rawMaterial
+     * @return true/false
+     */
     public static boolean checkAvailability (String rawMaterial){
         try {
             JavaConnector javaConnector = new JavaConnector();
@@ -128,6 +188,12 @@ public class Vendor {
         }
         return false;
     }
+
+    /**
+     * Retrieve company name from an ID
+     * @param vendorID
+     * @return
+     */
     public static String getVendorByID (int vendorID){
         try {
             JavaConnector javaConnector = new JavaConnector();
@@ -154,6 +220,12 @@ public class Vendor {
 
     }
 
+    /**
+     * Retrieve price for a specific item from a vendor with the vendor ID
+     * @param vendorID
+     * @param materialName
+     * @return
+     */
     public static double getPriceByVendorID(int vendorID, String materialName) {
         try {
             materialName.toUpperCase();
@@ -273,30 +345,5 @@ public class Vendor {
         }
         return  vendors;
     }
-
-    public void addVendorToDatabase() {
-
-        try {
-            Iterator <Material> iterator = materialPrice.keySet().iterator();
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            while (iterator.hasNext()) {
-                Material mat = iterator.next();
-                String query = "Insert Into vendor (vendorID, companyName, rawMaterial, price) values (" +
-                        getVendorID() + ",'" + getCompanyName() + "' , '"+  mat.materialName +"' , "+ materialPrice.get(mat) + " ); ";
-                PreparedStatement statement = con.prepareStatement(query);
-                statement.executeUpdate();
-            }
-        }catch(SQLException numF1) {
-            numF1.printStackTrace();
-        }catch(Exception e1) {
-            e1.printStackTrace();
-        }
-
-
-    }
-
-
-
 
 }

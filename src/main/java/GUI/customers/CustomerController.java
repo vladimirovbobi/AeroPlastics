@@ -80,7 +80,7 @@ public class CustomerController {
         // Initialize table columns
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        affiliationColumn.setCellValueFactory(new PropertyValueFactory<>("affiliation"));
+        affiliationColumn.setCellValueFactory(new PropertyValueFactory<>("company"));
     }
 
     @FXML

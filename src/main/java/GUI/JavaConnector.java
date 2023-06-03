@@ -2,21 +2,20 @@ package GUI;
 
 import GUI.customers.Customer;
 import GUI.products.Product;
-import GUI.products.ProductApplication;
 import GUI.supplies.Material;
 import GUI.supplies.Vendor;
 import GUI.supplies.resupply.Cart;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class JavaConnector {
+    /**
+     * private static final variables to connect to MySQL database
+     */
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "@Ziemlupr2072";
+    private static final String PASSWORD = "Bob4oSirop4o";
 
 
     /**
@@ -29,6 +28,12 @@ public class JavaConnector {
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
     }
 
+    /**
+     * Return Prepared Statement
+     * @param query the query to be executed
+     * @return PreparedStatement
+     * @throws SQLException
+     */
     public PreparedStatement prepareStatement(String query) throws SQLException {
         Connection connection = getConnection();
         return connection.prepareStatement(query);
@@ -74,6 +79,10 @@ public class JavaConnector {
         return materials;
     }
 
+    /**
+     * Retrieves a List of all the Customers in the customer table
+     * @return List <Customer>
+     */
     public static List<Customer> getAllCustomers() {
 
         List<Customer> customers = new ArrayList<>();
@@ -108,6 +117,11 @@ public class JavaConnector {
         return customers;
     }
 
+    /**
+     * Retrieves a List of all the Vendors in the vendor table
+     * Vendor object has vendorName, vendorID, rawMaterial, productQuantity, price
+     * @return List <Vendors>
+     */
     public static List<Vendor> getAllVendors() {
         List<Vendor> vendors = new ArrayList<>();
 
@@ -144,6 +158,12 @@ public class JavaConnector {
 
         return vendors;
     }
+    /**
+     * Retrieves a List of all the items in the cart from the cart table
+     * the cart has product ID, vendor ID , quantity, arrival and order dates, name of the material
+     *The method fetches the items from the cart and then looks in the vendor database for a matching item, and gets the company name and price
+     * @return List <Vendors> Vendor object has vendorName, vendorID, rawMaterial, productQuantity, price
+     */
     public static List<Vendor> getCart(){
         List<Vendor> vendors = new ArrayList<>();
 
@@ -207,6 +227,12 @@ public class JavaConnector {
 
         return vendors;
     }
+
+    /**
+     * Retrieves List of vendors who sell an item with matching name
+     * @param name the name of the material
+     * @return
+     */
     public static List<Vendor> searchVendorMaterialByName(String name){
             name =name.toUpperCase();
 
@@ -245,6 +271,11 @@ public class JavaConnector {
 
             return vendors;
         }
+    /**
+     * Retrieves List of Materials who sell an item with matching name
+     * @param name the name of the material
+     * @return
+     */
     public static List<Material> searchMaterialsByName(String name) {
         List<Material> materials = new ArrayList<>();
 
@@ -280,6 +311,11 @@ public class JavaConnector {
 
         return materials;
     }
+
+    /**
+     * Retrieves all supply orders as a list of Vendors, so it can be displayed on the table.
+     * @return List <Vendor>
+     */
     public static List<Vendor> getSupplyOrders() {
         List<Vendor> vendors = new ArrayList<>();
 
@@ -366,6 +402,12 @@ public class JavaConnector {
         return products;
     }
 
+    /**
+     * Retrieves a product from the product table, which corresponds to the name or ID passed as a parameter
+     * @param name name
+     * @param id ID
+     * @return Product
+     */
     public static Product searchProductByNameOrID(String name, int id) {
         Product product = null;
 
@@ -413,6 +455,11 @@ public class JavaConnector {
         return product;
     }
 
+    /**
+     * Update the company's inventory level
+     * @param productID product to update
+     * @param newInventoryLevel set the inventory to this level
+     */
     public static void setInventoryLevel(int productID, int newInventoryLevel) {
         try {
             // Establish a connection to the database
