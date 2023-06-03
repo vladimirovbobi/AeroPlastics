@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,46 +33,20 @@ public class ProductController {
     private TableColumn<Product, Double> priceColumn;
     @FXML
     private TableColumn<Product, String> rawMaterialColumn;
+    @FXML
+    private Button menuButton;
+    @FXML
+    private Button addProductButton;
+    @FXML
+    private Button removeProductButton;
+    @FXML
+    private Button viewAllButton;
 
     private ViewModel viewModel;
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
 
-    @FXML
-    private Button menuButton;
-    /**
-     * Method that handles menu button in product page.
-     * Redirects to MenuApplication.
-     */
-    @FXML
-    private void handleMenuButtonClick() throws IOException {
-        viewModel.showMenuWindow();
-    }
-    @FXML
-    private Button addProductButton;
-    /**
-     * Method that handles add product button in product page.
-     * Displays external window that has fields for adding a product.
-     */
-    @FXML
-    private void handleAddProductButtonClick() throws IOException {
-        AddProductApplication addProductApp = new AddProductApplication();
-        Stage stage = new Stage();
-        addProductApp.start(stage);
-    }
-    @FXML
-    private Button removeProductButton;
-    /**
-     * Method that handles remove product button in product page.
-     * Displays external window that has fields for removing a product.
-     */
-    @FXML
-    private void handleRemoveProductButtonClick() throws IOException {
-        RemoveProductApplication removeProductApp = new RemoveProductApplication();
-        Stage stage = new Stage();
-        removeProductApp.start(stage);
-    }
     /**
      * Method that populates table in product window.
      */
@@ -84,5 +59,57 @@ public class ProductController {
 
         // Populate the table with materials data
         displayTable.getItems().addAll(products);
+    }
+
+    /**
+     * Method that initializes table in supply window.
+     */
+    public void initialize() {
+        // Initialize table columns
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("inventoryLevel"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        rawMaterialColumn.setCellValueFactory(new PropertyValueFactory<>("rawMaterial"));
+    }
+
+    /**
+     * Method that handles menu button in product page.
+     * Redirects to MenuApplication.
+     */
+    @FXML
+    private void handleMenuButtonClick() throws IOException {
+        viewModel.showMenuWindow();
+    }
+
+    /**
+     * Method that handles add product button in product page.
+     * Displays external window that has fields for adding a product.
+     */
+    @FXML
+    private void handleAddProductButtonClick() throws IOException {
+        AddProductApplication addProductApp = new AddProductApplication();
+        Stage stage = new Stage();
+        addProductApp.start(stage);
+    }
+
+    /**
+     * Method that handles remove product button in product page.
+     * Displays external window that has fields for removing a product.
+     */
+    @FXML
+    private void handleRemoveProductButtonClick() throws IOException {
+        RemoveProductApplication removeProductApp = new RemoveProductApplication();
+        Stage stage = new Stage();
+        removeProductApp.start(stage);
+    }
+
+    /**
+     * Method that handles view all button in products page.
+     * Displays table in GUI.
+     */
+    @FXML
+    private void handleViewAllButtonClick() throws IOException {
+        populateProductsTable();
     }
 }

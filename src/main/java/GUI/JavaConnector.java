@@ -344,14 +344,14 @@ public class JavaConnector {
 
             //Process the result set
             while (resultSet.next()) {
-                int inventoryLevel = resultSet.getInt("inventoryLevel");
+                int quantity = resultSet.getInt("inventoryLevel");
                 int productID = resultSet.getInt("productID");
                 String productName = resultSet.getString("productName");
                 double price = resultSet.getDouble("price");
                 String rawMaterial = resultSet.getString("rawMaterial");
 
                 //Create a Material object and add it to the list
-                Product product = new Product(productID, productName, price, rawMaterial, inventoryLevel);
+                Product product = new Product(productID, productName, price, rawMaterial, quantity);
                 products.add(product);
             }
 

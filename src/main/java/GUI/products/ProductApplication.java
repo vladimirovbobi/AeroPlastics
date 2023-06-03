@@ -1,8 +1,6 @@
 package GUI.products;
 
 import GUI.ViewModel;
-import GUI.menu.MenuController;
-import GUI.orders.OrdersApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
