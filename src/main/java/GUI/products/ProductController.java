@@ -2,19 +2,17 @@ package GUI.products;
 
 import GUI.JavaConnector;
 import GUI.ViewModel;
-import GUI.orders.addOrder.AddOrderApplication;
 import GUI.products.addProduct.AddProductApplication;
 import GUI.products.removeProduct.RemoveProductApplication;
-import GUI.supplies.Material;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
+import static GUI.JavaConnector.searchProductByNameOrID;
 
 /**
  * The type Product controller.
@@ -41,6 +39,10 @@ public class ProductController {
     private Button removeProductButton;
     @FXML
     private Button viewAllButton;
+    @FXML
+    private Button singleViewButton;
+    @FXML
+    private TextField productTextField;
 
     private ViewModel viewModel;
     public void setViewModel(ViewModel viewModel){
@@ -111,5 +113,42 @@ public class ProductController {
     @FXML
     private void handleViewAllButtonClick() throws IOException {
         populateProductsTable();
+    }
+
+    /**
+     * Method that handles single view button in products page.
+     * Displays table in GUI with product search.
+     */
+    @FXML
+    private void handleSingleViewButtonClick() throws IOException {
+        String searchTerm = productTextField.getText().trim(); // Get the search term from the textField
+
+        if (!searchTerm.isEmpty()) {
+            // Check if the search term is a valid integer
+            int productID = 0;
+            try {
+                productID = Integer.parseInt(searchTerm);
+            } catch (NumberFormatException e) {
+                // Ignore the exception if the search term is not a valid integer
+            }
+
+            // Retrieve the product based on the search term (name or ID)
+            Product product = searchProductByNameOrID(searchTerm, productID);
+
+            // Clear existing data from the table
+            displayTable.getItems().clear();
+
+            if (product != null) {
+                // Add the product to the table
+                displayTable.getItems().add(product);
+            } else {
+                // Show a dialog if the product is not found
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Product Not Found");
+                alert.setHeaderText(null);
+                alert.setContentText("The product was not found.");
+                alert.showAndWait();
+            }
+        }
     }
 }

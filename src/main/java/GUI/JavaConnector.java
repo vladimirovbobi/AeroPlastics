@@ -366,4 +366,50 @@ public class JavaConnector {
         return products;
     }
 
+    public static Product searchProductByNameOrID(String name, int id) {
+        Product product = null;
+
+        try {
+            // Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Prepare the SQL query based on whether the search term is a name or ID
+            String sqlQuery;
+            PreparedStatement statement;
+            if (id != 0) {
+                sqlQuery = "SELECT productID, productName, price, rawMaterial, inventoryLevel FROM products " +
+                        "WHERE productID = ?";
+                statement = connection.prepareStatement(sqlQuery);
+                statement.setInt(1, id);
+            } else {
+                sqlQuery = "SELECT productID, productName, price, rawMaterial, inventoryLevel FROM products " +
+                        "WHERE productName = ?";
+                statement = connection.prepareStatement(sqlQuery);
+                statement.setString(1, name);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // Process the result set
+            if (resultSet.next()) {
+                int inventoryLevel = resultSet.getInt("inventoryLevel");
+                int productID = resultSet.getInt("productID");
+                String productName = resultSet.getString("productName");
+                double price = resultSet.getDouble("price");
+                String rawMaterial = resultSet.getString("rawMaterial");
+
+                // Create a Product object
+                product = new Product(productID, productName, price, rawMaterial, inventoryLevel);
+            }
+
+            // Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return product;
+    }
 }
