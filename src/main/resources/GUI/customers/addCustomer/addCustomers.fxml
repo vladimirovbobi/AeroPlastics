@@ -8,10 +8,10 @@
       <Label layoutX="14.0" layoutY="29.0" text="First Name: " />
       <TextField fx:id="firstNameTextField" layoutX="79.0" layoutY="25.0" />
       <TextField fx:id="lastNameTextField" layoutX="79.0" layoutY="76.0" />
-      <Button fx:id="addButton" layoutX="154.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Add" />
+      <Button fx:id="addButton" layoutX="154.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleAddButtonClick" prefHeight="25.0" prefWidth="89.0" text="Add" />
       <Label layoutX="17.0" layoutY="80.0" text="Last Name: " />
       <Label layoutX="20.0" layoutY="129.0" text="Affiliation: " />
       <TextField fx:id="affiliationTextField" layoutX="79.0" layoutY="125.0" />
-      <Button fx:id="cancelButton" layoutX="14.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="14.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleCancelButtonClick" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
    </children>
 </AnchorPane>

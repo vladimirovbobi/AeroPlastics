@@ -34,6 +34,10 @@ public class CustomerController {
     private TableColumn<Customer, String> lastNameColumn;
     @FXML
     private TableColumn<Customer, String> affiliationColumn;
+    @FXML
+    private TableColumn<Customer, Integer> customerIDColumn;
+
+
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
@@ -81,13 +85,21 @@ public class CustomerController {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         affiliationColumn.setCellValueFactory(new PropertyValueFactory<>("affiliation"));
+        customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
+    /**
+     * Handles the View All button click event.
+     * Populates the customers table with data.
+     */
     @FXML
     private void handleViewAllButtonClick() {
         populateCustomersTable();
     }
 
+    /**
+     * Populates the customers table with data retrieved from the database.
+     */
     public void populateCustomersTable() {
         // Retrieve customer data from the database
         List<Customer> customers = JavaConnector.getAllCustomers();
@@ -98,6 +110,5 @@ public class CustomerController {
         // Populate the table with customer data
         displayTable.getItems().addAll(customers);
     }
-
 }
 

@@ -5,9 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import GUI.ViewModel;
 import GUI.JavaConnector;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
 
 /**
  * The type Add customer controller.
@@ -31,17 +34,47 @@ public class AddCustomerController {
         this.viewModel = viewModel;
     }
 
-    @FXML
-    private void initialize() {
-        addButton.setOnAction(event -> handleAddButtonClick());
-        cancelButton.setOnAction(event -> handleCancelButtonClick());
+    /**
+     * Displays an error dialog box with message.
+     *
+     * @param text The error message to display.
+     */
+    private void errorBox(String text) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
     }
 
+    /**
+     * Displays a success dialog box with message.
+     *
+     * @param text The success message to display.
+     */
+    private void successBox(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
+    /**
+     * Handles the button click event for adding a new customer.
+     *
+     * @throws IOException If an I/O exception occurs.
+     */
     @FXML
     private void handleAddButtonClick() {
         String firstName = firstNameTextField.getText();
         String lastName = lastNameTextField.getText();
         String affiliation = affiliationTextField.getText();
+
+        if (firstName.isEmpty() || lastName.isEmpty() || affiliation.isEmpty()) {
+            String errorMessage = "Please fill in all the fields.";
+            errorBox(errorMessage);
+            return;
+        }
 
         int customerId = Customer.getLastCustomerId() + 1;
 
@@ -67,8 +100,9 @@ public class AddCustomerController {
         // Close the Add Customer window
         cancelButton.getScene().getWindow().hide();
     }
-
-
+    /**
+     * Handles the button click event for canceling operation.
+     */
     @FXML
     private void handleCancelButtonClick() {
         cancelButton.getScene().getWindow().hide();
