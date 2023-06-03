@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.Alert;
+/**
+ * Remove Customer functionality in the GUI.
+ */
 public class RemoveCustomerController {
     @FXML
     private TextField firstNameTextField;
@@ -25,16 +28,20 @@ public class RemoveCustomerController {
 
     public ViewModel viewModel;
 
+    /**
+     * Sets the ViewModel instance for the controller.
+     *
+     * @param viewModel the ViewModel instance
+     */
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
-    @FXML
-    private void initialize() {
-        removeButton.setOnAction(event -> handleRemoveButtonClick());
-        cancelButton.setOnAction(event -> handleCancelButtonClick());
-    }
-
+    /**
+     * Displays an error given message.
+     *
+     * @param text the error message
+     */
     private void errorBox(String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -42,6 +49,11 @@ public class RemoveCustomerController {
         alert.setContentText(text);
         alert.showAndWait();
     }
+    /**
+     * Displays a success given message.
+     *
+     * @param text the success message
+     */
 
     private void successBox(String text) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -51,6 +63,9 @@ public class RemoveCustomerController {
         alert.showAndWait();
     }
 
+    /**
+     * Handles the button click event for removing a customer.
+     */
     @FXML
     private void handleRemoveButtonClick() {
         String firstName = firstNameTextField.getText();
