@@ -2,6 +2,7 @@ package GUI.orders;
 
 import GUI.JavaConnector;
 import GUI.ViewModel;
+import GUI.orders.Order;
 import GUI.customers.Customer;
 import GUI.customers.removeCustomer.RemoveCustomerApplication;
 import GUI.orders.addOrder.AddOrderApplication;

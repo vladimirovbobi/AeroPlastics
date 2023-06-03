@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.customers.Customer;
 import GUI.products.Product;
+import GUI.orders.Order;
 import GUI.products.ProductApplication;
 import GUI.supplies.Material;
 import GUI.supplies.Vendor;
@@ -439,4 +440,38 @@ public class JavaConnector {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Connection to order table to display on order window.
+     * @return order table display on order window.
+     */
+    public static List<Order> getAllOrders() {
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String query = "SELECT * FROM orders";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                int orderID = resultSet.getInt("orderID");
+                String address = resultSet.getString("address");
+                boolean isShipped = resultSet.getBoolean("isShipped");
+                int customerID = resultSet.getInt("customerID");
+
+                Order order = new Order(orderID, address, isShipped, customerID);
+                orders.add(order);
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
+    }
+
 }
