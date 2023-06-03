@@ -151,4 +151,62 @@ public class ProductController {
             }
         }
     }
+
+    @FXML
+    private void handleProductionRequestButtonCLick() throws IOException {
+        String searchQuery = productTextField.getText(); // Assuming productTextField is the TextField where you enter the name or ID
+
+        // Determine if the search query is a name or ID
+        int productID = 0;
+        String productName = null;
+        try {
+            productID = Integer.parseInt(searchQuery);
+        } catch (NumberFormatException e) {
+            productName = searchQuery;
+        }
+
+        // Retrieve the product based on the search query (name or ID)
+        Product product = searchProductByNameOrID(productName, productID);
+
+        if (product != null) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Production Request");
+            dialog.setHeaderText("Enter the quantity to increase:");
+            dialog.setContentText("Quantity:");
+
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(quantityStr -> {
+                try {
+                    int quantity = Integer.parseInt(quantityStr);
+
+                    // Update the product quantity by adding the entered quantity to the existing quantity
+                    int newQuantity = product.getInventoryLevel() + quantity;
+
+                    // Call the setInventoryLevel method from the JavaConnector class
+                    JavaConnector.setInventoryLevel(product.getProductID(), newQuantity);
+
+                    // Show a confirmation dialog
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Quantity Increased");
+                    alert.setHeaderText(null);
+                    alert.setContentText("The quantity has been increased successfully.");
+                    alert.showAndWait();
+                } catch (NumberFormatException e) {
+                    // Show an error dialog if the quantity is not a valid number
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid Quantity");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid quantity.");
+                    alert.showAndWait();
+                }
+            });
+        } else {
+            // Show a dialog if the product is not found
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Product Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("The product was not found.");
+            alert.showAndWait();
+        }
+    }
 }

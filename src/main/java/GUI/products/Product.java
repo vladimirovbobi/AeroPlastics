@@ -35,4 +35,8 @@ public class Product{
     public String getRawMaterial() {
         return rawMaterial;
     }
+
+    public void setInventoryLevel(int inventoryLevel) {
+        this.inventoryLevel = inventoryLevel;
+    }
 }

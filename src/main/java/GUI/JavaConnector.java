@@ -412,4 +412,31 @@ public class JavaConnector {
 
         return product;
     }
+
+    public static void setInventoryLevel(int productID, int newInventoryLevel) {
+        try {
+            // Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Prepare the SQL query
+            String query = "UPDATE products SET inventoryLevel = ? WHERE productID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, newInventoryLevel);
+            statement.setInt(2, productID);
+
+            // Execute the update
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Inventory level updated successfully.");
+            } else {
+                System.out.println("Failed to update inventory level.");
+            }
+
+            // Close the database connection and resources
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
