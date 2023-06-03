@@ -21,6 +21,7 @@ public class OrdersApplication extends Application {
         OrdersController controller = loader.getController();
         ViewModel viewModel = new ViewModel();
         controller.setViewModel(viewModel);
+        controller.populateOrdersTable();
 
         Scene scene = new Scene(root);
         ordersStage.setScene(scene);

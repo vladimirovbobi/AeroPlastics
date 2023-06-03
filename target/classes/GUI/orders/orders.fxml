@@ -13,13 +13,12 @@
          <bottom>
             <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #a5d5a1;" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="386.0">
+                  <TableView fx:id="displayTable" layoutX="14.0" layoutY="16.0" prefHeight="569.0" prefWidth="380.0">
                      <columns>
-                        <TableColumn fx:id="orderIDColumn" prefWidth="50.0" text="orderID" />
-                        <TableColumn fx:id="cartIDColumn" prefWidth="51.0" text="cartID" />
-                        <TableColumn fx:id="addressColumn" prefWidth="151.0" text="Address" />
-                        <TableColumn fx:id="isShippedColumn" prefWidth="60.0" text="isShipped" />
-                        <TableColumn fx:id="customerIDColumn" prefWidth="73.0" text="customerID" />
+                        <TableColumn fx:id="orderIDColumn" prefWidth="63.0" text="orderID" />
+                        <TableColumn fx:id="addressColumn" prefWidth="178.0" text="Address" />
+                        <TableColumn fx:id="isShippedColumn" prefWidth="61.0" text="isShipped" />
+                        <TableColumn fx:id="customerIDColumn" prefWidth="83.0" text="customerID" />
                      </columns>
                      <effect>
                         <DropShadow height="19.0" radius="8.75" width="18.0">
@@ -98,7 +97,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="menuButton" layoutX="370.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
+                  <Button fx:id="menuButton" layoutX="404.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Menu" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
@@ -123,7 +122,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="viewAllButton" layoutX="529.0" layoutY="429.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Orders" textFill="WHITE">
+                  <Button fx:id="viewAllButton" layoutX="529.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewAllButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View All Orders" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>

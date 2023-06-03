@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import javafx.scene.control.Alert;
 public class RemoveCustomerController {
     @FXML
     private TextField firstNameTextField;
@@ -34,25 +35,76 @@ public class RemoveCustomerController {
         cancelButton.setOnAction(event -> handleCancelButtonClick());
     }
 
+    private void errorBox(String text) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
+
+    private void successBox(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
+
     @FXML
     private void handleRemoveButtonClick() {
         String firstName = firstNameTextField.getText();
         String lastName = lastNameTextField.getText();
-        int customerId = Integer.parseInt(customerIdTextField.getText());
+        String customerId = customerIdTextField.getText();
 
-        // Find the customer to remove
-        Customer customerToRemove = findCustomer(firstName, lastName, customerId);
-
-        if (customerToRemove != null) {
-            // Remove the customer from the database
-            removeCustomer(customerToRemove);
-            System.out.println("Customer removed successfully!");
-        } else {
-            System.out.println("Customer not found.");
+        if (firstName.isEmpty() || lastName.isEmpty() || customerId.isEmpty()) {
+            String errorMessage = "Please enter the information";
+            errorBox(errorMessage);
+            return;
         }
-        cancelButton.getScene().getWindow().hide();
+
+        try {
+            // Establish a connection to the database
+            JavaConnector connection = new JavaConnector();
+            Connection con = connection.getConnection();
+
+            // Prepare the SQL statement
+            String query;
+            PreparedStatement statement;
+
+            if (!customerId.isEmpty()) {
+                query = "DELETE FROM customer WHERE customerID = ?";
+                statement = con.prepareStatement(query);
+                statement.setInt(1, Integer.parseInt(customerId));
+            } else {
+                query = "DELETE FROM customer WHERE firstName = ? AND lastName = ?";
+                statement = con.prepareStatement(query);
+                statement.setString(1, firstName);
+                statement.setString(2, lastName);
+            }
+
+            // Execute the SQL statement
+            int rowsAffected = statement.executeUpdate();
+
+            // Close the database connection and resources
+            statement.close();
+            con.close();
+
+            if (rowsAffected > 0) {
+                String successMessage = "Customer Removed Successfully.";
+                successBox(successMessage);
+            } else {
+                String errorMessage = "Customer not found.";
+                errorBox(errorMessage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Handles the button click event for canceling operation.
+     */
     @FXML
     private void handleCancelButtonClick() {
         cancelButton.getScene().getWindow().hide();
@@ -70,18 +122,5 @@ public class RemoveCustomerController {
         }
         // Customer not found
         return null;
-    }
-
-    private void removeCustomer(Customer customer) {
-        try {
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            String query = "DELETE FROM customer WHERE customerID = ?";
-            PreparedStatement statement = con.prepareStatement(query);
-            statement.setInt(1, customer.getCustomerID());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
