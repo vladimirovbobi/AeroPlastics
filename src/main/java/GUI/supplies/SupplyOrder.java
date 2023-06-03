@@ -1,14 +1,11 @@
 package GUI.supplies;
 
-import GUI.Date;
 import GUI.JavaConnector;
 import GUI.supplies.resupply.Cart;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class SupplyOrder{
@@ -23,11 +20,26 @@ public class SupplyOrder{
     public SupplyOrder (){
 
     }
+
+    /**
+     * Contructor
+     * @param orderPlaced
+     * @param arrivalDate
+     * @param vendor
+     */
     public SupplyOrder(String orderPlaced, String arrivalDate,Vendor vendor){
         this.vendor = vendor;
         this.orderDate = orderPlaced;
         this.arrivalDate = arrivalDate;
     }
+
+    /**
+     * Contructor
+     * @param orderPlaced
+     * @param arrivalDate
+     * @param materials
+     * @param vendor
+     */
     public SupplyOrder(String orderPlaced, String arrivalDate, ArrayList<Material> materials, Vendor vendor){
 
 
@@ -37,10 +49,12 @@ public class SupplyOrder{
         this.orderDate = orderPlaced;
         supplyOrderID = getLastOrderId() +1;
     }
-    public void createAnInvoice(){
 
-    }
-    public int getLastOrderId(){
+    /**
+     * Goes through the supply orders in the table and returns the biggest ID
+     * @return biggest ID
+     */
+    public static int getLastOrderId(){
         int max =0;
         try {
             JavaConnector javaConnector = new JavaConnector();
@@ -66,6 +80,12 @@ public class SupplyOrder{
 
         return max;
     }
+
+    /**
+     * Unused, can be integrated into automatic ordering in the future
+     * @param material
+     * @return
+     */
     public int getVendorIDwithLowestPrice(String material){
         double minPrice = 0;
         int vendorID = 0;
@@ -94,33 +114,12 @@ public class SupplyOrder{
         return vendorID;
 
     }
-    public double getMaterialPrice(String material) {
-        double minPrice = 0;
 
-        material.toUpperCase();
-        try {
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            String query = "Select price from vendor where rawMaterial =' " + material + "';";
-            PreparedStatement statement = con.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-
-            int vendorID;
-            if (result.next()) {
-                if (minPrice > result.getDouble("price")) {
-                    minPrice = result.getDouble("price");
-                    vendorID = result.getInt("vendorID");
-                    System.out.println(result.getDouble("price"));
-                }
-            }
-
-        } catch (NumberFormatException numF1) {
-
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return minPrice;
-    }
+    /**
+     * Creates order in the supply order table (every product is recorded), also the total is added to the table
+     * Resets and deletes the cart
+     * @throws SQLException
+     */
     public static void submitOrder() throws SQLException {
         Cart cart = Cart.getInstance();
         JavaConnector connector = new JavaConnector();
@@ -175,28 +174,6 @@ public class SupplyOrder{
         statement.executeUpdate();
 
         connection.close();
-    }
-
-
-    public int getVendorID() {
-        return vendor.getVendorID();
-    }
-
-
-    public String getCompanyName() {
-        return vendor.getCompanyName();
-    }
-
-    public ArrayList<Material> getMaterials() {
-        return materials;
-    }
-
-    public String getArrivalDate() {
-        return arrivalDate.toString();
-    }
-
-    public String getOrderDate() {
-        return orderDate.toString();
     }
 
 

@@ -2,10 +2,8 @@ package GUI;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.StringTokenizer;
-import java.util.Timer;
+
 
 /**
  * The type Date.
@@ -50,6 +48,12 @@ public class Date {
         LocalDateTime now = LocalDateTime.now();
         return (dtf.format(now));
     }
+
+    /**
+     * Change the date, used for expected delivery date
+     * @param days number of days needed for delivery
+     * @return
+     */
     public static String changeTodaysDateByDays(int days){
         String todaysDate = todaysDate();
         StringBuilder stringBuilder = new StringBuilder(todaysDate);

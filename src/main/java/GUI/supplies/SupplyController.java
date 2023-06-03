@@ -121,11 +121,19 @@ public class SupplyController {
         displayTable.getItems().addAll(materials);
     }
 
-
+    /**
+     * Log Out Button
+     * @param actionEvent
+     */
     public void logOutButtonClicked(ActionEvent actionEvent) {
 
 
     }
+
+    /**
+     * Search for a Material in the inventory by name
+     * @param actionEvent
+     */
 
     public void handleSingleViewButtonClicked(ActionEvent actionEvent) {
         String name = materialTextField.getText();

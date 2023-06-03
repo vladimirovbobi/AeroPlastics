@@ -3,8 +3,10 @@ package GUI.supplies.resupply;
 import GUI.Date;
 import GUI.JavaConnector;
 import GUI.supplies.Material;
+import GUI.supplies.SupplyController;
+import GUI.supplies.SupplyOrder;
 import GUI.supplies.Vendor;
-import javafx.scene.shape.DrawMode;
+
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,50 +18,50 @@ public class Cart {
     private static double amount;
     private String orderDate,arrivalDate;
     private int cartID;
-    public int numberOfItems =1 ;
+
+
+    /**
+     * Private constructor
+     */
     private Cart(){
         cartID = getLastCartId() + 1;
         this.amount = 0.0;
         orderDate = Date.todaysDate();
         arrivalDate = Date.changeTodaysDateByDays(5);
     }
+
+    /**
+     * Using the Singleton Pattern, it creates an instance only once and retrieves the same object every time
+     * @return cart
+     */
     public static Cart getInstance(){
         if(cart == null) {
             cart =  new Cart();
         }
         return cart;
     }
+
+    /**
+     * Set default values
+     */
     public void resetCart(){
         cartID = 1;
         this.amount = 0.0;
         orderDate = Date.todaysDate();
         arrivalDate = Date.changeTodaysDateByDays(5);
     }
-//this method takes Material or getMaterial from the ProductToMaterialAdapter
+
+    /**
+     * Goes through the supply orders in the table and returns the biggest ID
+     * @return biggest ID
+     */
     public int getLastCartId(){
-        int max =0;
-        try {
-            JavaConnector javaConnector = new JavaConnector();
-            Connection con = javaConnector.getConnection();
-            String query = "Select supplyOrderID from supplyorder";
-            PreparedStatement statement = con.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-
-
-            while (result.next()) {
-                if(result.getInt("supplyOrderID")> max){
-                    max = result.getInt("supplyOrderID");
-                }
-            }
-
-        } catch (NumberFormatException numF1) {
-
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-
-        return max;
+        return SupplyOrder.getLastOrderId();
     }
+
+    /**
+     * Removes everything from the cart and resets the variables in the instance
+     */
     public void deleteCart(){
         try {
             JavaConnector javaConnector = new JavaConnector();
@@ -76,6 +78,12 @@ public class Cart {
         }
     }
 
+    /**
+     * Adds new items to table "cart" , by finding the price from a vendor by their ID
+     * @param vendorID
+     * @param materialName
+     * @param quantity
+     */
     public void addToCart(int vendorID, String materialName,int quantity){
         try {
             materialName.toUpperCase();
@@ -99,18 +107,36 @@ public class Cart {
             e1.printStackTrace();
         }
     }
+
+    /**
+     * Adds to the current total
+     * @param money
+     */
     public void addToAmount(double money){
         amount += money;
     }
+
+    /**
+     * Retrieves the current total
+     * @return
+     */
 
     public double getAmount() {
         return amount;
     }
 
+    /**
+     * Sets the current total
+     * @param money
+     */
     public static void setAmount(double money) {
         amount = money;
     }
 
+    /**
+     * Gets the prices and quantities for all the items in the cart, and multiplies them to update the total for the current cart
+     * @throws SQLException
+     */
     public static void updateAmount() throws SQLException {
         JavaConnector javaConnector = new JavaConnector();
         Connection con = javaConnector.getConnection();
@@ -135,6 +161,10 @@ public class Cart {
         Cart.setAmount(total);
     }
 
+    /**
+     * Retrieves cartID
+     * @return cartID
+     */
     public int getCartID() {
         return cartID;
     }

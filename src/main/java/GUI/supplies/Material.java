@@ -14,6 +14,15 @@ public class Material {
     int moldTemperature;
     int plasticDensity;
 
+    /**
+     * Constructor
+     * @param inventoryLevel
+     * @param materialID
+     * @param materialName
+     * @param moldTemperature
+     * @param plasticDensity
+     */
+
     public Material(int inventoryLevel, int materialID, String materialName, int moldTemperature, int plasticDensity){
         this.materialID = materialID;
         this.materialName = materialName;
@@ -21,12 +30,25 @@ public class Material {
         this.plasticDensity = plasticDensity;
         this.inventoryLevel = inventoryLevel;
     }
+
+    /**
+     * Constructor
+     * @param materialID
+     * @param materialName
+     * @param inventoryLevel
+     */
     public Material (int materialID, String materialName, int inventoryLevel){
         this.materialName = materialName;
         this.materialID = materialID;
         this.inventoryLevel = inventoryLevel;
 
     }
+
+    /**
+     * Retrieves the material's ID stored in the database
+     * @param name
+     * @return material
+     */
     public static int getIDForMaterialName(String name){
            int i = 0 ;
             try {
