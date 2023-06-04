@@ -124,18 +124,18 @@ public class SupplyOrder{
         Cart cart = Cart.getInstance();
         JavaConnector connector = new JavaConnector();
         Connection connection = connector.getConnection();
-        String query = "Select * from cart;";
+        String query = "SELECT * FROM cart;";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
-        ArrayList<String> rawMaterials  = new ArrayList<>();
+        ArrayList<String> rawMaterials = new ArrayList<>();
         ArrayList<String> orderDate = new ArrayList<>();
         ArrayList<String> arrivalDate = new ArrayList<>();
         ArrayList<Integer> vendorID = new ArrayList<>();
         ArrayList<Integer> quantities = new ArrayList<>();
-        ArrayList<Double>  price = new ArrayList<>();
+        ArrayList<Double> price = new ArrayList<>();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             rawMaterials.add(resultSet.getString("rawMaterial"));
             orderDate.add(resultSet.getString("orderDate"));
             arrivalDate.add(resultSet.getString("arrivalDate"));
@@ -143,11 +143,12 @@ public class SupplyOrder{
             quantities.add(resultSet.getInt("productQuantity"));
             price.add(resultSet.getDouble("price"));
         }
-        //add total for every cart
+
+        // Add total for every cart
         rawMaterials.add("Total");
         double total = 0.0;
         int quantity = 0;
-        for(int i = 0 ; i < quantities.size(); i++){
+        for (int i = 0; i < quantities.size(); i++) {
             quantity += quantities.get(i);
             total += quantities.get(i) * price.get(i);
         }
@@ -157,24 +158,30 @@ public class SupplyOrder{
         total = bd.doubleValue();
         price.add(total);
 
-
-        for(int i = 0 ; i < quantities.size(); i++) {
-
-            query = "Insert into supplyOrder (supplyOrderID, vendorID, rawMaterial,price,quantity, orderPlaced,arrivalDate) values ("
-                    + cart.getCartID() + "," + vendorID.get(i) +",'"+rawMaterials.get(i)+"',"+ price.get(i)+"," + quantities.get(i) + ",'"
-                    + orderDate.get(i) + "','" + arrivalDate.get(i)+ "');";
+        // Update vendor table with the new productQuantity
+        for (int i = 0; i < quantities.size(); i++) {
+            query = "INSERT INTO supplyOrder (supplyOrderID, vendorID, rawMaterial, price, quantity, orderPlaced, arrivalDate) VALUES ("
+                    + cart.getCartID() + "," + vendorID.get(i) + ",'" + rawMaterials.get(i) + "'," + price.get(i) + "," + quantities.get(i) + ",'"
+                    + orderDate.get(i) + "','" + arrivalDate.get(i) + "');";
             statement = connection.prepareStatement(query);
             statement.executeUpdate();
-        }
-        query = "Insert into supplyOrder(supplyOrderID, rawMaterial, price, quantity) values("+ cart.getCartID() +",'"+ rawMaterials.get(rawMaterials.size()-1)
-                +"'," +price.get(rawMaterials.size()-1)+", " + quantity +");";
 
+            // Subtract productQuantity from vendor table
+            String updateQuery = "UPDATE vendor SET productQuantity = productQuantity - ? WHERE vendorID = ? AND rawMaterial = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setInt(1, quantities.get(i));
+            updateStatement.setInt(2, vendorID.get(i));
+            updateStatement.setString(3, rawMaterials.get(i));
+            updateStatement.executeUpdate();
+        }
+
+        // Insert a new entry in the supplyOrder table with the total quantity
+        query = "INSERT INTO supplyOrder (supplyOrderID, rawMaterial, price, quantity) VALUES(" + cart.getCartID() + ",'"
+                + rawMaterials.get(rawMaterials.size() - 1) + "'," + price.get(rawMaterials.size() - 1) + ", " + quantity + ");";
         cart.deleteCart();
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
 
         connection.close();
     }
-
-
 }
