@@ -98,13 +98,22 @@ public class RemoveSupplyController {
                 updateStatement.setInt(1, quantity * rowsAffected);  // Adding the quantity from each deleted supply order entry
                 updateStatement.setString(2, materialName);
 
-                // Execute the UPDATE query
+                // Execute the UPDATE query for vendor table
                 updateStatement.executeUpdate();
+
+                // Prepare the UPDATE query for materials table
+                String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel - ? WHERE materialName = ?";
+                PreparedStatement updateMaterialsStatement = connection.prepareStatement(updateMaterialsQuery);
+                updateMaterialsStatement.setInt(1, quantity * rowsAffected); // Subtracting the quantity from each deleted supply order entry
+                updateMaterialsStatement.setString(2, materialName);
+
+                // Execute the UPDATE query for materials table
+                updateMaterialsStatement.executeUpdate();
 
                 // Commit the transaction
                 connection.commit();
 
-                successBox("Supply order removed successfully and quantity updated in vendor table.");
+                successBox("Supply order removed successfully, quantity updated in vendor table, and inventory level updated in materials table.");
             } else {
                 errorBox("Failed to remove the supply order. Please check the entered values.");
             }
