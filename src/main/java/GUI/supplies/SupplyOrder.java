@@ -158,21 +158,29 @@ public class SupplyOrder{
         total = bd.doubleValue();
         price.add(total);
 
-        // Update vendor table with the new productQuantity
+        // Update vendor table with the new productQuantity and materials table with inventoryLevel
         for (int i = 0; i < quantities.size(); i++) {
+            // Subtract productQuantity from vendor table
+            String updateVendorQuery = "UPDATE vendor SET productQuantity = productQuantity - ? WHERE vendorID = ? AND rawMaterial = ?";
+            PreparedStatement updateVendorStatement = connection.prepareStatement(updateVendorQuery);
+            updateVendorStatement.setInt(1, quantities.get(i));
+            updateVendorStatement.setInt(2, vendorID.get(i));
+            updateVendorStatement.setString(3, rawMaterials.get(i));
+            updateVendorStatement.executeUpdate();
+
+            // Add productQuantity to materials table
+            String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel + ? WHERE materialName = ?";
+            PreparedStatement updateMaterialsStatement = connection.prepareStatement(updateMaterialsQuery);
+            updateMaterialsStatement.setInt(1, quantities.get(i));
+            updateMaterialsStatement.setString(2, rawMaterials.get(i));
+            updateMaterialsStatement.executeUpdate();
+
+            // Insert into supplyOrder table
             query = "INSERT INTO supplyOrder (supplyOrderID, vendorID, rawMaterial, price, quantity, orderPlaced, arrivalDate) VALUES ("
                     + cart.getCartID() + "," + vendorID.get(i) + ",'" + rawMaterials.get(i) + "'," + price.get(i) + "," + quantities.get(i) + ",'"
                     + orderDate.get(i) + "','" + arrivalDate.get(i) + "');";
             statement = connection.prepareStatement(query);
             statement.executeUpdate();
-
-            // Subtract productQuantity from vendor table
-            String updateQuery = "UPDATE vendor SET productQuantity = productQuantity - ? WHERE vendorID = ? AND rawMaterial = ?";
-            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-            updateStatement.setInt(1, quantities.get(i));
-            updateStatement.setInt(2, vendorID.get(i));
-            updateStatement.setString(3, rawMaterials.get(i));
-            updateStatement.executeUpdate();
         }
 
         // Insert a new entry in the supplyOrder table with the total quantity
