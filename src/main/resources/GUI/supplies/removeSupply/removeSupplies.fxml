@@ -12,10 +12,13 @@
          <font>
             <Font size="10.0" />
          </font></Label>
-      <TextField fx:id="orderIdTextField" layoutX="87.0" layoutY="25.0" />
-      <TextField fx:id="materialIdTextField" layoutX="87.0" layoutY="76.0" />
-      <Button fx:id="removeButton" layoutX="147.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Remove" onAction="#removeSupplyOrderButtonClicked"/>
-      <Label layoutX="19.0" layoutY="80.0" text="Material ID: " />
-      <Button fx:id="cancelButton" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancel" onAction="#cancelSupplyOrderButtonClicked" />
+      <TextField fx:id="supplyOrderIdTextField" layoutX="87.0" layoutY="25.0" />
+      <TextField fx:id="materialNameTextField" layoutX="87.0" layoutY="76.0" />
+      <Button fx:id="removeButton" layoutX="147.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleRemoveButtonClick" prefHeight="25.0" prefWidth="89.0" text="Remove" />
+      <Label layoutX="15.0" layoutY="81.0" text="Material Name: ">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+      <Button fx:id="cancelButton" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" onAction="#cancelSupplyOrderButtonClicked" onContextMenuRequested="#handleCancelButtonClick" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
    </children>
 </AnchorPane>

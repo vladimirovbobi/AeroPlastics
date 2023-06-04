@@ -68,7 +68,6 @@ public class ResupplyPopController {
                 }else{
                     materialNameTextField.setText("Unavailable");
                 }
-
     }
 
     public void cancelButtonPressed(ActionEvent actionEvent) {

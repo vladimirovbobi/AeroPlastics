@@ -43,7 +43,7 @@ public class RemoveProductController {
         String productID = idTextField.getText();
         String productName = productNameTextField.getText();
 
-        if (productID.isEmpty() && productName.isEmpty()) {
+        if (productID.isEmpty() || productName.isEmpty()) {
             String errorMessage = "Please enter the product ID or product name.";
             errorBox(errorMessage);
             return;
