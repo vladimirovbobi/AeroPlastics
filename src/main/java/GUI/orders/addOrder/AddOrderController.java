@@ -1,4 +1,7 @@
 package GUI.orders.addOrder;
+import GUI.Date;
+import GUI.products.Product;
+import GUI.supplies.Material;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -26,7 +29,7 @@ public class AddOrderController {
     @FXML
     private TextField addressTextField;
     @FXML
-    private CheckBox shippedCheckBox;
+    private TextField quantityTextField ;
     @FXML
     private Button addButton;
     @FXML
@@ -68,7 +71,8 @@ public class AddOrderController {
         String customerId = customerIdTextField.getText();
         String productId = productIdTextField.getText();
         String address = addressTextField.getText();
-        boolean isShipped = shippedCheckBox.isSelected();
+        String quantity = quantityTextField.getText();
+
 
         if (customerId.isEmpty() || productId.isEmpty() || address.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
@@ -77,8 +81,6 @@ public class AddOrderController {
         }
 
         try {
-            // Create an Order object
-            Order order = new Order(getLastOrderID(), address, isShipped, Integer.parseInt(customerId),Integer.parseInt(productId));
 
             // Establish a connection to the database
             JavaConnector connection = new JavaConnector();
@@ -86,19 +88,36 @@ public class AddOrderController {
 
             // Prepare the SQL statement
             String query;
-            PreparedStatement statement;
+            PreparedStatement statement = null;
+            boolean success = false;
+            if(Product.productIsInStockAndShipped(Integer.parseInt(productId),Integer.parseInt(quantity))){
+                success = true;
+                successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
+            }else {
+                String material =  Product.getMaterialUsedForProduct(Integer.parseInt(productId));
+                if(Material.isInStockToProduce(material,Integer.parseInt(quantity))){
+                    success = true;
+                    successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
+                }else{
+                    errorBox("No sufficient material or products in inventory. By more "+ material+ " to fulfill the order!");
+                }
+            }
+            int rowsAffected = 0;
 
-            // Prepare the SQL statement
-            query = "INSERT INTO orders (orderID, address, isShipped, customerID,productID) VALUES (?, ?, ?, ?)";
-            statement = con.prepareStatement(query);
-            statement.setInt(1, getLastOrderID()+1);
-            statement.setString(2, address);
-            statement.setBoolean(3, isShipped);
-            statement.setInt(4, Integer.parseInt(customerId));
-            statement.setInt(5,Integer.parseInt(productId));
+                // Prepare the SQL statement
+                query = "INSERT INTO orders (orderID, address, isShipped, customerID,productID, quantity, arrivalDate,OrderDate) VALUES (?, ?, ?, ?,?,?,?,?)";
+                statement = con.prepareStatement(query);
+                statement.setInt(1, getLastOrderID() + 1);
+                statement.setString(2, address);
+                statement.setBoolean(3, success);
+                statement.setInt(4, Integer.parseInt(customerId));
+                statement.setInt(5, Integer.parseInt(productId));
+                statement.setInt(6, Integer.parseInt(quantity));
+                statement.setString(7,Date.changeTodaysDateByDays(5));
+                statement.setString(8, Date.todaysDate());
 
             // Execute the SQL statement
-            int rowsAffected = statement.executeUpdate();
+             rowsAffected = statement.executeUpdate();
 
             // Close the database connection and resources
             statement.close();
