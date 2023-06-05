@@ -22,6 +22,8 @@ public class OrdersController {
 
     private ViewModel viewModel;
     @FXML
+    private Button logoutButton;
+    @FXML
     private TextField orderTextField;
     @FXML
     private TableView<Order> displayTable;
@@ -125,10 +127,15 @@ public class OrdersController {
     }
 
     /**
-     * Handles the logout button click event.
-     *
-     * @param actionEvent The action event.
+     * Logout and return to the login window
+     * @param actionEvent the action event
+     * @throws IOException
      */
-    public void handleLogOutButtonClicked(ActionEvent actionEvent) {
+    public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        stage.close();
+
+        viewModel.showLoginWindow();
     }
+
 }

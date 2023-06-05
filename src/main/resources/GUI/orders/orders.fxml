@@ -78,7 +78,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="logoutButton" layoutX="774.0" layoutY="549.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
+                  <Button fx:id="logoutButton" layoutX="774.0" layoutY="549.0" mnemonicParsing="false" onAction="#handleLogOutButtonClicked" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #509854;" text="Logout" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
