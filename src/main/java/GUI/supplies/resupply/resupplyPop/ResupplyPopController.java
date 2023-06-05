@@ -1,23 +1,12 @@
 package GUI.supplies.resupply.resupplyPop;
 
-import GUI.Date;
-import GUI.JavaConnector;
-import GUI.supplies.Material;
 import GUI.supplies.SupplyOrder;
 import GUI.supplies.Vendor;
 import GUI.supplies.resupply.Cart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 /**
  * The type ResupplyPop controller.
@@ -37,10 +26,14 @@ public class ResupplyPopController {
 
     private Cart cart = Cart.getInstance();
 
+    /**
+     * Updates the current spending and updates the vendorID Text Field
+     * @throws SQLException MySQL
+     */
     public void setCurrentSpendingText() throws SQLException {
         String materialName = materialNameTextField.getText();
-        int vendorID = 0;
-        int quantity = 0;
+        int vendorID;
+        int quantity;
 
         try {
             vendorID = Integer.parseInt(vendorIdTextField.getText());
@@ -51,41 +44,66 @@ public class ResupplyPopController {
         }
         currentSpendingField.setText(Double.toString(Vendor.getPriceByVendorID(vendorID,materialName)*quantity));
     }
+
+    /**
+     * Updates the total amount and displays it in the Total Spending Field
+     * @throws SQLException
+     */
     public void setShoppingTotalText() throws SQLException {
         Cart.updateAmount();
         totalSpendingField.setText(Double.toString(cart.getAmount()));
     }
 
+    /**
+     * Add button is clicked
+     * @param actionEvent listens for a button click
+     * @throws SQLException
+     */
     public void addButtonPressed(ActionEvent actionEvent) throws SQLException {
-
+        try{
                 String materialName = materialNameTextField.getText();
                 int vendorID = Integer.parseInt(vendorIdTextField.getText());
                 int quantity = Integer.parseInt(quantityField.getText());
-                if(Vendor.checkAvailability(materialName)){
-                    cart.addToCart(vendorID,materialName,quantity);
-                    setShoppingTotalText();
-                    setCurrentSpendingText();
-                }else{
-                    materialNameTextField.setText("Unavailable");
-                }
+
+                    if (Vendor.checkAvailability(materialName)) {
+                        cart.addToCart(vendorID, materialName, quantity);
+                        setShoppingTotalText();
+                        setCurrentSpendingText();
+                    } else {
+                        materialNameTextField.setText("Unavailable");
+                    }
+        }catch(NumberFormatException exception){
+                return;
+        }
     }
 
+    /**
+     * Clear button is clicked
+     * @param actionEvent listens for a button click
+     */
     public void cancelButtonPressed(ActionEvent actionEvent) {
         vendorIdTextField.setText("");
         materialNameTextField.setText("");
         quantityField.setText("");
+        totalSpendingField.setText("");
+        currentSpendingField.setText("");
     }
 
+    /**
+     * Submit button is clicked
+     * @param actionEvent listens for a button click
+     * @throws SQLException
+     */
 
     public void submitOrderButtonClicked(ActionEvent actionEvent) throws SQLException {
-
-       SupplyOrder.submitOrder();
-       materialNameTextField.setText("Order Submitted");
-       quantityField.setText("");
-       vendorIdTextField.setText("");
-       currentSpendingField.setText("");
-
+        String id = vendorIdTextField.getText();
+        String quantity = quantityField.getText();
+        if (!id.isEmpty() && !quantity.isEmpty()) {
+            SupplyOrder.submitOrder();
+            materialNameTextField.setText("Order Submitted");
+            quantityField.setText("");
+            vendorIdTextField.setText("");
+            currentSpendingField.setText("");
+        }
     }
-
-
 }

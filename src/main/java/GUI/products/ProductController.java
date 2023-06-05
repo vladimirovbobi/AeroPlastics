@@ -4,6 +4,7 @@ import GUI.JavaConnector;
 import GUI.ViewModel;
 import GUI.products.addProduct.AddProductApplication;
 import GUI.products.removeProduct.RemoveProductApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -208,5 +209,8 @@ public class ProductController {
             alert.setContentText("The product was not found.");
             alert.showAndWait();
         }
+    }
+
+    public void handleProduceMoreButtonClick(ActionEvent actionEvent) {
     }
 }

@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -123,7 +122,7 @@ public class SupplyController {
 
     /**
      * Log Out Button
-     * @param actionEvent
+     * @param actionEvent button listener
      */
     public void logOutButtonClicked(ActionEvent actionEvent) {
 
@@ -132,7 +131,7 @@ public class SupplyController {
 
     /**
      * Search for a Material in the inventory by name
-     * @param actionEvent
+     * @param actionEvent button listener
      */
 
     public void handleSingleViewButtonClicked(ActionEvent actionEvent) {

@@ -11,6 +11,7 @@ public class Order {
     private boolean isShipped;
     private int customerID;
     private Customer customer;
+    private int productID;
 
     /**
      * Constructs an Order object with the specified properties.
@@ -19,12 +20,14 @@ public class Order {
      * @param address    The address of the order.
      * @param isShipped  The shipping status of the order.
      * @param customerID The ID of the associated customer.
+     * @param productId
      */
-    public Order(int orderID, String address, boolean isShipped, int customerID) {
+    public Order(int orderID, String address, boolean isShipped, int customerID, int productId) {
         this.orderID = orderID;
         this.address = address;
         this.isShipped = isShipped;
         this.customerID = customerID;
+        this.productID = productId;
     }
 
     /**

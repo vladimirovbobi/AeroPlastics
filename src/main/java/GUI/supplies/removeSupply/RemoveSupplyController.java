@@ -1,22 +1,16 @@
 package GUI.supplies.removeSupply;
 
 import GUI.JavaConnector;
-import GUI.supplies.Vendor;
-import GUI.supplies.resupply.ResupplyController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * The type Remove supply controller.

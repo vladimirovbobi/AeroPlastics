@@ -12,7 +12,7 @@
       <Label layoutX="29.0" layoutY="53.0" text="Material:" />
       <Label layoutX="26.0" layoutY="81.0" text="Quantity: " />
       <TextField fx:id="quantityField" layoutX="79.0" layoutY="77.0" />
-      <Button fx:id="cancelButton" layoutX="9.0" layoutY="181.0" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="25.0" prefWidth="89.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="9.0" layoutY="181.0" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="25.0" prefWidth="89.0" text="Clear" />
       <Label layoutX="12.0" layoutY="116.0" text="Current Spending $" />
       <Label layoutX="18.0" layoutY="149.0" text="Shopping Total   $" />
       <TextField fx:id="currentSpendingField" alignment="CENTER_RIGHT" editable="false" layoutX="123.0" layoutY="113.0" prefHeight="26.0" prefWidth="114.0" />

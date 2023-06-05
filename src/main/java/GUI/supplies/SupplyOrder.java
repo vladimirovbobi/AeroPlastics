@@ -22,10 +22,10 @@ public class SupplyOrder{
     }
 
     /**
-     * Contructor
-     * @param orderPlaced
-     * @param arrivalDate
-     * @param vendor
+     * Constructor
+     * @param orderPlaced The Date the order is placed
+     * @param arrivalDate The Date the order arrives
+     * @param vendor Vendor Object
      */
     public SupplyOrder(String orderPlaced, String arrivalDate,Vendor vendor){
         this.vendor = vendor;
@@ -34,11 +34,11 @@ public class SupplyOrder{
     }
 
     /**
-     * Contructor
-     * @param orderPlaced
-     * @param arrivalDate
-     * @param materials
-     * @param vendor
+     * Constructor
+     * @param orderPlaced Date the order is placed
+     * @param arrivalDate Date the order will arrive
+     * @param materials  The name of the material
+     * @param vendor Vendor Object
      */
     public SupplyOrder(String orderPlaced, String arrivalDate, ArrayList<Material> materials, Vendor vendor){
 
@@ -52,7 +52,7 @@ public class SupplyOrder{
 
     /**
      * Goes through the supply orders in the table and returns the biggest ID
-     * @return biggest ID
+     * @return largest ID
      */
     public static int getLastOrderId(){
         int max =0;
@@ -64,15 +64,12 @@ public class SupplyOrder{
             ResultSet result = statement.executeQuery();
 
 
+            while (result.next()) {
 
-            while(result.next()){
-
-                if(result.getInt("supplyOrderID")> max){
+                if (result.getInt("supplyOrderID") > max) {
                     max = result.getInt("supplyOrderID");
                 }
             }
-
-        } catch (NumberFormatException numF1) {
 
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -83,13 +80,13 @@ public class SupplyOrder{
 
     /**
      * Unused, can be integrated into automatic ordering in the future
-     * @param material
-     * @return
+     * @param material the name of the material
+     * @return vendorID with the lowest price
      */
     public int getVendorIDwithLowestPrice(String material){
         double minPrice = 0;
         int vendorID = 0;
-        material.toUpperCase();
+        material =  material.toUpperCase();
         try {
             JavaConnector javaConnector = new JavaConnector();
             Connection con = javaConnector.getConnection();
@@ -106,9 +103,7 @@ public class SupplyOrder{
                 }
             }
 
-        } catch (NumberFormatException numF1) {
-
-        } catch (Exception e1) {
+        }catch (Exception e1) {
             e1.printStackTrace();
         }
         return vendorID;
@@ -118,7 +113,7 @@ public class SupplyOrder{
     /**
      * Creates order in the supply order table (every product is recorded), also the total is added to the table
      * Resets and deletes the cart
-     * @throws SQLException
+     * @throws SQLException My SQL Exception
      */
     public static void submitOrder() throws SQLException {
         Cart cart = Cart.getInstance();
@@ -143,21 +138,24 @@ public class SupplyOrder{
             quantities.add(resultSet.getInt("productQuantity"));
             price.add(resultSet.getDouble("price"));
         }
-
-        // Add total for every cart
-        rawMaterials.add("Total");
-        double total = 0.0;
         int quantity = 0;
-        for (int i = 0; i < quantities.size(); i++) {
-            quantity += quantities.get(i);
-            total += quantities.get(i) * price.get(i);
-        }
-        double number = total;
-        BigDecimal bd = new BigDecimal(Double.toString(number));
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        total = bd.doubleValue();
-        price.add(total);
+        if(!vendorID.isEmpty()) {
+            // Add total for every cart
+            rawMaterials.add("Total");
+            double total = 0.0;
 
+            for (int i = 0; i < quantities.size(); i++) {
+                quantity += quantities.get(i);
+                total += quantities.get(i) * price.get(i);
+            }
+            double number = total;
+            BigDecimal bd = new BigDecimal(Double.toString(number));
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            total = bd.doubleValue();
+            price.add(total);
+        }else{
+            return;
+        }
         // Update vendor table with the new productQuantity and materials table with inventoryLevel
         for (int i = 0; i < quantities.size(); i++) {
             // Subtract productQuantity from vendor table
@@ -177,7 +175,7 @@ public class SupplyOrder{
 
             // Insert into supplyOrder table
             query = "INSERT INTO supplyOrder (supplyOrderID, vendorID, rawMaterial, price, quantity, orderPlaced, arrivalDate) VALUES ("
-                    + cart.getCartID() + "," + vendorID.get(i) + ",'" + rawMaterials.get(i) + "'," + price.get(i) + "," + quantities.get(i) + ",'"
+                    + getLastOrderId() + "," + vendorID.get(i) + ",'" + rawMaterials.get(i) + "'," + price.get(i) + "," + quantities.get(i) + ",'"
                     + orderDate.get(i) + "','" + arrivalDate.get(i) + "');";
             statement = connection.prepareStatement(query);
             statement.executeUpdate();
