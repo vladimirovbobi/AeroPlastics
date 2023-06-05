@@ -19,7 +19,14 @@ import java.util.List;
  * The type Orders controller.
  */
 public class OrdersController {
-
+    @FXML
+    private TableColumn productIDColumn;
+    @FXML
+    private TableColumn quantityColumn;
+    @FXML
+    private TableColumn dateOrderedColumn;
+    @FXML
+    private TableColumn arrivalDateColumn;
     private ViewModel viewModel;
     @FXML
     private Button logoutButton;
@@ -85,6 +92,11 @@ public class OrdersController {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
         isShippedColumn.setCellValueFactory(new PropertyValueFactory<>("isShipped"));
         customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        arrivalDateColumn.setCellValueFactory(new PropertyValueFactory<>("arrivalDate"));
+        dateOrderedColumn.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+
     }
 
     /**
