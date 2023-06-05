@@ -71,7 +71,7 @@ public class MenuController {
 
 
     /**
-     * Closes the application window.
+     * Log out and return to the Log In window.
      */
     @FXML
     private void handleLogoutButtonClick(ActionEvent event) throws IOException {
