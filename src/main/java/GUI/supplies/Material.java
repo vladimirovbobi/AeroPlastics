@@ -4,6 +4,7 @@ import GUI.JavaConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 
 public class Material {
     int inventoryLevel;
@@ -67,6 +68,72 @@ public class Material {
             }
             return i;
 
+    }
+    public static void reduceMaterialBy(String name, int numberOfUnits){
+        int quantity = 0 ;
+        try {
+
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "SELECT inventoryLevel FROM materials WHERE materialName=? OR materialID = ?;";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1,name);
+            try {
+                statement.setInt(2, Integer.parseInt(name));
+            }catch (NumberFormatException e){
+                statement.setNull(2, Types.INTEGER);
+            }
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                quantity = resultSet.getInt("inventoryLevel");
+            }
+
+            //Reduce the quantity because a product is made
+            quantity -= 3 * numberOfUnits;
+            query = "Update materials SET inventoryLevel = ? WHERE materialName = ? OR materialID = ? ";
+            statement = con.prepareStatement(query);
+            statement.setString(2, name);
+            try {
+                statement.setInt(3, Integer.parseInt(name));
+            }catch (NumberFormatException e){
+                statement.setNull(3, Types.INTEGER);
+            }
+            statement.setInt(1, quantity);
+            statement.executeUpdate();
+
+        }catch(Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+    public static boolean isInStockToProduce(String name,int numberOfUnitsProduced){
+      int quantity = 0;
+        try {
+
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "SELECT inventoryLevel FROM materials WHERE materialName = ? OR materialID = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, name);
+            try {
+                statement.setInt(2, Integer.parseInt(name));
+            }catch (NumberFormatException e){
+                statement.setNull(2, Types.INTEGER);
+            }
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                quantity=   resultSet.getInt("inventoryLevel");
+            }
+            //produce 1 costs 3 units of material
+            if (quantity >= 3*numberOfUnitsProduced){
+                reduceMaterialBy(name, numberOfUnitsProduced);
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception e1) {
+            e1.printStackTrace();
+        }
+        return false;
     }
 
     public int getMaterialID() {
