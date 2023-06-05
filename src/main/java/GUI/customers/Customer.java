@@ -13,7 +13,7 @@ public class Customer {
     final int customerID;
     final String firstName;
     final String lastName;
-    final String company;
+    final String affiliation;
 
     /**
      * Constructs a Customer object with the provided first name, last name, and affiliation.
@@ -26,7 +26,14 @@ public class Customer {
         this.customerID = getLastCustomerId() + 1;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.company = affiliation;
+        this.affiliation = affiliation;
+    }
+
+    public Customer(int customerID, String firstName, String lastName, String affiliation) {
+        this.customerID = customerID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.affiliation = affiliation;
     }
 
     /**
@@ -87,7 +94,7 @@ public class Customer {
      *
      * @return The company of the customer.
      */
-    public String getCompany() {
-        return company;
+    public String getAffiliation() {
+        return affiliation;
     }
 }

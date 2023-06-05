@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,7 +25,8 @@ import java.util.List;
  * The type Customer controller.
  */
 public class CustomerController {
-
+    @FXML
+    private TextField customerTextField;
     private ViewModel viewModel;
     @FXML
     private TableView<Customer> displayTable;
@@ -103,6 +105,20 @@ public class CustomerController {
     public void populateCustomersTable() {
         // Retrieve customer data from the database
         List<Customer> customers = JavaConnector.getAllCustomers();
+
+        // Clear existing data from the table
+        displayTable.getItems().clear();
+
+        // Populate the table with customer data
+        displayTable.getItems().addAll(customers);
+    }
+
+    public void handleLogOutButtonClicked(ActionEvent actionEvent) {
+    }
+
+    public void handleSingleSearchButtonClicked(ActionEvent actionEvent) {
+        String name = customerTextField.getText();
+        List<Customer> customers = JavaConnector.searchCustomersByNameOrID(name);
 
         // Clear existing data from the table
         displayTable.getItems().clear();

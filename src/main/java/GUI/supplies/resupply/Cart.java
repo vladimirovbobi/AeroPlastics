@@ -3,7 +3,6 @@ package GUI.supplies.resupply;
 import GUI.Date;
 import GUI.JavaConnector;
 import GUI.supplies.Material;
-import GUI.supplies.SupplyController;
 import GUI.supplies.SupplyOrder;
 import GUI.supplies.Vendor;
 
@@ -13,7 +12,7 @@ import java.math.RoundingMode;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Cart {
+public class    Cart {
     private static Cart cart;
     private static double amount;
     private String orderDate,arrivalDate;
@@ -25,7 +24,7 @@ public class Cart {
      */
     private Cart(){
         cartID = getLastCartId() + 1;
-        this.amount = 0.0;
+        amount = 0.0;
         orderDate = Date.todaysDate();
         arrivalDate = Date.changeTodaysDateByDays(5);
     }
@@ -46,14 +45,14 @@ public class Cart {
      */
     public void resetCart(){
         cartID = 1;
-        this.amount = 0.0;
+        amount = 0.0;
         orderDate = Date.todaysDate();
         arrivalDate = Date.changeTodaysDateByDays(5);
     }
 
     /**
      * Goes through the supply orders in the table and returns the biggest ID
-     * @return biggest ID
+     * @return largest ID
      */
     public int getLastCartId(){
         return SupplyOrder.getLastOrderId();
@@ -71,22 +70,20 @@ public class Cart {
             statement.executeUpdate();
             cart.resetCart();
 
-        } catch (NumberFormatException numF1) {
-
-        } catch (Exception e1) {
+        }catch (Exception e1) {
             e1.printStackTrace();
         }
     }
 
     /**
      * Adds new items to table "cart" , by finding the price from a vendor by their ID
-     * @param vendorID
-     * @param materialName
-     * @param quantity
+     * @param vendorID vendor ID number
+     * @param materialName material Name
+     * @param quantity quantity bought
      */
     public void addToCart(int vendorID, String materialName,int quantity){
         try {
-            materialName.toUpperCase();
+            materialName = materialName.toUpperCase();
             JavaConnector javaConnector = new JavaConnector();
             Connection con = javaConnector.getConnection();
 
@@ -110,7 +107,7 @@ public class Cart {
 
     /**
      * Adds to the current total
-     * @param money
+     * @param money price
      */
     public void addToAmount(double money){
         amount += money;
@@ -118,7 +115,7 @@ public class Cart {
 
     /**
      * Retrieves the current total
-     * @return
+     * @return total amount
      */
 
     public double getAmount() {

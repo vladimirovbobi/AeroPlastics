@@ -3,21 +3,18 @@ package GUI;
 import GUI.customers.Customer;
 import GUI.products.Product;
 import GUI.orders.Order;
-import GUI.products.ProductApplication;
 import GUI.supplies.Material;
 import GUI.supplies.Vendor;
 import GUI.supplies.resupply.Cart;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "@Ziemlupr2072";
+    private static final String PASSWORD = "Bob4oSirop4o";
 
 
     /**
@@ -84,7 +81,7 @@ public class JavaConnector {
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Execute a SQL query to retrieve customer data
-            String query = "SELECT customerID, firstName, lastName, company FROM customer";
+            String query = "SELECT customerID, firstName, lastName, affiliation FROM customer";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -93,10 +90,10 @@ public class JavaConnector {
                 int customerID = resultSet.getInt("customerID");
                 String firstName = resultSet.getString("firstName");
                 String lastName = resultSet.getString("lastName");
-                String company = resultSet.getString("company");
+                String company = resultSet.getString("affiliation");
 
                 // Create a Customer object and add it to the list
-                Customer customer = new Customer(firstName, lastName, company);
+                Customer customer = new Customer(customerID, firstName, lastName, company);
                 customers.add(customer);
             }
             resultSet.close();
@@ -152,7 +149,6 @@ public class JavaConnector {
             //Establish a connection to the database
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
-
             String query2 = "SELECT * FROM cart";
             Statement statement2 = connection.createStatement();
             ResultSet resultSet2 = statement2.executeQuery(query2);
@@ -179,7 +175,7 @@ public class JavaConnector {
                     Cart cart = Cart.getInstance();
                     cart.updateAmount();
 
-                    Vendor vendor = new Vendor("Total: ", cart.getAmount(), quantity);
+                    Vendor vendor = new Vendor("Cart Total: ",cart.getCartID(), cart.getAmount(), quantity);
                     vendors.add(vendor);
                 } else {
                     quantity += productQuantity.get(i);
@@ -208,21 +204,72 @@ public class JavaConnector {
 
         return vendors;
     }
+    public static List<Customer> searchCustomersByNameOrID(String name) {
+        List<Customer> customers = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL,USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve customer data
+            String query = "SELECT * FROM customer WHERE firstName = ? OR lastName = ? OR customerID = ? OR affiliation = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, name);
+            try {
+                statement.setInt(3, Integer.parseInt(name));
+            } catch (NumberFormatException e) {
+                statement.setNull(3, Types.INTEGER);
+            }
+            statement.setString(4,name);
+            ResultSet resultSet = statement.executeQuery();
+
+            //Process the result set
+            while (resultSet.next()) {
+                int customerID = resultSet.getInt("customerID");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String affiliation = resultSet.getString("affiliation");
+
+                //Create a Customer object and add it to the list
+                Customer customer = new Customer(customerID,firstName,lastName,affiliation);
+                customers.add(customer);
+            }
+
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customers;
+    }
     public static List<Vendor> searchVendorMaterialByName(String name){
             name =name.toUpperCase();
 
             List<Vendor> vendors = new ArrayList<>();
 
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL,USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve customer data
+            String query = "SELECT * FROM vendor WHERE vendorID = ? OR companyName = ? OR rawMaterial = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+
             try {
-                //Establish a connection to the database
-                Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                statement.setInt(1, Integer.parseInt(name));
+            } catch (NumberFormatException e) {
+                statement.setNull(1, Types.INTEGER);
+            }
+            statement.setString(2,name);
+            statement.setString(3,name);
+            ResultSet resultSet = statement.executeQuery();
 
-                // Execute a SQL query to retrieve materials data
-                String query = "SELECT vendorID,companyName, rawMaterial,productQuantity, price FROM vendor where rawMaterial = '"+name+"';" ;
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
 
-                //Process the result set
+            //Process the result set
                 while (resultSet.next()) {
 
                     int vendorID = resultSet.getInt("vendorID");
@@ -249,14 +296,21 @@ public class JavaConnector {
     public static List<Material> searchMaterialsByName(String name) {
         List<Material> materials = new ArrayList<>();
 
-        try {
-            //Establish a connection to the database
-            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            try {
+                //Establish a connection to the database
+                Connection connection = DriverManager.getConnection(DB_URL,USERNAME, PASSWORD);
 
-            // Execute a SQL query to retrieve materials data
-            String query = "SELECT inventoryLevel, materialID, materialName, moldTemperature, plasticDensity FROM materials where materialName = '"+name+"';";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+                // Execute a SQL query to retrieve customer data
+                String query = "SELECT * FROM materials WHERE materialID = ? OR materialName = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                try {
+                    statement.setInt(1, Integer.parseInt(name));
+                } catch (NumberFormatException e) {
+                    statement.setNull(1, Types.INTEGER);
+                }
+                statement.setString(2,name);
+                ResultSet resultSet = statement.executeQuery();
 
             //Process the result set
             while (resultSet.next()) {
@@ -306,12 +360,12 @@ public class JavaConnector {
                 String rawMaterial = resultSet.getString("rawMaterial");
                 double price  = resultSet.getDouble("price");
                 if(rawMaterial.equals("Total")){
-                    Vendor vendor = new Vendor( supplyOrderID,rawMaterial, totalQuantity, price);
+                    Vendor vendor = new Vendor("Cart", supplyOrderID,rawMaterial, totalQuantity, price);
                     vendors.add(vendor);
                 }else {
                     totalQuantity += productQuantity;
                     //Create a Vendor object and add it to the list
-                    Vendor vendor = new Vendor(Vendor.getVendorByID(vendorID), supplyOrderID, rawMaterial, productQuantity, price);
+                    Vendor vendor = new Vendor(Vendor.getVendorByID(vendorID), vendorID, rawMaterial, productQuantity, price);
                     vendors.add(vendor);
                 }
             }
@@ -459,8 +513,9 @@ public class JavaConnector {
                 String address = resultSet.getString("address");
                 boolean isShipped = resultSet.getBoolean("isShipped");
                 int customerID = resultSet.getInt("customerID");
+                int productID = resultSet.getInt("productID");
 
-                Order order = new Order(orderID, address, isShipped, customerID);
+                Order order = new Order(orderID, address, isShipped, customerID, productID);
                 orders.add(order);
             }
 

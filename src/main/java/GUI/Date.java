@@ -44,7 +44,7 @@ public class Date {
      * Today's date.
      */
     public static String todaysDate(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         return (dtf.format(now));
     }
@@ -52,7 +52,7 @@ public class Date {
     /**
      * Change the date, used for expected delivery date
      * @param days number of days needed for delivery
-     * @return
+     * @return arrival Date
      */
     public static String changeTodaysDateByDays(int days){
         String todaysDate = todaysDate();
@@ -88,21 +88,17 @@ public class Date {
                     daytoInt -= 20;
                     day2 = Character.forDigit(daytoInt,10);
                     day1 = '2';
-                }else if (daytoInt > 29 && daytoInt < 31){
+                }else if (daytoInt > 29 && daytoInt < 32){
                     daytoInt -= 30;
                     day2 = Character.forDigit(daytoInt,10);
                     day1 = '3';
                 } else if (daytoInt > 31) {
                     todaysDate =  changeTodaysDateByDays(daytoInt - 31);
-                }else{
+                }else {
                     daytoInt -= 10;
-                    day2 = Character.forDigit(daytoInt,10);
+                    day2 = Character.forDigit(daytoInt, 10);
                     day1 = '1';
-
                 }
-
-
-
             }else{
                 day2 = Character.forDigit(daytoInt,10);
                 day1 = '0';
