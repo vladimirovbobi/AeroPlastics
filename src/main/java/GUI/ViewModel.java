@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.customers.CustomerApplication;
+import GUI.login.LoginApplication;
 import GUI.menu.MenuApplication;
 import GUI.orders.OrdersApplication;
 import GUI.products.ProductApplication;
@@ -95,10 +96,26 @@ public class ViewModel {
         menuApp.start(stage);
         currentStage.close(); //close the current window
     }
+    /**
+     * Show SupplyOrder window.
+     *
+     * @throws IOException the io exception
+     */
     public void showSupplyOrderWindow() throws IOException {
         ResupplyApplication resupplyApp = new ResupplyApplication();
         Stage stage = new Stage();
         resupplyApp.start(stage);
         currentStage.close(); //close the current window
+    }
+    /**
+     * Show log in window.
+     *
+     * @throws IOException the io exception
+     */
+    public void showLoginWindow() throws IOException{
+        LoginApplication loginApp = new LoginApplication();
+        Stage stage = new Stage();
+        loginApp.start(stage);
+        currentStage.close();
     }
 }

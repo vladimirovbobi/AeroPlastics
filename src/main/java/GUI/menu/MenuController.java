@@ -1,8 +1,11 @@
 package GUI.menu;
 
 import GUI.ViewModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 
 
@@ -26,6 +29,8 @@ public class MenuController {
     private Button productsButton;
     @FXML
     private Button suppliesButton;
+    @FXML
+    private Button LogoutButton;
 
 
     /**
@@ -62,5 +67,17 @@ public class MenuController {
     @FXML
     private void handleSuppliesButtonClick() throws IOException {
         viewModel.showSupplyWindow();
+    }
+
+
+    /**
+     * Closes the application window.
+     */
+    @FXML
+    private void handleLogoutButtonClick(ActionEvent event) throws IOException {
+        Stage stage = (Stage) LogoutButton.getScene().getWindow();
+        stage.close();
+
+        viewModel.showLoginWindow();
     }
 }
