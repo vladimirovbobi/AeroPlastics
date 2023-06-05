@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.control.CheckBox;
 import GUI.orders.Order;
@@ -21,7 +22,7 @@ public class AddOrderController {
     @FXML
     private TextField customerIdTextField;
     @FXML
-    private TextField orderIdTextField;
+    private TextField productIdTextField;
     @FXML
     private TextField addressTextField;
     @FXML
@@ -65,11 +66,11 @@ public class AddOrderController {
     @FXML
     private void handleAddButtonClick() throws IOException {
         String customerId = customerIdTextField.getText();
-        String orderId = orderIdTextField.getText();
+        String productId = productIdTextField.getText();
         String address = addressTextField.getText();
         boolean isShipped = shippedCheckBox.isSelected();
 
-        if (customerId.isEmpty() || orderId.isEmpty() || address.isEmpty()) {
+        if (customerId.isEmpty() || productId.isEmpty() || address.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
             errorBox(errorMessage);
             return;
@@ -77,7 +78,7 @@ public class AddOrderController {
 
         try {
             // Create an Order object
-            Order order = new Order(Integer.parseInt(orderId), address, isShipped, Integer.parseInt(customerId));
+            Order order = new Order(getLastOrderID(), address, isShipped, Integer.parseInt(customerId),Integer.parseInt(productId));
 
             // Establish a connection to the database
             JavaConnector connection = new JavaConnector();
@@ -88,12 +89,13 @@ public class AddOrderController {
             PreparedStatement statement;
 
             // Prepare the SQL statement
-            query = "INSERT INTO orders (orderID, address, isShipped, customerID) VALUES (?, ?, ?, ?)";
+            query = "INSERT INTO orders (orderID, address, isShipped, customerID,productID) VALUES (?, ?, ?, ?)";
             statement = con.prepareStatement(query);
-            statement.setInt(1, Integer.parseInt(orderId));
+            statement.setInt(1, getLastOrderID()+1);
             statement.setString(2, address);
             statement.setBoolean(3, isShipped);
             statement.setInt(4, Integer.parseInt(customerId));
+            statement.setInt(5,Integer.parseInt(productId));
 
             // Execute the SQL statement
             int rowsAffected = statement.executeUpdate();
@@ -112,6 +114,34 @@ public class AddOrderController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * Retrieve the last order ID
+     * @return last ID
+     */
+    public static int getLastOrderID(){
+        int max =0;
+        try {
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "Select orderID from orders";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+
+
+            while (result.next()) {
+                if(result.getInt("orderID")> max){
+                    max = result.getInt("orderID");
+                }
+            }
+
+        } catch (NumberFormatException numF1) {
+            return 0;
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        return max;
     }
 
     /**
