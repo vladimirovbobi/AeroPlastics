@@ -27,6 +27,8 @@ import java.util.List;
 public class CustomerController {
     @FXML
     private TextField customerTextField;
+    @FXML
+    private Button logoutButton;
     private ViewModel viewModel;
     @FXML
     private TableView<Customer> displayTable;
@@ -113,9 +115,22 @@ public class CustomerController {
         displayTable.getItems().addAll(customers);
     }
 
-    public void handleLogOutButtonClicked(ActionEvent actionEvent) {
+    /**
+     * Logout and return to the login window
+     * @param actionEvent the action event
+     * @throws IOException
+     */
+    public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        stage.close();
+
+        viewModel.showLoginWindow();
     }
 
+    /**
+     * Method to search customer from the database
+     * @param actionEvent the action event
+     */
     public void handleSingleSearchButtonClicked(ActionEvent actionEvent) {
         String name = customerTextField.getText();
         List<Customer> customers = JavaConnector.searchCustomersByNameOrID(name);
