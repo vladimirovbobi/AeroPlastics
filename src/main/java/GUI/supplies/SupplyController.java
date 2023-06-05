@@ -29,7 +29,8 @@ public class SupplyController {
     private Button resupplyButton;
     @FXML
     private Button viewAllButton;
-
+    @FXML
+    private Button logoutButton;
     @FXML
     private TableView<Material> displayTable;
 
@@ -124,8 +125,11 @@ public class SupplyController {
      * Log Out Button
      * @param actionEvent button listener
      */
-    public void logOutButtonClicked(ActionEvent actionEvent) {
+    public void logOutButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        stage.close();
 
+        viewModel.showLoginWindow();
 
     }
 
