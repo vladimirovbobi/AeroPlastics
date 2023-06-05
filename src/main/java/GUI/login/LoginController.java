@@ -31,7 +31,6 @@ public class LoginController {
     private Button cancelButton;
     private JavaConnector javaConnector;
     private ViewModel viewModel;
-    private Stage stage;
 
     /**
      * Set view model.
@@ -42,9 +41,6 @@ public class LoginController {
         this.viewModel = viewModel;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
     /**
      * Instantiates a new Login controller.
      */
