@@ -90,9 +90,8 @@ public class AddCustomerController {
             statement.setInt(1, newCustomer.getCustomerID());
             statement.setString(2, newCustomer.getFirstName());
             statement.setString(3, newCustomer.getLastName());
-            statement.setString(4, newCustomer.getCompany());
+            statement.setString(4, newCustomer.getAffiliation());
             statement.executeUpdate();
-            System.out.println("Added customer successful!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
