@@ -16,7 +16,6 @@ public class JavaConnector {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Bob4oSirop4o";
 
-
     /**
      * Gets connection.
      *
@@ -71,7 +70,10 @@ public class JavaConnector {
 
         return materials;
     }
-
+    /**
+     * Connection to customer table to display on customer window.
+     * @return customer table display on customer window.
+     */
     public static List<Customer> getAllCustomers() {
 
         List<Customer> customers = new ArrayList<>();
@@ -246,6 +248,54 @@ public class JavaConnector {
 
         return customers;
     }
+
+    public static List<Order> searchOrdersByNameOrID(String name){
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve order data
+            String query = "SELECT * FROM orders WHERE orderID = ? OR customerID = ? OR customerID IN " +
+                    "(SELECT customerID FROM customer WHERE firstName = ? OR lastName = ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            int orderID;
+            try {
+                orderID = Integer.parseInt(name);
+            } catch (NumberFormatException e) {
+                orderID = -1;
+            }
+            statement.setInt(1, orderID);
+            statement.setString(2, name);
+            statement.setString(3, name);
+            statement.setString(4, name);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // Process the result set
+            while (resultSet.next()) {
+                int orderIDResult = resultSet.getInt("orderID");
+                String address = resultSet.getString("address");
+                boolean isShipped = resultSet.getBoolean("isShipped");
+                int customerID = resultSet.getInt("customerID");
+                int productID = resultSet.getInt("productID");
+
+                // Create an Order object and add it to the list
+                Order order = new Order(orderIDResult, address, isShipped, customerID, productID);
+                orders.add(order);
+            }
+
+            // Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
+    }
+
     public static List<Vendor> searchVendorMaterialByName(String name){
             name =name.toUpperCase();
 
