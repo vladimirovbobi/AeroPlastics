@@ -31,6 +31,7 @@ public class LoginController {
     private Button cancelButton;
     private JavaConnector javaConnector;
     private ViewModel viewModel;
+    private Stage stage;
 
     /**
      * Set view model.
@@ -41,6 +42,9 @@ public class LoginController {
         this.viewModel = viewModel;
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     /**
      * Instantiates a new Login controller.
      */
@@ -99,5 +103,14 @@ public class LoginController {
         alert.setHeaderText(null);
         alert.setContentText("Invalid username or password.");
         alert.showAndWait();
+    }
+
+    /**
+     * Close the application when click cancel button
+     * @param event the event
+     */
+    @FXML
+    private void handleCancelButtonClick(ActionEvent event){
+        viewModel.closeCurrentStage();
     }
 }
