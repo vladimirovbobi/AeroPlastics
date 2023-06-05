@@ -1,5 +1,6 @@
 package GUI.orders;
 
+import GUI.Date;
 import GUI.customers.Customer;
 /**
  * The Order class represents an order with its properties and associated customer.
@@ -12,6 +13,9 @@ public class Order {
     private int customerID;
     private Customer customer;
     private int productID;
+    private int quantity;
+    private String orderDate;
+    private String arrivalDate;
 
     /**
      * Constructs an Order object with the specified properties.
@@ -20,14 +24,40 @@ public class Order {
      * @param address    The address of the order.
      * @param isShipped  The shipping status of the order.
      * @param customerID The ID of the associated customer.
-     * @param productId
+     * @param productId  The product ordered by customer
+     * @param quantity   The amount ordered by customer
      */
-    public Order(int orderID, String address, boolean isShipped, int customerID, int productId) {
+    public Order(int orderID, String address, boolean isShipped, int customerID, int productId,int quantity) {
         this.orderID = orderID;
         this.address = address;
         this.isShipped = isShipped;
         this.customerID = customerID;
         this.productID = productId;
+        this.orderDate = Date.todaysDate();
+        this.arrivalDate = Date.changeTodaysDateByDays(5);
+        this.quantity = quantity;
+
+    }
+    /**
+     * Constructs an Order object with the specified properties.
+     *
+     * @param orderID    The ID of the order.
+     * @param address    The address of the order.
+     * @param isShipped  The shipping status of the order.
+     * @param customerID The ID of the associated customer.
+     * @param productId  The product ordered by customer
+     * @param quantity   The amount ordered by customer
+     */
+    public Order(int orderID, String address, boolean isShipped, int customerID, int productId,int quantity,String orderDate, String arrivalDate) {
+        this.orderID = orderID;
+        this.address = address;
+        this.isShipped = isShipped;
+        this.customerID = customerID;
+        this.productID = productId;
+        this.quantity = quantity;
+        this.orderDate = orderDate;
+        this.arrivalDate = arrivalDate;
+
     }
 
     /**
@@ -119,5 +149,21 @@ public class Order {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
     }
 }

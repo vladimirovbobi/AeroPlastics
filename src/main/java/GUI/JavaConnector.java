@@ -279,9 +279,12 @@ public class JavaConnector {
                 boolean isShipped = resultSet.getBoolean("isShipped");
                 int customerID = resultSet.getInt("customerID");
                 int productID = resultSet.getInt("productID");
+                int quantity = resultSet.getInt("quantity");
+                String arrivalDate = resultSet.getString("arrivalDate");
+                String orderDate = resultSet.getString("orderDate");
 
                 // Create an Order object and add it to the list
-                Order order = new Order(orderIDResult, address, isShipped, customerID, productID);
+                Order order = new Order(orderIDResult, address, isShipped, customerID, productID, quantity,orderDate,arrivalDate );
                 orders.add(order);
             }
 
@@ -564,8 +567,11 @@ public class JavaConnector {
                 boolean isShipped = resultSet.getBoolean("isShipped");
                 int customerID = resultSet.getInt("customerID");
                 int productID = resultSet.getInt("productID");
+                int quantity = resultSet.getInt("quantity");
+                String orderDate = resultSet.getString("orderDate");
+                String arrivalDate = resultSet.getString("arrivalDate");
 
-                Order order = new Order(orderID, address, isShipped, customerID, productID);
+                Order order = new Order(orderID, address, isShipped, customerID, productID,quantity,orderDate,arrivalDate);
                 orders.add(order);
             }
 
