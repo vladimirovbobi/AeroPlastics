@@ -43,6 +43,8 @@ public class ProductController {
     @FXML
     private Button singleViewButton;
     @FXML
+    private Button logoutButton;
+    @FXML
     private TextField productTextField;
 
     private ViewModel viewModel;
@@ -212,5 +214,18 @@ public class ProductController {
     }
 
     public void handleProduceMoreButtonClick(ActionEvent actionEvent) {
+    }
+
+    /**
+     * Logout and return to the login window
+     * @param actionEvent the action event
+     * @throws IOException
+     */
+    @FXML
+    public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        stage.close();
+
+        viewModel.showLoginWindow();
     }
 }
