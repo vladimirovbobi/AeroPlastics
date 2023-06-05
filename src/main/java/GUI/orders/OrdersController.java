@@ -2,18 +2,16 @@ package GUI.orders;
 
 import GUI.JavaConnector;
 import GUI.ViewModel;
-import GUI.orders.Order;
-import GUI.customers.Customer;
-import GUI.customers.removeCustomer.RemoveCustomerApplication;
 import GUI.orders.addOrder.AddOrderApplication;
 import GUI.orders.removeOrder.RemoveOrderApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
+import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +21,8 @@ import java.util.List;
 public class OrdersController {
 
     private ViewModel viewModel;
-
+    @FXML
+    private TextField orderTextField;
     @FXML
     private TableView<Order> displayTable;
     @FXML
@@ -48,7 +47,6 @@ public class OrdersController {
     private void handleMenuButtonClick() throws IOException {
         viewModel.showMenuWindow();
     }
-
     @FXML
     private Button addOrderButton;
     /**
@@ -74,6 +72,10 @@ public class OrdersController {
         Stage stage = new Stage();
         removeOrderApp.start(stage);
     }
+
+    /**
+     * Initialize the columns in table
+     */
     @FXML
     private void initialize() {
         // Initialize table columns
@@ -105,5 +107,28 @@ public class OrdersController {
         // Populate the table with order data
         displayTable.getItems().addAll(orders);
     }
+    /**
+     * Handles the search button click event.
+     * Searches for orders by name or ID and populates the table with the results.
+     *
+     * @param actionEvent The action event.
+     */
+    public void handleSingleSearchButtonClicked(ActionEvent actionEvent) {
+        String name = orderTextField.getText();
+        List<Order> orders = JavaConnector.searchOrdersByNameOrID(name);
 
+        // Clear existing data from the table
+        displayTable.getItems().clear();
+
+        // Populate the table with customer data
+        displayTable.getItems().addAll(orders);
+    }
+
+    /**
+     * Handles the logout button click event.
+     *
+     * @param actionEvent The action event.
+     */
+    public void handleLogOutButtonClicked(ActionEvent actionEvent) {
+    }
 }
