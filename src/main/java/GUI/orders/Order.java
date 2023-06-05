@@ -72,7 +72,7 @@ public class Order {
      *
      * @return The shipping status of the order.
      */
-    public boolean isShipped() {
+    public boolean getIsShipped() {
         return isShipped;
     }
 
