@@ -9,12 +9,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import GUI.JavaConnector;
 
 public class AddProductController {
-
+    @FXML
+    public TextField quantityTextField;
     @FXML
     private TextField idTextField;
     @FXML
@@ -45,12 +47,12 @@ public class AddProductController {
     }
     @FXML
     private void handleAddButtonClick() throws IOException {
-        String productID = idTextField.getText();
+        String quantity  = quantityTextField.getText();
         String productName = productNameTextField.getText();
         String price = priceTextField.getText();
         String rawMaterial = materialTextField.getText();
 
-        if (productID.isEmpty() || productName.isEmpty() || price.isEmpty() || rawMaterial.isEmpty()) {
+        if (productName.isEmpty() || price.isEmpty() || rawMaterial.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
             errorBox(errorMessage);
             return;
@@ -66,12 +68,13 @@ public class AddProductController {
             PreparedStatement statement;
 
             // Prepare the SQL statement
-            query = "INSERT INTO products (productID, productName, price, rawMaterial, inventoryLevel) VALUES (?, ?, ?, ?, 0)";
+            query = "INSERT INTO products (productID, productName, price, rawMaterial, inventoryLevel) VALUES (?, ?, ?, ?, ?)";
             statement = con.prepareStatement(query);
-            statement.setInt(1, Integer.parseInt(productID));
+            statement.setInt(1,getLastProductID()+1);
             statement.setString(2, productName);
             statement.setDouble(3, Double.parseDouble(price));
             statement.setString(4, rawMaterial);
+            statement.setString(5,quantity);
 
             // Execute the SQL statement
             int rowsAffected = statement.executeUpdate();
@@ -91,6 +94,36 @@ public class AddProductController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Retrieve the last product ID
+     * @return last ID
+     */
+    public static int getLastProductID(){
+        int max =0;
+        try {
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
+            String query = "Select productID from products";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+
+
+            while (result.next()) {
+                if(result.getInt("productID")> max){
+                    max = result.getInt("productID");
+                }
+            }
+
+        } catch (NumberFormatException numF1) {
+            return 0;
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        return max;
+    }
+
 
     @FXML
     private void handleCancelButtonClick() {
