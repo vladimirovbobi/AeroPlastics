@@ -20,10 +20,6 @@ public class AddProductController {
     @FXML
     private TextField idTextField;
     @FXML
-    private TextField productNameTextField;
-    @FXML
-    private TextField priceTextField;
-    @FXML
     private TextField materialTextField;
     @FXML
     private Button addButton;
@@ -47,51 +43,52 @@ public class AddProductController {
     }
     @FXML
     private void handleAddButtonClick() throws IOException {
-        String quantity  = quantityTextField.getText();
-        String productName = productNameTextField.getText();
-        String price = priceTextField.getText();
-        String rawMaterial = materialTextField.getText();
-
-        if (productName.isEmpty() || price.isEmpty() || rawMaterial.isEmpty()) {
-            String errorMessage = "Please fill in all the fields.";
-            errorBox(errorMessage);
-            return;
-        }
+        int productID = Integer.parseInt(idTextField.getText());
+        String materialName = materialTextField.getText();
+        int quantity = Integer.parseInt(quantityTextField.getText());
 
         try {
-            // Establish a connection to the database
-            JavaConnector connection = new JavaConnector();
-            Connection con = connection.getConnection();
+            JavaConnector javaConnector = new JavaConnector();
+            Connection con = javaConnector.getConnection();
 
-            // Prepare the SQL statement
-            String query;
-            PreparedStatement statement;
+            // Retrieve the current inventory level of the material
+            String getInventoryLevelQuery = "SELECT inventoryLevel FROM materials WHERE materialName = ?";
+            PreparedStatement getInventoryLevelStatement = con.prepareStatement(getInventoryLevelQuery);
+            getInventoryLevelStatement.setString(1, materialName);
+            ResultSet inventoryLevelResult = getInventoryLevelStatement.executeQuery();
 
-            // Prepare the SQL statement
-            query = "INSERT INTO products (productID, productName, price, rawMaterial, inventoryLevel) VALUES (?, ?, ?, ?, ?)";
-            statement = con.prepareStatement(query);
-            statement.setInt(1,getLastProductID()+1);
-            statement.setString(2, productName);
-            statement.setDouble(3, Double.parseDouble(price));
-            statement.setString(4, rawMaterial);
-            statement.setString(5,quantity);
+            if (inventoryLevelResult.next()) {
+                int inventoryLevel = inventoryLevelResult.getInt("inventoryLevel");
 
-            // Execute the SQL statement
-            int rowsAffected = statement.executeUpdate();
+                if (inventoryLevel >= 3 * quantity) {
+                    // Subtract 3 times the quantity from the inventoryLevel in materials table
+                    String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel - ? WHERE materialName = ?";
+                    PreparedStatement updateMaterialsStatement = con.prepareStatement(updateMaterialsQuery);
+                    updateMaterialsStatement.setInt(1, 3 * quantity);
+                    updateMaterialsStatement.setString(2, materialName);
+                    updateMaterialsStatement.executeUpdate();
 
-            // Close the database connection and resources
-            statement.close();
-            con.close();
+                    // Add the quantity to the inventoryLevel in products table
+                    String updateProductsQuery = "UPDATE products SET inventoryLevel = inventoryLevel + ? WHERE productID = ?";
+                    PreparedStatement updateProductsStatement = con.prepareStatement(updateProductsQuery);
+                    updateProductsStatement.setInt(1, quantity);
+                    updateProductsStatement.setInt(2, productID);
+                    updateProductsStatement.executeUpdate();
 
-            if (rowsAffected > 0) {
-                String successMessage = "Product Added Successfully.";
-                successBox(successMessage);
+                    con.close();
+
+                    successBox("Product added successfully!");
+                } else {
+                    errorBox("Insufficient inventory for material: " + materialName + ". Please order at least " + (3 * quantity - inventoryLevel) + " more.");
+                }
             } else {
-                String errorMessage = "Product not added.";
-                errorBox(errorMessage);
+                errorBox("Material not found: " + materialName);
             }
+        } catch (NumberFormatException e) {
+            errorBox("Invalid quantity specified!");
         } catch (SQLException e) {
             e.printStackTrace();
+            errorBox("Error occurred while adding the product!");
         }
     }
 

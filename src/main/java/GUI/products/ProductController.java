@@ -157,6 +157,10 @@ public class ProductController {
 
     @FXML
     private void handleProductionRequestButtonCLick() throws IOException {
+
+    }
+
+    public void handleProduceMoreButtonClick(ActionEvent actionEvent) {
         String searchQuery = productTextField.getText(); // Assuming productTextField is the TextField where you enter the name or ID
 
         // Determine if the search query is a name or ID
@@ -211,9 +215,6 @@ public class ProductController {
             alert.setContentText("The product was not found.");
             alert.showAndWait();
         }
-    }
-
-    public void handleProduceMoreButtonClick(ActionEvent actionEvent) {
     }
 
     /**

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import GUI.JavaConnector;
@@ -14,13 +15,15 @@ import GUI.JavaConnector;
 public class RemoveProductController {
 
     @FXML
-    private TextField productNameTextField;
-    @FXML
     private TextField idTextField;
     @FXML
     private Button removeButton;
     @FXML
     private Button cancelButton;
+    @FXML
+    private TextField materialNameTextField;
+    @FXML
+    private TextField quantityTextField;
 
     private void errorBox(String text){
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -41,49 +44,64 @@ public class RemoveProductController {
     @FXML
     private void handleRemoveButtonClick() throws IOException {
         String productID = idTextField.getText();
-        String productName = productNameTextField.getText();
+        String materialName = materialNameTextField.getText();
+        String quantityText = quantityTextField.getText();
 
-        if (productID.isEmpty() || productName.isEmpty()) {
-            String errorMessage = "Please enter the product ID or product name.";
+        if (productID.isEmpty() || materialName.isEmpty() || quantityText.isEmpty()) {
+            String errorMessage = "Please enter the product ID, material name, and quantity.";
             errorBox(errorMessage);
             return;
         }
 
         try {
+            // Parse the specified quantity
+            int specifiedQuantity = Integer.parseInt(quantityText);
+
             // Establish a connection to the database
             JavaConnector connection = new JavaConnector();
             Connection con = connection.getConnection();
 
-            // Prepare the SQL statement
-            String query;
-            PreparedStatement statement;
+            // Retrieve the current inventory level for the specified product
+            String getQuantityQuery = "SELECT inventoryLevel FROM products WHERE productID = ?";
+            PreparedStatement getQuantityStatement = con.prepareStatement(getQuantityQuery);
+            getQuantityStatement.setInt(1, Integer.parseInt(productID));
+            ResultSet quantityResult = getQuantityStatement.executeQuery();
 
-            if (!productID.isEmpty()) {
-                query = "DELETE FROM products WHERE productID = ?";
-                statement = con.prepareStatement(query);
-                statement.setInt(1, Integer.parseInt(productID));
-            } else {
-                query = "DELETE FROM products WHERE productName = ?";
-                statement = con.prepareStatement(query);
-                statement.setString(1, productName);
-            }
+            if (quantityResult.next()) {
+                int currentQuantity = quantityResult.getInt("inventoryLevel");
 
-            // Execute the SQL statement
-            int rowsAffected = statement.executeUpdate();
+                if (currentQuantity >= specifiedQuantity) {
+                    // Subtract the specified quantity from the inventoryLevel in products table
+                    String updateProductsQuery = "UPDATE products SET inventoryLevel = inventoryLevel - ? WHERE productID = ?";
+                    PreparedStatement updateProductsStatement = con.prepareStatement(updateProductsQuery);
+                    updateProductsStatement.setInt(1, specifiedQuantity);
+                    updateProductsStatement.setInt(2, Integer.parseInt(productID));
+                    updateProductsStatement.executeUpdate();
 
-            // Close the database connection and resources
-            statement.close();
-            con.close();
+                    // Add 3 times the specified quantity to the inventoryLevel in materials table
+                    String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel + ? WHERE materialName = ?";
+                    PreparedStatement updateMaterialsStatement = con.prepareStatement(updateMaterialsQuery);
+                    updateMaterialsStatement.setInt(1, 3 * specifiedQuantity);
+                    updateMaterialsStatement.setString(2, materialName);
+                    updateMaterialsStatement.executeUpdate();
 
-            if (rowsAffected > 0) {
-                String successMessage = "Product Removed Successfully.";
-                successBox(successMessage);
+                    con.close();
+
+                    String successMessage = "Product removed successfully!";
+                    successBox(successMessage);
+                } else {
+                    String errorMessage = "Insufficient inventory for product with ID: " + productID + " and material: " + materialName + ". Please specify a lower quantity.";
+                    errorBox(errorMessage);
+                }
             } else {
                 String errorMessage = "Product not found.";
                 errorBox(errorMessage);
             }
+        } catch (NumberFormatException e) {
+            errorBox("Invalid quantity specified!");
         } catch (SQLException e) {
             e.printStackTrace();
+            errorBox("Error occurred while removing the product!");
         }
     }
 
