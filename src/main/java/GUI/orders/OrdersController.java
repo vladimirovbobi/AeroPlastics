@@ -12,6 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -41,6 +45,60 @@ public class OrdersController {
     private TableColumn<Order, Boolean> isShippedColumn;
     @FXML
     private TableColumn<Order, String> customerIDColumn;
+
+    /**
+     * Checks product inventory and does proper decremations on products if enough product is present.
+     */
+    public void performInventoryCheck() {
+        try {
+            // Establish a connection to the database
+            JavaConnector connection = new JavaConnector();
+            Connection con = connection.getConnection();
+
+            // Fetch all the products from the products table
+            String productsQuery = "SELECT * FROM products";
+            PreparedStatement productsStatement = con.prepareStatement(productsQuery);
+            ResultSet productsResultSet = productsStatement.executeQuery();
+
+            while (productsResultSet.next()) {
+                int productId = productsResultSet.getInt("productID");
+                int inventoryLevel = productsResultSet.getInt("inventoryLevel");
+
+                // Check if there are any orders with isShipped = false for the current product
+                String ordersQuery = "SELECT * FROM orders WHERE productID = ? AND isShipped = false";
+                PreparedStatement ordersStatement = con.prepareStatement(ordersQuery);
+                ordersStatement.setInt(1, productId);
+                ResultSet ordersResultSet = ordersStatement.executeQuery();
+
+                while (ordersResultSet.next()) {
+                    int quantity = ordersResultSet.getInt("quantity");
+
+                    if (inventoryLevel >= quantity) {
+                        // Update the inventory level
+                        String updateQuery = "UPDATE products SET inventoryLevel = inventoryLevel - ? WHERE productID = ?";
+                        PreparedStatement updateStatement = con.prepareStatement(updateQuery);
+                        updateStatement.setInt(1, quantity);
+                        updateStatement.setInt(2, productId);
+                        int rowsAffected = updateStatement.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            // Update the isShipped value to true
+                            String updateOrderQuery = "UPDATE orders SET isShipped = true WHERE orderID = ?";
+                            PreparedStatement updateOrderStatement = con.prepareStatement(updateOrderQuery);
+                            updateOrderStatement.setInt(1, ordersResultSet.getInt("orderID"));
+                            updateOrderStatement.executeUpdate();
+                        }
+                    }
+                }
+            }
+
+            // Close the database connection and resources
+            productsStatement.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Set view model.
