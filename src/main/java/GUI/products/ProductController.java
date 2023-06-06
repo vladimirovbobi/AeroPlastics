@@ -164,18 +164,14 @@ public class ProductController {
 
     @FXML
     private void handleProductionRequestButtonCLick() throws IOException {
-        List<Product> products = JavaConnector.getAllProducts(); // Replace with your actual code to fetch data from the database
+        List<Product> products = JavaConnector.getProductionRequests(); // Replace with your actual code to fetch data from the database
 
-        // Filter products with inventoryLevel <= 0
-        List<Product> requestedProducts = products.stream()
-                .filter(product -> product.getInventoryLevel() <= 0)
-                .collect(Collectors.toList());
 
         // Clear existing data from the table
         displayTable.getItems().clear();
 
         // Populate the table with requested products
-        displayTable.getItems().addAll(requestedProducts);
+        displayTable.getItems().addAll(products);
     }
 
 

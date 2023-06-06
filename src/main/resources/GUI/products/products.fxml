@@ -83,7 +83,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addProductButton" layoutX="426.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleAddProductButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Order Product" textFill="WHITE">
+                  <Button fx:id="addProductButton" layoutX="426.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleAddProductButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="Produce Item" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
