@@ -8,12 +8,13 @@ import GUI.JavaConnector;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 public class RemoveOrderController {
     @FXML
     private TextField orderIdTextField;
     @FXML
-    private TextField customerIdTextField;
+    private TextField productIdTextField;
     @FXML
     private Button removeButton;
     @FXML
@@ -53,9 +54,9 @@ public class RemoveOrderController {
     @FXML
     private void handleRemoveButtonClick()throws IOException {
         String orderId = orderIdTextField.getText();
-        String customerId = customerIdTextField.getText();
+        String productId = productIdTextField.getText();
 
-        if (orderId.isEmpty() || customerId.isEmpty()) {
+        if (orderId.isEmpty() || productId.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
             errorBox(errorMessage);
             return;
@@ -66,24 +67,51 @@ public class RemoveOrderController {
             JavaConnector connection = new JavaConnector();
             Connection con = connection.getConnection();
 
-            // Prepare the SQL statement
-            String query = "DELETE FROM orders WHERE orderID = ? AND customerID = ?";
-            PreparedStatement statement = con.prepareStatement(query);
-            statement.setInt(1, Integer.parseInt(orderId));
-            statement.setInt(2, Integer.parseInt(customerId));
+            // Check if the order exists
+            String checkQuery = "SELECT * FROM orders WHERE orderID = ? AND productID = ?";
+            PreparedStatement checkStatement = con.prepareStatement(checkQuery);
+            checkStatement.setInt(1, Integer.parseInt(orderId));
+            checkStatement.setInt(2, Integer.parseInt(productId));
+            ResultSet resultSet = checkStatement.executeQuery();
 
-            // Execute the SQL statement
-            int rowsAffected = statement.executeUpdate();
+            if (resultSet.next()) {
+                int quantity = resultSet.getInt("quantity");
+                int productIdToRemove = resultSet.getInt("productID");
 
-            // Close the database connection and resources
-            statement.close();
-            con.close();
+                // Update the product inventory
+                String updateQuery = "UPDATE products SET inventoryLevel = inventoryLevel + ? WHERE productID = ?";
+                PreparedStatement updateStatement = con.prepareStatement(updateQuery);
+                updateStatement.setInt(1, quantity);
+                updateStatement.setInt(2, productIdToRemove);
+                int rowsAffected = updateStatement.executeUpdate();
 
-            if (rowsAffected > 0) {
-                String successMessage = "Order removed successfully.";
-                successBox(successMessage);
+                if (rowsAffected > 0) {
+                    // Remove the order from the database
+                    String removeQuery = "DELETE FROM orders WHERE orderID = ? AND productID = ?";
+                    PreparedStatement removeStatement = con.prepareStatement(removeQuery);
+                    removeStatement.setInt(1, Integer.parseInt(orderId));
+                    removeStatement.setInt(2, Integer.parseInt(productId));
+                    int rowsRemoved = removeStatement.executeUpdate();
+
+                    // Close the database connection and resources
+                    removeStatement.close();
+                    updateStatement.close();
+                    checkStatement.close();
+                    con.close();
+
+                    if (rowsRemoved > 0) {
+                        String successMessage = "Order removed successfully.";
+                        successBox(successMessage);
+                    } else {
+                        String errorMessage = "Failed to remove the order.";
+                        errorBox(errorMessage);
+                    }
+                } else {
+                    String errorMessage = "Failed to update the product inventory.";
+                    errorBox(errorMessage);
+                }
             } else {
-                String errorMessage = "No order found with the specified order ID and customer ID.";
+                String errorMessage = "Order not found.";
                 errorBox(errorMessage);
             }
         } catch (SQLException e) {

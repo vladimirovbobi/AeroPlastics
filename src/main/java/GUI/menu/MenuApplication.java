@@ -1,6 +1,5 @@
 package GUI.menu;
 
-import GUI.Date;
 import GUI.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
