@@ -1,5 +1,6 @@
 package GUI.orders;
 
+import GUI.Date;
 import GUI.JavaConnector;
 import GUI.ViewModel;
 import GUI.orders.addOrder.AddOrderApplication;
@@ -45,6 +46,7 @@ public class OrdersController {
     private TableColumn<Order, Boolean> isShippedColumn;
     @FXML
     private TableColumn<Order, String> customerIDColumn;
+    Date date = new Date(06, 06, 2023);
 
     /**
      * Checks product inventory and does proper decremations on products if enough product is present.
@@ -65,12 +67,12 @@ public class OrdersController {
                 int inventoryLevel = productsResultSet.getInt("inventoryLevel");
 
                 // Check if there is an order with isShipped = false for the current product
-                String ordersQuery = "SELECT * FROM orders WHERE productID = ? AND isShipped = false LIMIT 1";
+                String ordersQuery = "SELECT * FROM orders WHERE productID = ? AND isShipped = false"; //LIMIT 1
                 PreparedStatement ordersStatement = con.prepareStatement(ordersQuery);
                 ordersStatement.setInt(1, productId);
                 ResultSet ordersResultSet = ordersStatement.executeQuery();
 
-                if (ordersResultSet.next()) {
+                while (ordersResultSet.next()) {
                     int quantity = ordersResultSet.getInt("quantity");
 
                     if (inventoryLevel >= quantity) {
@@ -83,19 +85,19 @@ public class OrdersController {
 
                         if (rowsAffected > 0) {
                             // Update the isShipped value to true
-                            String updateOrderQuery = "UPDATE orders SET isShipped = true WHERE orderID = ?";
+                            String updateOrderQuery = "UPDATE orders SET isShipped = true, arrivalDate = ? WHERE orderID = ?";
                             PreparedStatement updateOrderStatement = con.prepareStatement(updateOrderQuery);
-                            updateOrderStatement.setInt(1, ordersResultSet.getInt("orderID"));
+                            int days = 7; // Set the number of days for arrival date
+                            String arrivalDate = date.changeTodaysDateByDays(7);
+                            updateOrderStatement.setString(1, arrivalDate);
+                            updateOrderStatement.setInt(2, ordersResultSet.getInt("orderID"));
                             updateOrderStatement.executeUpdate();
                         }
                     }
                 }
             }
-
-            // Close the database connection and resources
-            productsStatement.close();
-            con.close();
         } catch (SQLException e) {
+            // Handle any SQL errors
             e.printStackTrace();
         }
     }
