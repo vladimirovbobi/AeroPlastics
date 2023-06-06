@@ -22,8 +22,8 @@ public class RemoveOrderController {
     private Button removeButton;
     @FXML
     private Button cancelButton;
-    Shared e = new Shared();
-    Shared v = new Shared();
+    Shared error = new Shared();
+    Shared valid = new Shared();
 
     /**
      * Handles the button click event for removing a new order.
@@ -36,7 +36,7 @@ public class RemoveOrderController {
 
         if (orderId.isEmpty() || productId.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
-            e.errorBox(errorMessage);
+            error.errorBox(errorMessage);
             return;
         }
 
@@ -51,54 +51,73 @@ public class RemoveOrderController {
             checkStatement.setInt(1, Integer.parseInt(orderId));
             checkStatement.setInt(2, Integer.parseInt(productId));
             ResultSet resultSet = checkStatement.executeQuery();
-            if(resultSet.next()){
-                boolean isShipped = resultSet.getBoolean("isShipped");
-                if (isShipped) {
-                    e.errorBox("Unable to remove the order! It is already shipped.");
-                } else if(!isShipped){
 
+            if (resultSet.next()) {
+                boolean isShipped = resultSet.getBoolean("isShipped");
+
+                if (isShipped) {
                     int quantity = resultSet.getInt("quantity");
                     int productIdToRemove = resultSet.getInt("productID");
 
-                    // Update the product inventory
-                    String updateQuery = "UPDATE products SET inventoryLevel = inventoryLevel + ? WHERE productID = ?";
-                    PreparedStatement updateStatement = con.prepareStatement(updateQuery);
-                    updateStatement.setInt(1, quantity);
-                    updateStatement.setInt(2, productIdToRemove);
-                    int rowsAffected = updateStatement.executeUpdate();
+                    // Remove the order from the database
+                    String removeQuery = "DELETE FROM orders WHERE orderID = ? AND productID = ?";
+                    PreparedStatement removeStatement = con.prepareStatement(removeQuery);
+                    removeStatement.setInt(1, Integer.parseInt(orderId));
+                    removeStatement.setInt(2, Integer.parseInt(productId));
+                    int rowsRemoved = removeStatement.executeUpdate();
 
-                    if (rowsAffected > 0) {
-                        // Remove the order from the database
-                        String removeQuery = "DELETE FROM orders WHERE orderID = ? AND productID = ?";
-                        PreparedStatement removeStatement = con.prepareStatement(removeQuery);
-                        removeStatement.setInt(1, Integer.parseInt(orderId));
-                        removeStatement.setInt(2, Integer.parseInt(productId));
-                        int rowsRemoved = removeStatement.executeUpdate();
+                    if (rowsRemoved > 0) {
+                        // Update the product inventory
+                        String updateQuery = "UPDATE products SET inventoryLevel = inventoryLevel + ? WHERE productID = ?";
+                        PreparedStatement updateStatement = con.prepareStatement(updateQuery);
+                        updateStatement.setInt(1, quantity);
+                        updateStatement.setInt(2, productIdToRemove);
+                        int rowsAffected = updateStatement.executeUpdate();
 
                         // Close the database connection and resources
-                        removeStatement.close();
                         updateStatement.close();
                         checkStatement.close();
                         con.close();
 
-                        if (rowsRemoved > 0) {
+                        if (rowsAffected > 0) {
                             String successMessage = "Order removed successfully.";
-                            v.successBox(successMessage);
+                            valid.successBox(successMessage);
                         } else {
-                            String errorMessage = "Failed to remove the order.";
-                            e.errorBox(errorMessage);
+                            String errorMessage = "Failed to update the product inventory.";
+                            error.errorBox(errorMessage);
                         }
                     } else {
-                        String errorMessage = "Failed to update the product inventory.";
-                        e.errorBox(errorMessage);
+                        String errorMessage = "Failed to remove the order.";
+                        error.errorBox(errorMessage);
                     }
-                } else{
-                    String errorMessage = "Order not found.";
-                    e.errorBox(errorMessage);
+                } else {
+                    // Remove the order from the database
+                    String removeQuery = "DELETE FROM orders WHERE orderID = ? AND productID = ?";
+                    PreparedStatement removeStatement = con.prepareStatement(removeQuery);
+                    removeStatement.setInt(1, Integer.parseInt(orderId));
+                    removeStatement.setInt(2, Integer.parseInt(productId));
+                    int rowsRemoved = removeStatement.executeUpdate();
+
+                    // Close the database connection and resources
+                    removeStatement.close();
+                    checkStatement.close();
+                    con.close();
+
+                    if (rowsRemoved > 0) {
+                        String successMessage = "Order removed successfully.";
+                        valid.successBox(successMessage);
+                    } else {
+                        String errorMessage = "Failed to remove the order.";
+                        error.errorBox(errorMessage);
+                    }
                 }
+            } else {
+                String errorMessage = "Order not found.";
+                error.errorBox(errorMessage);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            error.errorBox("Error occurred while removing the order.");
         }
     }
 

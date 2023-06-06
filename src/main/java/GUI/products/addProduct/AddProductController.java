@@ -51,56 +51,27 @@ public class AddProductController {
             if (inventoryLevelResult.next()) {
                 int inventoryLevel = inventoryLevelResult.getInt("inventoryLevel");
 
-                // Add the quantity to the inventoryLevel in products table
-                String updateProductsQuery = "UPDATE products SET inventoryLevel = inventoryLevel + ? WHERE productID = ?";
-                PreparedStatement updateProductsStatement = con.prepareStatement(updateProductsQuery);
-                updateProductsStatement.setInt(1, quantity);
-                updateProductsStatement.setInt(2, productID);
-                updateProductsStatement.executeUpdate();
+                if (inventoryLevel >= 3 * quantity) {
+                    // Subtract 3 times the quantity from the inventoryLevel in materials table
+                    String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel - ? WHERE materialName = ?";
+                    PreparedStatement updateMaterialsStatement = con.prepareStatement(updateMaterialsQuery);
+                    updateMaterialsStatement.setInt(1, 3 * quantity);
+                    updateMaterialsStatement.setString(2, materialName);
+                    updateMaterialsStatement.executeUpdate();
 
-                // Check if there are pending orders for the product and update their status
-                String checkOrdersQuery = "SELECT orderID, quantity FROM orders WHERE productID = ? AND isShipped = false";
-                PreparedStatement checkOrdersStatement = con.prepareStatement(checkOrdersQuery);
-                checkOrdersStatement.setInt(1, productID);
-                ResultSet pendingOrdersResult = checkOrdersStatement.executeQuery();
+                    // Add the quantity to the inventoryLevel in products table
+                    String updateProductsQuery = "UPDATE products SET inventoryLevel = inventoryLevel + ? WHERE productID = ?";
+                    PreparedStatement updateProductsStatement = con.prepareStatement(updateProductsQuery);
+                    updateProductsStatement.setInt(1, quantity);
+                    updateProductsStatement.setInt(2, productID);
+                    updateProductsStatement.executeUpdate();
 
-                while (pendingOrdersResult.next()) {
-                    int orderID = pendingOrdersResult.getInt("orderID");
-                    int orderQuantity = pendingOrdersResult.getInt("quantity");
+                    con.close();
 
-                    // Retrieve the updated inventory level after adding the ordered quantity
-                    String getUpdatedInventoryLevelQuery = "SELECT inventoryLevel FROM products WHERE productID = ?";
-                    PreparedStatement getUpdatedInventoryLevelStatement = con.prepareStatement(getUpdatedInventoryLevelQuery);
-                    getUpdatedInventoryLevelStatement.setInt(1, productID);
-                    ResultSet updatedInventoryLevelResult = getUpdatedInventoryLevelStatement.executeQuery();
-
-                    if (updatedInventoryLevelResult.next()) {
-                        int updatedInventoryLevel = updatedInventoryLevelResult.getInt("inventoryLevel");
-
-                        if (updatedInventoryLevel >= orderQuantity) {
-                            // Subtract the order quantity from the inventoryLevel in products table
-                            String decrementInventoryQuery = "UPDATE products SET inventoryLevel = inventoryLevel - ? WHERE productID = ?";
-                            PreparedStatement decrementInventoryStatement = con.prepareStatement(decrementInventoryQuery);
-                            decrementInventoryStatement.setInt(1, orderQuantity);
-                            decrementInventoryStatement.setInt(2, productID);
-                            decrementInventoryStatement.executeUpdate();
-
-                            // Update the order status to isShipped = true
-                            String updateOrdersQuery = "UPDATE orders SET isShipped = true WHERE orderID = ?";
-                            PreparedStatement updateOrdersStatement = con.prepareStatement(updateOrdersQuery);
-                            updateOrdersStatement.setInt(1, orderID);
-                            updateOrdersStatement.executeUpdate();
-                        } else {
-                            error.errorBox("Insufficient inventory for material: " + materialName + " to fulfill the order with ID: " + orderID);
-                            valid.successBox("Product could not be added due to insufficient inventory!");
-                            return; // Exit the method if there is insufficient inventory
-                        }
-                    }
+                    valid.successBox("Product added successfully!");
+                } else {
+                    error.errorBox("Insufficient inventory for material: " + materialName + ". Please order at least " + (3 * quantity - inventoryLevel) + " more.");
                 }
-
-                con.close();
-
-                valid.successBox("Product added successfully!");
             } else {
                 error.errorBox("Material not found: " + materialName);
             }

@@ -30,8 +30,8 @@ public class AddOrderController {
     private Button addButton;
     @FXML
     private Button cancelButton;
-    Shared e = new Shared();
-    Shared v = new Shared();
+    Shared error = new Shared();
+    Shared valid = new Shared();
 
     /**
      * Handles the button click event for adding a new order.
@@ -44,65 +44,88 @@ public class AddOrderController {
         String address = addressTextField.getText();
         String quantity = quantityTextField.getText();
 
-
         if (customerId.isEmpty() || productId.isEmpty() || address.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
-            e.errorBox(errorMessage);
+            error.errorBox(errorMessage);
             return;
         }
 
         try {
-
             // Establish a connection to the database
             JavaConnector connection = new JavaConnector();
             Connection con = connection.getConnection();
 
-            // Prepare the SQL statement
-            String query;
-            PreparedStatement statement = null;
-            boolean success = false;
-            if(Product.productIsInStockAndShipped(Integer.parseInt(productId),Integer.parseInt(quantity))){
-                success = true;
-                v.successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
-            }else {
-                String material =  Product.getMaterialUsedForProduct(Integer.parseInt(productId));
-                if(Material.isInStockToProduce(material,Integer.parseInt(quantity))){
-                    success = true;
-                    v.successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
-                }else{
-                    e.errorBox("No sufficient material or products in inventory. By more "+ material+ " to fulfill the order!");
+            // Retrieve the product details
+            String getProductQuery = "SELECT productName, inventoryLevel FROM products WHERE productID = ?";
+            PreparedStatement getProductStatement = con.prepareStatement(getProductQuery);
+            getProductStatement.setInt(1, Integer.parseInt(productId));
+            ResultSet productResult = getProductStatement.executeQuery();
+
+            if (productResult.next()) {
+                String productName = productResult.getString("productName");
+                int inventoryLevel = productResult.getInt("inventoryLevel");
+
+                if (inventoryLevel >= Integer.parseInt(quantity)) {
+                    // Prepare the SQL statement
+                    String query = "INSERT INTO orders (orderID, address, isShipped, customerID, productID, quantity, arrivalDate, OrderDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement statement = con.prepareStatement(query);
+                    statement.setInt(1, getLastOrderID() + 1);
+                    statement.setString(2, address);
+                    statement.setBoolean(3, true);
+                    statement.setInt(4, Integer.parseInt(customerId));
+                    statement.setInt(5, Integer.parseInt(productId));
+                    statement.setInt(6, Integer.parseInt(quantity));
+                    statement.setString(7, Date.changeTodaysDateByDays(5));
+                    statement.setString(8, Date.todaysDate());
+
+                    // Execute the SQL statement
+                    int rowsAffected = statement.executeUpdate();
+
+                    // Close the database connection and resources
+                    statement.close();
+                    con.close();
+
+                    if (rowsAffected > 0) {
+                        String successMessage = "Order added successfully.";
+                        valid.successBox(successMessage);
+                    } else {
+                        String errorMessage = "Order not added.";
+                        error.errorBox(errorMessage);
+                    }
+                } else {
+                    // Calculate the required quantity to fulfill the order
+                    int quantityNeeded = Integer.parseInt(quantity) - inventoryLevel;
+
+                    // Prepare the SQL statement
+                    String query = "INSERT INTO orders (orderID, address, isShipped, customerID, productID, quantity, arrivalDate, OrderDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement statement = con.prepareStatement(query);
+                    statement.setInt(1, getLastOrderID() + 1);
+                    statement.setString(2, address);
+                    statement.setBoolean(3, false);
+                    statement.setInt(4, Integer.parseInt(customerId));
+                    statement.setInt(5, Integer.parseInt(productId));
+                    statement.setInt(6, Integer.parseInt(quantity));
+                    statement.setString(7, "");
+                    statement.setString(8, Date.todaysDate());
+
+                    // Execute the SQL statement
+                    int rowsAffected = statement.executeUpdate();
+
+                    // Close the database connection and resources
+                    statement.close();
+                    con.close();
+
+                    String errorMessage = "Insufficient inventory for product: " + productName + ". Order added but cannot be shipped. Please produce at least " + quantityNeeded + " more.";
+                    error.errorBox(errorMessage);
                 }
-            }
-            int rowsAffected = 0;
-
-                // Prepare the SQL statement
-                query = "INSERT INTO orders (orderID, address, isShipped, customerID,productID, quantity, arrivalDate,OrderDate) VALUES (?, ?, ?, ?,?,?,?,?)";
-                statement = con.prepareStatement(query);
-                statement.setInt(1, getLastOrderID() + 1);
-                statement.setString(2, address);
-                statement.setBoolean(3, success);
-                statement.setInt(4, Integer.parseInt(customerId));
-                statement.setInt(5, Integer.parseInt(productId));
-                statement.setInt(6, Integer.parseInt(quantity));
-                statement.setString(7,Date.changeTodaysDateByDays(5));
-                statement.setString(8, Date.todaysDate());
-
-            // Execute the SQL statement
-             rowsAffected = statement.executeUpdate();
-
-            // Close the database connection and resources
-            statement.close();
-            con.close();
-
-            if (rowsAffected > 0) {
-                String successMessage = "Order Added Successfully.";
-                v.successBox(successMessage);
             } else {
-                String errorMessage = "Order not added.";
-                e.errorBox(errorMessage);
+                error.errorBox("Product not found: " + productId);
             }
+        } catch (NumberFormatException e) {
+            error.errorBox("Invalid input. Please enter numeric values for customer ID, product ID, and quantity.");
         } catch (SQLException e) {
             e.printStackTrace();
+            error.errorBox("Error occurred while adding the order.");
         }
     }
 
