@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The type Remove supply controller.
@@ -22,8 +23,6 @@ public class RemoveSupplyController {
     /**
      * The Material name text field.
      */
-    @FXML
-    TextField materialNameTextField;
     @FXML
     private Button cancelButton;
     @FXML
@@ -39,7 +38,6 @@ public class RemoveSupplyController {
     public void handleRemoveButtonClick() throws SQLException {
         // Get the values from the text fields
         int supplyOrderId = Integer.parseInt(supplyOrderIdTextField.getText());
-        String materialName = materialNameTextField.getText();
 
         // Create a database connection
         JavaConnector con = new JavaConnector();
@@ -48,33 +46,31 @@ public class RemoveSupplyController {
             e.errorBox("Failed to connect to the database.");
             return;
         }
-
+        String materialName ="";
         try {
             // Start a transaction
             connection.setAutoCommit(false);
 
             // Prepare the SELECT query to fetch the quantity from the deleted supply order
-            String selectQuery = "SELECT quantity FROM supplyorder WHERE supplyOrderID = ? AND rawMaterial = ?";
+            String selectQuery = "SELECT * FROM supplyorder WHERE supplyOrderID = ?";
             PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
             selectStatement.setInt(1, supplyOrderId);
-            selectStatement.setString(2, materialName);
-
+            ArrayList<Integer> quantities = new ArrayList<>();
+            ArrayList<String> materials = new ArrayList<>();
             // Execute the SELECT query
             ResultSet resultSet = selectStatement.executeQuery();
             int quantity = 0;
-            if (resultSet.next()) {
+
+            while (resultSet.next()) {
                 // Get the quantity from the deleted supply order
-                quantity = resultSet.getInt("quantity");
-            } else {
-                e.errorBox("Failed to retrieve the quantity from the supply order. Please check the entered values.");
-                return;
+                quantities.add(resultSet.getInt("quantity"));
+                materials.add(resultSet.getString("rawMaterial"));
             }
 
             // Prepare the DELETE query for supplyorder table
-            String deleteQuery = "DELETE FROM supplyorder WHERE supplyOrderID = ? AND rawMaterial = ?";
+            String deleteQuery = "DELETE FROM supplyorder WHERE supplyOrderID = ? ";
             PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
             deleteStatement.setInt(1, supplyOrderId);
-            deleteStatement.setString(2, materialName);
 
             // Execute the DELETE query
             int rowsAffected = deleteStatement.executeUpdate();
@@ -82,26 +78,28 @@ public class RemoveSupplyController {
             // Check if the deletion was successful
             if (rowsAffected > 0) {
                 // Prepare the UPDATE query for vendor table
-                String updateQuery = "UPDATE vendor SET productQuantity = productQuantity + ? WHERE rawMaterial = ?";
-                PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-                updateStatement.setInt(1, quantity * rowsAffected);  // Adding the quantity from each deleted supply order entry
-                updateStatement.setString(2, materialName);
+                for(int i = 0 ; i< materials.size(); i ++ ) {
+                    String updateQuery = "UPDATE vendor SET productQuantity = productQuantity + ? WHERE rawMaterial = ?";
+                    PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+                    updateStatement.setInt(1, quantities.get(i));  // Adding the quantity from each deleted supply order entry
+                    updateStatement.setString(2, materials.get(i));
+                    // Execute the UPDATE query for vendor table
+                    updateStatement.executeUpdate();
 
-                // Execute the UPDATE query for vendor table
-                updateStatement.executeUpdate();
+                    // Prepare the UPDATE query for materials table
+                    String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel - ? WHERE materialName = ?";
+                    PreparedStatement updateMaterialsStatement = connection.prepareStatement(updateMaterialsQuery);
+                    updateMaterialsStatement.setInt(1, quantities.get(i)); // Subtracting the quantity from each deleted supply order entry
+                    updateMaterialsStatement.setString(2, materials.get(i));
 
-                // Prepare the UPDATE query for materials table
-                String updateMaterialsQuery = "UPDATE materials SET inventoryLevel = inventoryLevel - ? WHERE materialName = ?";
-                PreparedStatement updateMaterialsStatement = connection.prepareStatement(updateMaterialsQuery);
-                updateMaterialsStatement.setInt(1, quantity * rowsAffected); // Subtracting the quantity from each deleted supply order entry
-                updateMaterialsStatement.setString(2, materialName);
+                    // Execute the UPDATE query for materials table
+                    updateMaterialsStatement.executeUpdate();
 
-                // Execute the UPDATE query for materials table
-                updateMaterialsStatement.executeUpdate();
+                    // Commit the transaction
+                    connection.commit();
 
-                // Commit the transaction
-                connection.commit();
 
+                }
                 e.successBox("Supply order removed successfully, quantity updated in vendor table, and inventory level updated in materials table.");
             } else {
                 e.errorBox("Failed to remove the supply order. Please check the entered values.");
