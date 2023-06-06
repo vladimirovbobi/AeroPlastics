@@ -16,7 +16,7 @@ import java.util.List;
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "@Ziemlupr2072";
+    private static final String PASSWORD = "Bob4oSirop4o";
 
     /**
      * Gets connection.
@@ -460,7 +460,6 @@ public class JavaConnector {
             while (resultSet.next()) {
                 if(resultSet.getInt("supplyOrderID") != supplyOrderID){
                     supplyOrderID = resultSet.getInt("supplyOrderID");
-                    totalQuantity = 0;
                 }
 
                 int vendorID = resultSet.getInt("vendorID");
@@ -470,6 +469,7 @@ public class JavaConnector {
                 if(rawMaterial.equals("Total")){
                     Vendor vendor = new Vendor("Cart", supplyOrderID,rawMaterial, totalQuantity, price);
                     vendors.add(vendor);
+                    totalQuantity = 0;
                 }else {
                     totalQuantity += productQuantity;
                     //Create a Vendor object and add it to the list
@@ -530,6 +530,52 @@ public class JavaConnector {
         return products;
     }
 
+    /**
+     * Retrieve List of Products to be produced
+     * @return product list
+     */
+    public static ArrayList<Product> getProductionRequests(){
+        ArrayList<Product> products = new ArrayList<>();
+
+        try {
+            //Establish a connection to the database
+            Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            // Execute a SQL query to retrieve materials data
+            String query = "SELECT * FROM orders WHERE isShipped = false;";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            ArrayList<Integer> quantities= new ArrayList<>();
+            ArrayList<Integer> productIDs= new ArrayList<>();
+
+            while (resultSet.next()) {
+                quantities.add(resultSet.getInt("quantity"));
+                productIDs.add(resultSet.getInt("productID"));
+            }
+            for(int i = 0; i < quantities.size(); i++) {
+                query = "SELECT * FROM products WHERE productID = " + productIDs.get(i)+";";
+                ResultSet resultSet1 = statement.executeQuery(query);
+                //Process the result set
+                while (resultSet1.next()) {
+                    String productName= resultSet1.getString("productName");
+                    double price = resultSet1.getDouble("price");
+                    String rawMaterial = resultSet1.getString("rawMaterial");
+
+                    //Create a Material object and add it to the list
+                    Product product = new Product(productIDs.get(i), productName, price, rawMaterial, quantities.get(i));
+                    products.add(product);
+                }
+            }
+            //Close the database connection and resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
     /**
      * Search product by name or id product.
      *
