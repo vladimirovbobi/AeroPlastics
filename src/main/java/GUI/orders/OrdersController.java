@@ -4,7 +4,6 @@ import GUI.JavaConnector;
 import GUI.ViewModel;
 import GUI.orders.addOrder.AddOrderApplication;
 import GUI.orders.removeOrder.RemoveOrderApplication;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -132,9 +131,8 @@ public class OrdersController {
      * Handles the search button click event.
      * Searches for orders by name or ID and populates the table with the results.
      *
-     * @param actionEvent The action event.
      */
-    public void handleSingleSearchButtonClicked(ActionEvent actionEvent) {
+    public void handleSingleSearchButtonClicked() {
         String name = orderTextField.getText();
         List<Order> orders = JavaConnector.searchOrdersByNameOrID(name);
 
@@ -148,10 +146,9 @@ public class OrdersController {
     /**
      * Logout and return to the login window
      *
-     * @param actionEvent the action event
      * @throws IOException the io exception
      */
-    public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
+    public void handleLogOutButtonClicked() throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.close();
 

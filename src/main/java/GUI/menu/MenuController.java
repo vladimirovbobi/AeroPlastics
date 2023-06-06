@@ -78,7 +78,7 @@ public class MenuController {
      * Log out and return to the Log In window.
      */
     @FXML
-    private void handleLogoutButtonClick(ActionEvent event) throws IOException {
+    private void handleLogoutButtonClick() throws IOException {
         Stage stage = (Stage) LogoutButton.getScene().getWindow();
         stage.close();
 

@@ -101,10 +101,9 @@ public class LoginController {
 
     /**
      * Close the application when click cancel button
-     * @param event the event
      */
     @FXML
-    private void handleCancelButtonClick(ActionEvent event){
+    private void handleCancelButtonClick(){
         viewModel.closeCurrentStage();
     }
 }

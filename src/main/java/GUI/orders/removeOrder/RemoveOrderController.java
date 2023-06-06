@@ -53,10 +53,9 @@ public class RemoveOrderController {
     /**
      * Handles the button click event for removing a new order.
      *
-     * @throws IOException If an I/O exception occurs.
      */
     @FXML
-    private void handleRemoveButtonClick()throws IOException {
+    private void handleRemoveButtonClick() {
         String orderId = orderIdTextField.getText();
         String productId = productIdTextField.getText();
 
@@ -127,7 +126,7 @@ public class RemoveOrderController {
      * Handles the button click event for canceling operation.
      */
     @FXML
-    private void handleCancelButtonClick() throws IOException{
+    private void handleCancelButtonClick() {
         cancelButton.getScene().getWindow().hide();
     }
 }

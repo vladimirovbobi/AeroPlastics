@@ -61,10 +61,9 @@ public class AddOrderController {
     /**
      * Handles the button click event for adding a new order.
      *
-     * @throws IOException If an I/O exception occurs.
      */
     @FXML
-    private void handleAddButtonClick() throws IOException {
+    private void handleAddButtonClick() {
         String customerId = customerIdTextField.getText();
         String productId = productIdTextField.getText();
         String address = addressTextField.getText();
