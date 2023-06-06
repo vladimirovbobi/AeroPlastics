@@ -64,13 +64,13 @@ public class OrdersController {
                 int productId = productsResultSet.getInt("productID");
                 int inventoryLevel = productsResultSet.getInt("inventoryLevel");
 
-                // Check if there are any orders with isShipped = false for the current product
-                String ordersQuery = "SELECT * FROM orders WHERE productID = ? AND isShipped = false";
+                // Check if there is an order with isShipped = false for the current product
+                String ordersQuery = "SELECT * FROM orders WHERE productID = ? AND isShipped = false LIMIT 1";
                 PreparedStatement ordersStatement = con.prepareStatement(ordersQuery);
                 ordersStatement.setInt(1, productId);
                 ResultSet ordersResultSet = ordersStatement.executeQuery();
 
-                while (ordersResultSet.next()) {
+                if (ordersResultSet.next()) {
                     int quantity = ordersResultSet.getInt("quantity");
 
                     if (inventoryLevel >= quantity) {
