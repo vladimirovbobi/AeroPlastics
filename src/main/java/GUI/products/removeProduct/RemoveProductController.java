@@ -1,7 +1,7 @@
 package GUI.products.removeProduct;
 
+import GUI.utility.Shared;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import java.io.IOException;
@@ -26,22 +26,8 @@ public class RemoveProductController {
     private TextField materialNameTextField;
     @FXML
     private TextField quantityTextField;
-
-    private void errorBox(String text){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
-
-    private void successBox(String text){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
+    Shared error = new Shared();
+    Shared valid = new Shared();
 
     @FXML
     private void handleRemoveButtonClick() throws IOException {
@@ -51,7 +37,7 @@ public class RemoveProductController {
 
         if (productID.isEmpty() || materialName.isEmpty() || quantityText.isEmpty()) {
             String errorMessage = "Please enter the product ID, material name, and quantity.";
-            errorBox(errorMessage);
+            error.errorBox(errorMessage);
             return;
         }
 
@@ -90,20 +76,20 @@ public class RemoveProductController {
                     con.close();
 
                     String successMessage = "Product removed successfully!";
-                    successBox(successMessage);
+                    valid.successBox(successMessage);
                 } else {
                     String errorMessage = "Insufficient inventory for product with ID: " + productID + " and material: " + materialName + ". Please specify a lower quantity.";
-                    errorBox(errorMessage);
+                    error.errorBox(errorMessage);
                 }
             } else {
                 String errorMessage = "Product not found.";
-                errorBox(errorMessage);
+                error.errorBox(errorMessage);
             }
         } catch (NumberFormatException e) {
-            errorBox("Invalid quantity specified!");
+            error.errorBox("Invalid quantity specified!");
         } catch (SQLException e) {
             e.printStackTrace();
-            errorBox("Error occurred while removing the product!");
+            error.errorBox("Error occurred while removing the product!");
         }
     }
 

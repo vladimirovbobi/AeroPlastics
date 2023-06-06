@@ -3,11 +3,10 @@ package GUI.orders.addOrder;
 import GUI.Date;
 import GUI.products.Product;
 import GUI.supplies.Material;
+import GUI.utility.Shared;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,32 +30,8 @@ public class AddOrderController {
     private Button addButton;
     @FXML
     private Button cancelButton;
-
-    /**
-     * Displays an error dialog box with message.
-     *
-     * @param text The error message to display.
-     */
-    private void errorBox(String text){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
-
-    /**
-     * Displays a success dialog box with message.
-     *
-     * @param text The success message to display.
-     */
-    private void successBox(String text){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
+    Shared e = new Shared();
+    Shared v = new Shared();
 
     /**
      * Handles the button click event for adding a new order.
@@ -72,7 +47,7 @@ public class AddOrderController {
 
         if (customerId.isEmpty() || productId.isEmpty() || address.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
-            errorBox(errorMessage);
+            e.errorBox(errorMessage);
             return;
         }
 
@@ -88,14 +63,14 @@ public class AddOrderController {
             boolean success = false;
             if(Product.productIsInStockAndShipped(Integer.parseInt(productId),Integer.parseInt(quantity))){
                 success = true;
-                successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
+                v.successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
             }else {
                 String material =  Product.getMaterialUsedForProduct(Integer.parseInt(productId));
                 if(Material.isInStockToProduce(material,Integer.parseInt(quantity))){
                     success = true;
-                    successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
+                    v.successBox("Your order was successful!The estimated delivery date is: " + Date.changeTodaysDateByDays(5));
                 }else{
-                    errorBox("No sufficient material or products in inventory. By more "+ material+ " to fulfill the order!");
+                    e.errorBox("No sufficient material or products in inventory. By more "+ material+ " to fulfill the order!");
                 }
             }
             int rowsAffected = 0;
@@ -121,10 +96,10 @@ public class AddOrderController {
 
             if (rowsAffected > 0) {
                 String successMessage = "Order Added Successfully.";
-                successBox(successMessage);
+                v.successBox(successMessage);
             } else {
                 String errorMessage = "Order not added.";
-                errorBox(errorMessage);
+                e.errorBox(errorMessage);
             }
         } catch (SQLException e) {
             e.printStackTrace();

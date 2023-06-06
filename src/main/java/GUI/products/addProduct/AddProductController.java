@@ -1,5 +1,6 @@
 package GUI.products.addProduct;
 
+import GUI.utility.Shared;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,16 +10,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import GUI.JavaConnector;
 
 /**
  * The type Add product controller.
  */
 public class AddProductController {
-    /**
-     * The Quantity text field.
-     */
     @FXML
     public TextField quantityTextField;
     @FXML
@@ -29,24 +26,14 @@ public class AddProductController {
     private Button addButton;
     @FXML
     private Button cancelButton;
+    Shared error = new Shared();
+    Shared valid = new Shared();
 
-    private void errorBox(String text){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
-
-    private void successBox(String text){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
+    /**
+     * Decrements supplies and adds to products
+     */
     @FXML
-    private void handleAddButtonClick() throws IOException {
+    private void handleAddButtonClick() {
         int productID = Integer.parseInt(idTextField.getText());
         String materialName = materialTextField.getText();
         int quantity = Integer.parseInt(quantityTextField.getText());
@@ -81,18 +68,18 @@ public class AddProductController {
 
                     con.close();
 
-                    successBox("Product added successfully!");
+                    valid.successBox("Product added successfully!");
                 } else {
-                    errorBox("Insufficient inventory for material: " + materialName + ". Please order at least " + (3 * quantity - inventoryLevel) + " more.");
+                    error.errorBox("Insufficient inventory for material: " + materialName + ". Please order at least " + (3 * quantity - inventoryLevel) + " more.");
                 }
             } else {
-                errorBox("Material not found: " + materialName);
+                error.errorBox("Material not found: " + materialName);
             }
         } catch (NumberFormatException e) {
-            errorBox("Invalid quantity specified!");
+            error.errorBox("Invalid quantity specified!");
         } catch (SQLException e) {
             e.printStackTrace();
-            errorBox("Error occurred while adding the product!");
+            error.errorBox("Error occurred while adding the product!");
         }
     }
 
@@ -126,7 +113,9 @@ public class AddProductController {
         return max;
     }
 
-
+    /**
+     * Closes window.
+     */
     @FXML
     private void handleCancelButtonClick() {
         cancelButton.getScene().getWindow().hide();

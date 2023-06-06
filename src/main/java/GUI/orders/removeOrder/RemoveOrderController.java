@@ -1,11 +1,10 @@
 package GUI.orders.removeOrder;
 
+import GUI.utility.Shared;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import GUI.JavaConnector;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,32 +22,8 @@ public class RemoveOrderController {
     private Button removeButton;
     @FXML
     private Button cancelButton;
-
-    /**
-     * Displays an error dialog box with message.
-     *
-     * @param text The error message to display.
-     */
-    private void errorBox(String text) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
-
-    /**
-     * Displays a success dialog box with message.
-     *
-     * @param text The success message to display.
-     */
-    private void successBox(String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
+    Shared e = new Shared();
+    Shared v = new Shared();
 
     /**
      * Handles the button click event for removing a new order.
@@ -61,7 +36,7 @@ public class RemoveOrderController {
 
         if (orderId.isEmpty() || productId.isEmpty()) {
             String errorMessage = "Please fill in all the fields.";
-            errorBox(errorMessage);
+            e.errorBox(errorMessage);
             return;
         }
 
@@ -104,18 +79,18 @@ public class RemoveOrderController {
 
                     if (rowsRemoved > 0) {
                         String successMessage = "Order removed successfully.";
-                        successBox(successMessage);
+                        v.successBox(successMessage);
                     } else {
                         String errorMessage = "Failed to remove the order.";
-                        errorBox(errorMessage);
+                        e.errorBox(errorMessage);
                     }
                 } else {
                     String errorMessage = "Failed to update the product inventory.";
-                    errorBox(errorMessage);
+                    e.errorBox(errorMessage);
                 }
             } else {
                 String errorMessage = "Order not found.";
-                errorBox(errorMessage);
+                e.errorBox(errorMessage);
             }
         } catch (SQLException e) {
             e.printStackTrace();
