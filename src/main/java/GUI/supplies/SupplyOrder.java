@@ -8,24 +8,40 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
+/**
+ * The type Supply order.
+ */
 public class SupplyOrder{
+    /**
+     * The Vendor.
+     */
     Vendor vendor;
     private int supplyOrderID;
     private String arrivalDate;
     private String orderDate;
 
+    /**
+     * The Material.
+     */
     Material material;
+    /**
+     * The Materials.
+     */
     ArrayList<Material> materials;
 
+    /**
+     * Instantiates a new Supply order.
+     */
     public SupplyOrder (){
 
     }
 
     /**
      * Constructor
+     *
      * @param orderPlaced The Date the order is placed
      * @param arrivalDate The Date the order arrives
-     * @param vendor Vendor Object
+     * @param vendor      Vendor Object
      */
     public SupplyOrder(String orderPlaced, String arrivalDate,Vendor vendor){
         this.vendor = vendor;
@@ -35,10 +51,11 @@ public class SupplyOrder{
 
     /**
      * Constructor
+     *
      * @param orderPlaced Date the order is placed
      * @param arrivalDate Date the order will arrive
-     * @param materials  The name of the material
-     * @param vendor Vendor Object
+     * @param materials   The name of the material
+     * @param vendor      Vendor Object
      */
     public SupplyOrder(String orderPlaced, String arrivalDate, ArrayList<Material> materials, Vendor vendor){
 
@@ -52,6 +69,7 @@ public class SupplyOrder{
 
     /**
      * Goes through the supply orders in the table and returns the biggest ID
+     *
      * @return largest ID
      */
     public static int getLastOrderId(){
@@ -80,6 +98,7 @@ public class SupplyOrder{
 
     /**
      * Unused, can be integrated into automatic ordering in the future
+     *
      * @param material the name of the material
      * @return vendorID with the lowest price
      */
@@ -113,6 +132,7 @@ public class SupplyOrder{
     /**
      * Creates order in the supply order table (every product is recorded), also the total is added to the table
      * Resets and deletes the cart
+     *
      * @throws SQLException My SQL Exception
      */
     public static void submitOrder() throws SQLException {

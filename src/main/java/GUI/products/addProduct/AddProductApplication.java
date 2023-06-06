@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Add product application.
+ */
 public class AddProductApplication extends Application {
 
     @Override

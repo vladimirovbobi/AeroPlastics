@@ -48,6 +48,12 @@ public class ProductController {
     private TextField productTextField;
 
     private ViewModel viewModel;
+
+    /**
+     * Set view model.
+     *
+     * @param viewModel the view model
+     */
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
@@ -160,6 +166,11 @@ public class ProductController {
 
     }
 
+    /**
+     * Handle produce more button click.
+     *
+     * @param actionEvent the action event
+     */
     public void handleProduceMoreButtonClick(ActionEvent actionEvent) {
         String searchQuery = productTextField.getText(); // Assuming productTextField is the TextField where you enter the name or ID
 
@@ -219,8 +230,9 @@ public class ProductController {
 
     /**
      * Logout and return to the login window
+     *
      * @param actionEvent the action event
-     * @throws IOException
+     * @throws IOException the io exception
      */
     @FXML
     public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {

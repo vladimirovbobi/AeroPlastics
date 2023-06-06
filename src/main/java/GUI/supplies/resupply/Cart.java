@@ -12,6 +12,9 @@ import java.math.RoundingMode;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The type Cart.
+ */
 public class    Cart {
     private static Cart cart;
     private static double amount;
@@ -31,7 +34,8 @@ public class    Cart {
 
     /**
      * Using the Singleton Pattern, it creates an instance only once and retrieves the same object every time
-     * @return cart
+     *
+     * @return cart cart
      */
     public static Cart getInstance(){
         if(cart == null) {
@@ -52,6 +56,7 @@ public class    Cart {
 
     /**
      * Goes through the supply orders in the table and returns the biggest ID
+     *
      * @return largest ID
      */
     public int getLastCartId(){
@@ -77,9 +82,10 @@ public class    Cart {
 
     /**
      * Adds new items to table "cart" , by finding the price from a vendor by their ID
-     * @param vendorID vendor ID number
+     *
+     * @param vendorID     vendor ID number
      * @param materialName material Name
-     * @param quantity quantity bought
+     * @param quantity     quantity bought
      */
     public void addToCart(int vendorID, String materialName,int quantity){
         try {
@@ -107,6 +113,7 @@ public class    Cart {
 
     /**
      * Adds to the current total
+     *
      * @param money price
      */
     public void addToAmount(double money){
@@ -115,16 +122,17 @@ public class    Cart {
 
     /**
      * Retrieves the current total
+     *
      * @return total amount
      */
-
     public double getAmount() {
         return amount;
     }
 
     /**
      * Sets the current total
-     * @param money
+     *
+     * @param money the money
      */
     public static void setAmount(double money) {
         amount = money;
@@ -132,7 +140,8 @@ public class    Cart {
 
     /**
      * Gets the prices and quantities for all the items in the cart, and multiplies them to update the total for the current cart
-     * @throws SQLException
+     *
+     * @throws SQLException the sql exception
      */
     public static void updateAmount() throws SQLException {
         JavaConnector javaConnector = new JavaConnector();
@@ -160,7 +169,8 @@ public class    Cart {
 
     /**
      * Retrieves cartID
-     * @return cartID
+     *
+     * @return cartID cart id
      */
     public int getCartID() {
         return cartID;

@@ -42,6 +42,8 @@ public class Date {
 
     /**
      * Today's date.
+     *
+     * @return the string
      */
     public static String todaysDate(){
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -51,6 +53,7 @@ public class Date {
 
     /**
      * Change the date, used for expected delivery date
+     *
      * @param days number of days needed for delivery
      * @return arrival Date
      */

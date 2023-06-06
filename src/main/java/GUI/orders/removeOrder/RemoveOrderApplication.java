@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Remove order application.
+ */
 public class RemoveOrderApplication extends Application {
 
     @Override

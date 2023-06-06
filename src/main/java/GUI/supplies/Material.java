@@ -6,22 +6,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
 
+/**
+ * The type Material.
+ */
 public class Material {
+    /**
+     * The Inventory level.
+     */
     int inventoryLevel;
+    /**
+     * The Material id.
+     */
     int materialID;
+    /**
+     * The Material name.
+     */
     String materialName;
+    /**
+     * The Mold temperature.
+     */
     int moldTemperature;
+    /**
+     * The Plastic density.
+     */
     int plasticDensity;
 
     /**
      * Constructor
-     * @param inventoryLevel inventory level
-     * @param materialID material ID
-     * @param materialName material name
+     *
+     * @param inventoryLevel  inventory level
+     * @param materialID      material ID
+     * @param materialName    material name
      * @param moldTemperature mold temperature
-     * @param plasticDensity plastic density
+     * @param plasticDensity  plastic density
      */
-
     public Material(int inventoryLevel, int materialID, String materialName, int moldTemperature, int plasticDensity){
         this.materialID = materialID;
         this.materialName = materialName;
@@ -32,8 +50,9 @@ public class Material {
 
     /**
      * Constructor
-     * @param materialID material ID
-     * @param materialName material name
+     *
+     * @param materialID     material ID
+     * @param materialName   material name
      * @param inventoryLevel inventory level
      */
     public Material (int materialID, String materialName, int inventoryLevel){
@@ -45,8 +64,9 @@ public class Material {
 
     /**
      * Retrieves the material's ID stored in the database
+     *
      * @param name name
-     * @return material
+     * @return material int
      */
     public static int getIDForMaterialName(String name){
            int i = 0 ;
@@ -69,6 +89,13 @@ public class Material {
             return i;
 
     }
+
+    /**
+     * Reduce material by.
+     *
+     * @param name          the name
+     * @param numberOfUnits the number of units
+     */
     public static void reduceMaterialBy(String name, int numberOfUnits){
         int quantity = 0 ;
         try {
@@ -105,6 +132,14 @@ public class Material {
             e1.printStackTrace();
         }
     }
+
+    /**
+     * Is in stock to produce boolean.
+     *
+     * @param name                  the name
+     * @param numberOfUnitsProduced the number of units produced
+     * @return the boolean
+     */
     public static boolean isInStockToProduce(String name,int numberOfUnitsProduced){
       int quantity = 0;
         try {
@@ -136,22 +171,47 @@ public class Material {
         return false;
     }
 
+    /**
+     * Gets material id.
+     *
+     * @return the material id
+     */
     public int getMaterialID() {
         return materialID;
     }
 
+    /**
+     * Gets mold temperature.
+     *
+     * @return the mold temperature
+     */
     public int getMoldTemperature() {
         return moldTemperature;
     }
 
+    /**
+     * Gets plastic density.
+     *
+     * @return the plastic density
+     */
     public int getPlasticDensity() {
         return plasticDensity;
     }
 
+    /**
+     * Gets material name.
+     *
+     * @return the material name
+     */
     public String getMaterialName() {
         return materialName;
     }
 
+    /**
+     * Gets inventory level.
+     *
+     * @return the inventory level
+     */
     public int getInventoryLevel() {
         return inventoryLevel;
     }

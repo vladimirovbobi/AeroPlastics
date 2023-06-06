@@ -38,6 +38,7 @@ public class ResupplyController {
 
     /**
      * Set the view model to show the Resupply window
+     *
      * @param viewModel View Model
      */
     public void setViewModel(ViewModel viewModel){
@@ -79,6 +80,7 @@ public class ResupplyController {
 
     /**
      * Sorts and displays all items by their price
+     *
      * @param actionEvent button listener
      */
     public void handleViewByPriceButtonClick(ActionEvent actionEvent) {
@@ -90,8 +92,9 @@ public class ResupplyController {
 
     /**
      * Remove supply order button opens a pop-up window
+     *
      * @param actionEvent button listener
-     * @throws IOException
+     * @throws IOException the io exception
      */
     public void handleRemoveSupplyOrderButtonClick (ActionEvent actionEvent) throws IOException {
         viewModel.showRemoveSupplyOrderPopWindow();
@@ -99,6 +102,7 @@ public class ResupplyController {
 
     /**
      * View Cart - populates the table with all the items from the cart
+     *
      * @param actionEvent button listener
      * @throws SQLException MySQL
      */
@@ -113,6 +117,7 @@ public class ResupplyController {
 
     /**
      * Order Material - opens a pop-up window
+     *
      * @param actionEvent button listener
      * @throws IOException Display Window
      */
@@ -122,6 +127,7 @@ public class ResupplyController {
 
     /**
      * Log out
+     *
      * @param actionEvent button listener
      */
     public void logOutButtonClicked(ActionEvent actionEvent) {
@@ -130,6 +136,7 @@ public class ResupplyController {
 
     /**
      * Returns to the Inventory window
+     *
      * @param actionEvent button listener
      * @throws IOException display inventory window
      */
@@ -139,6 +146,7 @@ public class ResupplyController {
 
     /**
      * Resets all the values in the database and the cart object
+     *
      * @param actionEvent button listener
      */
     public void handleResetCartButtonPress(ActionEvent actionEvent) {
@@ -149,6 +157,7 @@ public class ResupplyController {
 
     /**
      * Sorts and populates the table with the items sorted in alphabetical order
+     *
      * @param actionEvent button listener
      */
     public void handleViewByMaterialClick(ActionEvent actionEvent) {
@@ -160,6 +169,7 @@ public class ResupplyController {
 
     /**
      * Gets input from the textField and displays the correct item in the table
+     *
      * @param actionEvent button listener
      */
     public void handleViewButtonClick(ActionEvent actionEvent) {
@@ -173,6 +183,7 @@ public class ResupplyController {
 
     /**
      * Displays all supply orders made
+     *
      * @param actionEvent button listener
      */
     public void handleViewSupplyOrderButtonClick(ActionEvent actionEvent) {

@@ -12,6 +12,9 @@ import java.sql.SQLException;
 
 import GUI.JavaConnector;
 
+/**
+ * The type Remove product controller.
+ */
 public class RemoveProductController {
 
     @FXML

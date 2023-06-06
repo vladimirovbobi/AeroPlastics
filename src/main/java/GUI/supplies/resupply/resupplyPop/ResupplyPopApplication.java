@@ -11,7 +11,16 @@ import java.io.IOException;
 import static javafx.application.Application.launch;
 
 
+/**
+ * The type Resupply pop application.
+ */
 public class ResupplyPopApplication {
+    /**
+     * Start.
+     *
+     * @param resupplyStage the resupply stage
+     * @throws IOException the io exception
+     */
     public void start(Stage resupplyStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resupply.fxml"));
         Parent root = loader.load();
@@ -23,6 +32,7 @@ public class ResupplyPopApplication {
         resupplyStage.show();
 
     }
+
     /**
      * The entry point of application.
      *

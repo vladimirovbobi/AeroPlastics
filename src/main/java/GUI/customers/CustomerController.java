@@ -42,6 +42,11 @@ public class CustomerController {
     private TableColumn<Customer, Integer> customerIDColumn;
 
 
+    /**
+     * Set view model.
+     *
+     * @param viewModel the view model
+     */
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
@@ -117,8 +122,9 @@ public class CustomerController {
 
     /**
      * Logout and return to the login window
+     *
      * @param actionEvent the action event
-     * @throws IOException
+     * @throws IOException the io exception
      */
     public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
@@ -129,6 +135,7 @@ public class CustomerController {
 
     /**
      * Method to search customer from the database
+     *
      * @param actionEvent the action event
      */
     public void handleSingleSearchButtonClicked(ActionEvent actionEvent) {

@@ -13,14 +13,29 @@ import java.sql.SQLException;
  */
 public class ResupplyPopController {
 
+    /**
+     * The Current spending field.
+     */
     @FXML
     TextField  currentSpendingField;
+    /**
+     * The Total spending field.
+     */
     @FXML
     TextField totalSpendingField;
+    /**
+     * The Material name text field.
+     */
     @FXML
     TextField materialNameTextField;
+    /**
+     * The Vendor id text field.
+     */
     @FXML
     TextField vendorIdTextField;
+    /**
+     * The Quantity field.
+     */
     @FXML
     TextField quantityField;
 
@@ -28,6 +43,7 @@ public class ResupplyPopController {
 
     /**
      * Updates the current spending and updates the vendorID Text Field
+     *
      * @throws SQLException MySQL
      */
     public void setCurrentSpendingText() throws SQLException {
@@ -47,7 +63,8 @@ public class ResupplyPopController {
 
     /**
      * Updates the total amount and displays it in the Total Spending Field
-     * @throws SQLException
+     *
+     * @throws SQLException the sql exception
      */
     public void setShoppingTotalText() throws SQLException {
         Cart.updateAmount();
@@ -56,8 +73,9 @@ public class ResupplyPopController {
 
     /**
      * Add button is clicked
+     *
      * @param actionEvent listens for a button click
-     * @throws SQLException
+     * @throws SQLException the sql exception
      */
     public void addButtonPressed(ActionEvent actionEvent) throws SQLException {
         try{
@@ -79,6 +97,7 @@ public class ResupplyPopController {
 
     /**
      * Clear button is clicked
+     *
      * @param actionEvent listens for a button click
      */
     public void cancelButtonPressed(ActionEvent actionEvent) {
@@ -91,10 +110,10 @@ public class ResupplyPopController {
 
     /**
      * Submit button is clicked
+     *
      * @param actionEvent listens for a button click
-     * @throws SQLException
+     * @throws SQLException the sql exception
      */
-
     public void submitOrderButtonClicked(ActionEvent actionEvent) throws SQLException {
         String id = vendorIdTextField.getText();
         String quantity = quantityField.getText();

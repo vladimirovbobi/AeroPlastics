@@ -16,8 +16,14 @@ import java.sql.SQLException;
  * The type Remove supply controller.
  */
 public class RemoveSupplyController {
+    /**
+     * The Supply order id text field.
+     */
     @FXML
     TextField supplyOrderIdTextField;
+    /**
+     * The Material name text field.
+     */
     @FXML
     TextField materialNameTextField;
     @FXML
@@ -41,6 +47,12 @@ public class RemoveSupplyController {
         alert.showAndWait();
     }
 
+    /**
+     * Handle remove button click.
+     *
+     * @param actionEvent the action event
+     * @throws SQLException the sql exception
+     */
     public void handleRemoveButtonClick(ActionEvent actionEvent) throws SQLException {
         // Get the values from the text fields
         int supplyOrderId = Integer.parseInt(supplyOrderIdTextField.getText());
@@ -122,9 +134,19 @@ public class RemoveSupplyController {
         }
     }
 
+    /**
+     * Cancel supply order button clicked.
+     *
+     * @param actionEvent the action event
+     */
     public void cancelSupplyOrderButtonClicked(ActionEvent actionEvent) {
     }
 
+    /**
+     * Handle cancel button click.
+     *
+     * @param contextMenuEvent the context menu event
+     */
     public void handleCancelButtonClick(ContextMenuEvent contextMenuEvent) {
     }
 }

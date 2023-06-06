@@ -27,7 +27,12 @@ public class ViewModel {
     public void setCurrentStage(Stage stage) {
         this.currentStage = stage;
     }
+
+    /**
+     * Close current stage.
+     */
     public void closeCurrentStage(){this.currentStage.close();}
+
     /**
      * Show customers window.
      *
@@ -39,16 +44,29 @@ public class ViewModel {
         customerApp.start(stage);
         currentStage.close(); //close the current window
     }
+
+    /**
+     * Show resupply pop window.
+     *
+     * @throws IOException the io exception
+     */
     public void showResupplyPopWindow() throws IOException {
         ResupplyPopApplication resupplyPopApp = new ResupplyPopApplication();
         Stage stage = new Stage();
         resupplyPopApp.start(stage);
     }
+
+    /**
+     * Show remove supply order pop window.
+     *
+     * @throws IOException the io exception
+     */
     public void showRemoveSupplyOrderPopWindow() throws IOException {
         RemoveSupplyApplication removePopApp = new RemoveSupplyApplication();
         Stage stage = new Stage();
         removePopApp.start(stage);
     }
+
     /**
      * Show order window.
      *
@@ -96,6 +114,7 @@ public class ViewModel {
         menuApp.start(stage);
         currentStage.close(); //close the current window
     }
+
     /**
      * Show SupplyOrder window.
      *
@@ -107,6 +126,7 @@ public class ViewModel {
         resupplyApp.start(stage);
         currentStage.close(); //close the current window
     }
+
     /**
      * Show log in window.
      *

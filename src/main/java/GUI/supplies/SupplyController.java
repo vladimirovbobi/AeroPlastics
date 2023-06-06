@@ -123,7 +123,9 @@ public class SupplyController {
 
     /**
      * Log Out Button
+     *
      * @param actionEvent button listener
+     * @throws IOException the io exception
      */
     public void logOutButtonClicked(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
@@ -135,9 +137,9 @@ public class SupplyController {
 
     /**
      * Search for a Material in the inventory by name
+     *
      * @param actionEvent button listener
      */
-
     public void handleSingleViewButtonClicked(ActionEvent actionEvent) {
         String name = materialTextField.getText();
 

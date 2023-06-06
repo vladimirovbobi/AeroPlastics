@@ -14,7 +14,13 @@ import java.sql.SQLException;
 
 import GUI.JavaConnector;
 
+/**
+ * The type Add product controller.
+ */
 public class AddProductController {
+    /**
+     * The Quantity text field.
+     */
     @FXML
     public TextField quantityTextField;
     @FXML
@@ -94,6 +100,7 @@ public class AddProductController {
 
     /**
      * Retrieve the last product ID
+     *
      * @return last ID
      */
     public static int getLastProductID(){

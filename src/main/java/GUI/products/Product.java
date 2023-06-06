@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
 
+/**
+ * The type Product.
+ */
 public class Product{
 
     private int inventoryLevel;
@@ -15,6 +18,15 @@ public class Product{
     private double price;
     private String rawMaterial;
 
+    /**
+     * Instantiates a new Product.
+     *
+     * @param productID      the product id
+     * @param productName    the product name
+     * @param price          the price
+     * @param rawMaterial    the raw material
+     * @param inventoryLevel the inventory level
+     */
     public Product(int productID, String productName, double price, String rawMaterial, int inventoryLevel){
         this.productID = productID;
         this.productName = productName;
@@ -23,30 +35,67 @@ public class Product{
         this.inventoryLevel = inventoryLevel;
     }
 
+    /**
+     * Gets inventory level.
+     *
+     * @return the inventory level
+     */
     public int getInventoryLevel() {
         return inventoryLevel;
     }
 
+    /**
+     * Gets product id.
+     *
+     * @return the product id
+     */
     public int getProductID() {
         return productID;
     }
 
+    /**
+     * Gets product name.
+     *
+     * @return the product name
+     */
     public String getProductName() {
         return productName;
     }
 
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     * Gets raw material.
+     *
+     * @return the raw material
+     */
     public String getRawMaterial() {
         return rawMaterial;
     }
 
+    /**
+     * Sets inventory level.
+     *
+     * @param inventoryLevel the inventory level
+     */
     public void setInventoryLevel(int inventoryLevel) {
         this.inventoryLevel = inventoryLevel;
     }
 
+    /**
+     * Product is in stock and shipped boolean.
+     *
+     * @param productID the product id
+     * @param quantity  the quantity
+     * @return the boolean
+     */
     public static boolean productIsInStockAndShipped(int productID, int quantity){
         try {
             int productInStock =0;
@@ -73,6 +122,13 @@ public class Product{
         }
         return false;
     }
+
+    /**
+     * Reduce product by.
+     *
+     * @param product             the product
+     * @param numberOfUnitsBought the number of units bought
+     */
     public static void reduceProductBy(int product, int numberOfUnitsBought){
         int quantity = 0 ;
         try {
@@ -100,6 +156,13 @@ public class Product{
             e1.printStackTrace();
         }
     }
+
+    /**
+     * Get material used for product string.
+     *
+     * @param productID the product id
+     * @return the string
+     */
     public static String getMaterialUsedForProduct(int productID){
         String material="" ;
         try {

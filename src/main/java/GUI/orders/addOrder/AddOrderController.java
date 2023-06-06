@@ -16,10 +16,10 @@ import javafx.scene.control.CheckBox;
 import GUI.orders.Order;
 
 import GUI.JavaConnector;
+
 /**
  * The controller class for the "Add Order" functionality.
  */
-
 public class AddOrderController {
 
     @FXML
@@ -134,8 +134,10 @@ public class AddOrderController {
             e.printStackTrace();
         }
     }
+
     /**
      * Retrieve the last order ID
+     *
      * @return last ID
      */
     public static int getLastOrderID(){

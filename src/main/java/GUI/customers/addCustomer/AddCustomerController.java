@@ -27,9 +27,17 @@ public class AddCustomerController {
     @FXML
     private Button cancelButton;
 
+    /**
+     * The View model.
+     */
     public ViewModel viewModel;
 
 
+    /**
+     * Sets view model.
+     *
+     * @param viewModel the view model
+     */
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
     }

@@ -11,7 +11,6 @@ import java.io.IOException;
 
 /**
  * The type Menu application.
- *
  */
 public class MenuApplication extends Application {
     @Override

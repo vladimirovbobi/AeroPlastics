@@ -7,12 +7,24 @@ import java.sql.SQLException;
 
 /**
  * The Customer class represents a customer entity with properties
- *  such as ID, first name, last name, and company.
+ * such as ID, first name, last name, and company.
  */
 public class Customer {
+    /**
+     * The Customer id.
+     */
     final int customerID;
+    /**
+     * The First name.
+     */
     final String firstName;
+    /**
+     * The Last name.
+     */
     final String lastName;
+    /**
+     * The Affiliation.
+     */
     final String affiliation;
 
     /**
@@ -29,6 +41,14 @@ public class Customer {
         this.affiliation = affiliation;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param customerID  the customer id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param affiliation the affiliation
+     */
     public Customer(int customerID, String firstName, String lastName, String affiliation) {
         this.customerID = customerID;
         this.firstName = firstName;

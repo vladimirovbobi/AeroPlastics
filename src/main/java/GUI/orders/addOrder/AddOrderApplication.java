@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Add order application.
+ */
 public class AddOrderApplication extends Application {
 
     @Override

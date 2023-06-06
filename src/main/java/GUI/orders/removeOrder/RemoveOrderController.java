@@ -10,6 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+/**
+ * The type Remove order controller.
+ */
 public class RemoveOrderController {
     @FXML
     private TextField orderIdTextField;

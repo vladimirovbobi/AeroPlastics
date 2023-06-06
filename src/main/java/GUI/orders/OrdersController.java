@@ -42,6 +42,12 @@ public class OrdersController {
     private TableColumn<Order, Boolean> isShippedColumn;
     @FXML
     private TableColumn<Order, String> customerIDColumn;
+
+    /**
+     * Set view model.
+     *
+     * @param viewModel the view model
+     */
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }
@@ -121,6 +127,7 @@ public class OrdersController {
         // Populate the table with order data
         displayTable.getItems().addAll(orders);
     }
+
     /**
      * Handles the search button click event.
      * Searches for orders by name or ID and populates the table with the results.
@@ -140,8 +147,9 @@ public class OrdersController {
 
     /**
      * Logout and return to the login window
+     *
      * @param actionEvent the action event
-     * @throws IOException
+     * @throws IOException the io exception
      */
     public void handleLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();

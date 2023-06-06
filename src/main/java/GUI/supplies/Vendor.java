@@ -7,12 +7,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The type Vendor.
+ */
 public class Vendor {
+    /**
+     * The constant sortByPrice.
+     */
     public static boolean sortByPrice;
+    /**
+     * The constant sortByName.
+     */
     public static boolean sortByName;
 
     private int vendorID;
     private String companyName;
+    /**
+     * The Material price.
+     */
     HashMap<Material, Double> materialPrice;
 
     private String rawMaterial;
@@ -26,10 +38,11 @@ public class Vendor {
 
     /**
      * Constructor
-     * @param vendorID Vendor ID number
+     *
+     * @param vendorID    Vendor ID number
      * @param companyName Vendor's company name
      * @param rawMaterial The name of the raw material
-     * @param price The price for the item
+     * @param price       The price for the item
      */
     public Vendor(int vendorID,String companyName,String rawMaterial,double price){
         this.vendorID = vendorID;
@@ -40,10 +53,11 @@ public class Vendor {
 
     /**
      * Constructor
-     * @param vendorID Vendor ID number
+     *
+     * @param vendorID        Vendor ID number
+     * @param rawMaterial     The name of the raw material
      * @param productQuantity The quantity bought from a vendor
-     * @param rawMaterial The name of the raw material
-     * @param price The price for the item
+     * @param price           The price for the item
      */
     public Vendor(int vendorID,String rawMaterial,int productQuantity, double price){
         this.vendorID = vendorID;
@@ -54,11 +68,12 @@ public class Vendor {
 
     /**
      * Constructor
-     * @param vendorID Vendor ID number
+     *
      * @param companyName Vendor's company name
+     * @param vendorID    Vendor ID number
      * @param rawMaterial The name of the raw material
-     * @param price The price for the item
-     * @param quantity The quantity bought from a vendor
+     * @param quantity    The quantity bought from a vendor
+     * @param price       The price for the item
      */
     public Vendor(String companyName,int vendorID, String rawMaterial,int quantity,double price){
         this.vendorID = vendorID;
@@ -70,10 +85,10 @@ public class Vendor {
 
     /**
      * Constructor
+     *
      * @param companyName The Vendor's company name
-     * @param supply Hash Map with the items and price per item
+     * @param supply      Hash Map with the items and price per item
      */
-
     public Vendor(String companyName, HashMap <Material, Double> supply){
         this.vendorID = getLastVendorId() + 1;
         this.companyName = companyName;
@@ -82,9 +97,10 @@ public class Vendor {
 
     /**
      * Constructor
+     *
      * @param companyName The vendor's company name
-     * @param amount The price for the item
-     * @param quantity The number of items bought
+     * @param amount      The price for the item
+     * @param quantity    The number of items bought
      */
     public Vendor(String companyName, double amount, int quantity) {
         this.companyName = companyName;
@@ -92,6 +108,14 @@ public class Vendor {
         this.productQuantity = quantity;
     }
 
+    /**
+     * Instantiates a new Vendor.
+     *
+     * @param companyName the company name
+     * @param cartID      the cart id
+     * @param amount      the amount
+     * @param quantity    the quantity
+     */
     public Vendor(String companyName, int cartID, double amount, int quantity) {
         this.companyName = companyName;
         this.price = amount;
@@ -102,7 +126,8 @@ public class Vendor {
 
     /**
      * Get the last VendorID
-     * @return vendorID
+     *
+     * @return vendorID int
      */
     public int getLastVendorId(){
         int max =0;
@@ -131,6 +156,7 @@ public class Vendor {
 
     /**
      * Retrieve vendorID
+     *
      * @return vendor ID number
      */
     public int getVendorID() {
@@ -139,13 +165,16 @@ public class Vendor {
 
     /**
      * Retrieve the name of the company
+     *
      * @return company name
      */
     public String getCompanyName() {
         return companyName;
     }
+
     /**
      * Retrieve product quantity
+     *
      * @return product quantity
      */
     public int getProductQuantity() {
@@ -154,6 +183,7 @@ public class Vendor {
 
     /**
      * Retrieve Raw Material name
+     *
      * @return the name of the raw material
      */
     public String getRawMaterial() {
@@ -162,6 +192,7 @@ public class Vendor {
 
     /**
      * Retrieve the price
+     *
      * @return price per item
      */
     public double getPrice() {
@@ -170,8 +201,9 @@ public class Vendor {
 
     /**
      * Check if a specific raw material is so sold by anyone
+     *
      * @param rawMaterial The name of the raw material
-     * @return true/false
+     * @return true /false
      */
     public static boolean checkAvailability (String rawMaterial){
         try {
@@ -196,6 +228,7 @@ public class Vendor {
 
     /**
      * Retrieve company name from an ID
+     *
      * @param vendorID The Vendor ID number
      * @return The name of the company associated with the vendorID
      */
@@ -219,7 +252,8 @@ public class Vendor {
 
     /**
      * Retrieve price for a specific item from a vendor with the vendor ID
-     * @param vendorID The vendor's ID number
+     *
+     * @param vendorID     The vendor's ID number
      * @param materialName The name of the material
      * @return The price corresponding to the vendorID and the name of the material
      */
@@ -256,6 +290,7 @@ public class Vendor {
 
     /**
      * Fetches and retrieves a list of materials and their vendors sorted by Price
+     *
      * @return List of Vendors
      */
     public static List<Vendor> getVendorsByPrice() {
@@ -305,6 +340,7 @@ public class Vendor {
 
     /**
      * Fetches List of Vendors sorted by Material
+     *
      * @return List of Vendors
      */
     public static List<Vendor> getVendorsByMaterial() {

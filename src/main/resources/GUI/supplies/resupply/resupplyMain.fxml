@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.Shadow?>
@@ -56,13 +55,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -75,13 +71,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -94,13 +87,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -119,13 +109,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -138,13 +125,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -157,13 +141,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -172,17 +153,14 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="viewCart" layoutX="434.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewCartButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Cart" textFill="WHITE">
+                  <Button fx:id="viewCart" layoutX="429.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleViewCartButtonClick" prefHeight="68.0" prefWidth="195.0" style="-fx-background-color: #509854;" text="View Cart" textFill="WHITE">
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -195,13 +173,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -214,13 +189,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>
@@ -234,13 +206,10 @@
                      <effect>
                         <DropShadow>
                            <input>
-                              <Lighting diffuseConstant="1.23" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
+                              <Lighting diffuseConstant="1.23" light="$null" specularConstant="1.38" specularExponent="28.74" surfaceScale="1.16">
                                  <bumpInput>
                                     <Shadow height="79.0" radius="39.0" width="79.0" />
                                  </bumpInput>
-                                 <light>
-                                    <Light.Distant />
-                                 </light>
                               </Lighting>
                            </input>
                         </DropShadow>

@@ -11,6 +11,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Java connector.
+ */
 public class JavaConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aeroplastics";
     private static final String USERNAME = "root";
@@ -26,6 +29,13 @@ public class JavaConnector {
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
     }
 
+    /**
+     * Prepare statement prepared statement.
+     *
+     * @param query the query
+     * @return the prepared statement
+     * @throws SQLException the sql exception
+     */
     public PreparedStatement prepareStatement(String query) throws SQLException {
         Connection connection = getConnection();
         return connection.prepareStatement(query);
@@ -33,6 +43,7 @@ public class JavaConnector {
 
     /**
      * Connection to material table to display on supply window.
+     *
      * @return material table display on supply window.
      */
     public static List<Material> getAllMaterials() {
@@ -70,8 +81,10 @@ public class JavaConnector {
 
         return materials;
     }
+
     /**
      * Connection to customer table to display on customer window.
+     *
      * @return customer table display on customer window.
      */
     public static List<Customer> getAllCustomers() {
@@ -108,6 +121,11 @@ public class JavaConnector {
         return customers;
     }
 
+    /**
+     * Gets all vendors.
+     *
+     * @return the all vendors
+     */
     public static List<Vendor> getAllVendors() {
         List<Vendor> vendors = new ArrayList<>();
 
@@ -144,6 +162,12 @@ public class JavaConnector {
 
         return vendors;
     }
+
+    /**
+     * Get cart list.
+     *
+     * @return the list
+     */
     public static List<Vendor> getCart(){
         List<Vendor> vendors = new ArrayList<>();
 
@@ -206,6 +230,13 @@ public class JavaConnector {
 
         return vendors;
     }
+
+    /**
+     * Search customers by name or id list.
+     *
+     * @param name the name
+     * @return the list
+     */
     public static List<Customer> searchCustomersByNameOrID(String name) {
         List<Customer> customers = new ArrayList<>();
 
@@ -249,6 +280,12 @@ public class JavaConnector {
         return customers;
     }
 
+    /**
+     * Search orders by name or id list.
+     *
+     * @param name the name
+     * @return the list
+     */
     public static List<Order> searchOrdersByNameOrID(String name){
         List<Order> orders = new ArrayList<>();
 
@@ -299,6 +336,12 @@ public class JavaConnector {
         return orders;
     }
 
+    /**
+     * Search vendor material by name list.
+     *
+     * @param name the name
+     * @return the list
+     */
     public static List<Vendor> searchVendorMaterialByName(String name){
             name =name.toUpperCase();
 
@@ -346,6 +389,13 @@ public class JavaConnector {
 
             return vendors;
         }
+
+    /**
+     * Search materials by name list.
+     *
+     * @param name the name
+     * @return the list
+     */
     public static List<Material> searchMaterialsByName(String name) {
         List<Material> materials = new ArrayList<>();
 
@@ -388,6 +438,12 @@ public class JavaConnector {
 
         return materials;
     }
+
+    /**
+     * Gets supply orders.
+     *
+     * @return the supply orders
+     */
     public static List<Vendor> getSupplyOrders() {
         List<Vendor> vendors = new ArrayList<>();
 
@@ -436,6 +492,7 @@ public class JavaConnector {
 
     /**
      * Connection to product table to display on product window.
+     *
      * @return product table display on product window.
      */
     public static List<Product> getAllProducts() {
@@ -474,6 +531,13 @@ public class JavaConnector {
         return products;
     }
 
+    /**
+     * Search product by name or id product.
+     *
+     * @param name the name
+     * @param id   the id
+     * @return the product
+     */
     public static Product searchProductByNameOrID(String name, int id) {
         Product product = null;
 
@@ -521,6 +585,12 @@ public class JavaConnector {
         return product;
     }
 
+    /**
+     * Sets inventory level.
+     *
+     * @param productID         the product id
+     * @param newInventoryLevel the new inventory level
+     */
     public static void setInventoryLevel(int productID, int newInventoryLevel) {
         try {
             // Establish a connection to the database
@@ -550,6 +620,7 @@ public class JavaConnector {
 
     /**
      * Connection to order table to display on order window.
+     *
      * @return order table display on order window.
      */
     public static List<Order> getAllOrders() {

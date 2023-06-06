@@ -18,6 +18,12 @@ import java.io.IOException;
 public class MenuController {
 
     private ViewModel viewModel;
+
+    /**
+     * Set view model.
+     *
+     * @param viewModel the view model
+     */
     public void setViewModel(ViewModel viewModel){
         this.viewModel = viewModel;
     }

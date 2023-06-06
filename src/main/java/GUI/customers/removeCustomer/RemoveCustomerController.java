@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.Alert;
+
 /**
  * Remove Customer functionality in the GUI.
  */
@@ -26,6 +27,9 @@ public class RemoveCustomerController {
     @FXML
     private Button cancelButton;
 
+    /**
+     * The View model.
+     */
     public ViewModel viewModel;
 
     /**

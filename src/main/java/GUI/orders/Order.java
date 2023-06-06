@@ -2,10 +2,10 @@ package GUI.orders;
 
 import GUI.Date;
 import GUI.customers.Customer;
+
 /**
  * The Order class represents an order with its properties and associated customer.
  */
-
 public class Order {
     private int orderID;
     private String address;
@@ -38,15 +38,18 @@ public class Order {
         this.quantity = quantity;
 
     }
+
     /**
      * Constructs an Order object with the specified properties.
      *
-     * @param orderID    The ID of the order.
-     * @param address    The address of the order.
-     * @param isShipped  The shipping status of the order.
-     * @param customerID The ID of the associated customer.
-     * @param productId  The product ordered by customer
-     * @param quantity   The amount ordered by customer
+     * @param orderID     The ID of the order.
+     * @param address     The address of the order.
+     * @param isShipped   The shipping status of the order.
+     * @param customerID  The ID of the associated customer.
+     * @param productId   The product ordered by customer
+     * @param quantity    The amount ordered by customer
+     * @param orderDate   the order date
+     * @param arrivalDate the arrival date
      */
     public Order(int orderID, String address, boolean isShipped, int customerID, int productId,int quantity,String orderDate, String arrivalDate) {
         this.orderID = orderID;
@@ -74,7 +77,6 @@ public class Order {
      *
      * @param orderID The order ID to set.
      */
-
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
@@ -151,18 +153,38 @@ public class Order {
         this.customer = customer;
     }
 
+    /**
+     * Gets quantity.
+     *
+     * @return the quantity
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * Gets product id.
+     *
+     * @return the product id
+     */
     public int getProductID() {
         return productID;
     }
 
+    /**
+     * Gets arrival date.
+     *
+     * @return the arrival date
+     */
     public String getArrivalDate() {
         return arrivalDate;
     }
 
+    /**
+     * Gets order date.
+     *
+     * @return the order date
+     */
     public String getOrderDate() {
         return orderDate;
     }

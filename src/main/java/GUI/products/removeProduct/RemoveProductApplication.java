@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Remove product application.
+ */
 public class RemoveProductApplication extends Application {
 
     @Override
