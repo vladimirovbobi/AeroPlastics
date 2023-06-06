@@ -175,6 +175,7 @@ public class SupplyOrder{
         }else{
             return;
         }
+        int currentOrderID = getLastOrderId() + 1;
         // Update vendor table with the new productQuantity and materials table with inventoryLevel
         for (int i = 0; i < quantities.size(); i++) {
             // Subtract productQuantity from vendor table
@@ -194,14 +195,14 @@ public class SupplyOrder{
 
             // Insert into supplyOrder table
             query = "INSERT INTO supplyOrder (supplyOrderID, vendorID, rawMaterial, price, quantity, orderPlaced, arrivalDate) VALUES ("
-                    + getLastOrderId() + "," + vendorID.get(i) + ",'" + rawMaterials.get(i) + "'," + price.get(i) + "," + quantities.get(i) + ",'"
+                    + currentOrderID + "," + vendorID.get(i) + ",'" + rawMaterials.get(i) + "'," + price.get(i) + "," + quantities.get(i) + ",'"
                     + orderDate.get(i) + "','" + arrivalDate.get(i) + "');";
             statement = connection.prepareStatement(query);
             statement.executeUpdate();
         }
 
         // Insert a new entry in the supplyOrder table with the total quantity
-        query = "INSERT INTO supplyOrder (supplyOrderID, rawMaterial, price, quantity) VALUES(" + cart.getCartID() + ",'"
+        query = "INSERT INTO supplyOrder (supplyOrderID, rawMaterial, price, quantity) VALUES(" + currentOrderID + ",'"
                 + rawMaterials.get(rawMaterials.size() - 1) + "'," + price.get(rawMaterials.size() - 1) + ", " + quantity + ");";
         cart.deleteCart();
         statement = connection.prepareStatement(query);

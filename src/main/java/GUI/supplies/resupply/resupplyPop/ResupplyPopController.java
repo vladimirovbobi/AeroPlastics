@@ -83,7 +83,7 @@ public class ResupplyPopController {
                 int vendorID = Integer.parseInt(vendorIdTextField.getText());
                 int quantity = Integer.parseInt(quantityField.getText());
 
-                    if (Vendor.checkAvailability(materialName)) {
+                    if (Vendor.checkAvailability(materialName,quantity,vendorID)) {
                         cart.addToCart(vendorID, materialName, quantity);
                         setShoppingTotalText();
                         setCurrentSpendingText();
@@ -117,12 +117,16 @@ public class ResupplyPopController {
     public void submitOrderButtonClicked(ActionEvent actionEvent) throws SQLException {
         String id = vendorIdTextField.getText();
         String quantity = quantityField.getText();
+        cart = Cart.getInstance();
         if (!id.isEmpty() && !quantity.isEmpty()) {
             SupplyOrder.submitOrder();
             materialNameTextField.setText("Order Submitted");
             quantityField.setText("");
             vendorIdTextField.setText("");
             currentSpendingField.setText("");
+        }else if ( cart.getAmount() > 0){
+            SupplyOrder.submitOrder();
+            materialNameTextField.setText("Order Submitted");
         }
     }
 }
