@@ -1,12 +1,10 @@
 package GUI.supplies.removeSupply;
 
 import GUI.JavaConnector;
-import javafx.event.ActionEvent;
+import GUI.utility.Shared;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.ContextMenuEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,30 +28,15 @@ public class RemoveSupplyController {
     private Button cancelButton;
     @FXML
     private Button removeButton;
-
-    private void errorBox(String text){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
-
-    private void successBox(String text){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
+    Shared e = new Shared();
+    Shared v = new Shared();
 
     /**
      * Handle remove button click.
      *
-     * @param actionEvent the action event
      * @throws SQLException the sql exception
      */
-    public void handleRemoveButtonClick(ActionEvent actionEvent) throws SQLException {
+    public void handleRemoveButtonClick() throws SQLException {
         // Get the values from the text fields
         int supplyOrderId = Integer.parseInt(supplyOrderIdTextField.getText());
         String materialName = materialNameTextField.getText();
@@ -62,7 +45,7 @@ public class RemoveSupplyController {
         JavaConnector con = new JavaConnector();
         Connection connection = con.getConnection();
         if (connection == null) {
-            errorBox("Failed to connect to the database.");
+            e.errorBox("Failed to connect to the database.");
             return;
         }
 
@@ -83,7 +66,7 @@ public class RemoveSupplyController {
                 // Get the quantity from the deleted supply order
                 quantity = resultSet.getInt("quantity");
             } else {
-                errorBox("Failed to retrieve the quantity from the supply order. Please check the entered values.");
+                e.errorBox("Failed to retrieve the quantity from the supply order. Please check the entered values.");
                 return;
             }
 
@@ -119,14 +102,14 @@ public class RemoveSupplyController {
                 // Commit the transaction
                 connection.commit();
 
-                successBox("Supply order removed successfully, quantity updated in vendor table, and inventory level updated in materials table.");
+                e.successBox("Supply order removed successfully, quantity updated in vendor table, and inventory level updated in materials table.");
             } else {
-                errorBox("Failed to remove the supply order. Please check the entered values.");
+                e.errorBox("Failed to remove the supply order. Please check the entered values.");
             }
         } catch (SQLException e) {
             // Rollback the transaction in case of any error
             connection.rollback();
-            errorBox("An error occurred while removing the supply order: " + e.getMessage());
+            v.errorBox("An error occurred while removing the supply order: " + e.getMessage());
         } finally {
             // Reset the auto-commit mode and close the database connection
             connection.setAutoCommit(true);
@@ -137,16 +120,14 @@ public class RemoveSupplyController {
     /**
      * Cancel supply order button clicked.
      *
-     * @param actionEvent the action event
      */
-    public void cancelSupplyOrderButtonClicked(ActionEvent actionEvent) {
+    public void cancelSupplyOrderButtonClicked() {
     }
 
     /**
      * Handle cancel button click.
      *
-     * @param contextMenuEvent the context menu event
      */
-    public void handleCancelButtonClick(ContextMenuEvent contextMenuEvent) {
+    public void handleCancelButtonClick() {
     }
 }
