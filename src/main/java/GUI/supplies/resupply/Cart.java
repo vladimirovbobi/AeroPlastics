@@ -46,7 +46,7 @@ public class    Cart {
      * Set default values
      */
     public void resetCart(){
-        cartID = 1;
+        cartID = getLastCartId() + 1 ;
         amount = 0.0;
         orderDate = Date.todaysDate();
         arrivalDate = Date.changeTodaysDateByDays(5);
