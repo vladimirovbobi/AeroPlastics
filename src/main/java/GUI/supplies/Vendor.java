@@ -1,6 +1,7 @@
 package GUI.supplies;
 
 import GUI.JavaConnector;
+import GUI.utility.Shared;
 import javafx.scene.control.Alert;
 import java.sql.*;
 import java.util.ArrayList;
@@ -205,18 +206,25 @@ public class Vendor {
      * @param rawMaterial The name of the raw material
      * @return true /false
      */
-    public static boolean checkAvailability (String rawMaterial){
+    public static boolean checkAvailability (String rawMaterial, int quantity, int vendorID){
+        Shared s = new Shared();
         try {
             JavaConnector javaConnector = new JavaConnector();
             Connection con = javaConnector.getConnection();
-            String query = "Select rawMaterial from vendor";
+            String query = "Select rawMaterial,productQuantity from vendor WHERE vendorID = " + vendorID+";";
             PreparedStatement statement = con.prepareStatement(query);
             ResultSet result = statement.executeQuery();
 
 
             while (result.next()) {
                 if (result.getString("rawMaterial").toUpperCase().equals(rawMaterial.toUpperCase())) {
-                    return true;
+                   if(result.getInt("productQuantity" )>= quantity){
+                        return true;
+                    }else{
+                       s.errorBox("This supplier does not have enough "+ rawMaterial.toUpperCase());
+                       return false;
+                   }
+
                 }
             }
 
