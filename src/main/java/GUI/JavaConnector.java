@@ -6,7 +6,6 @@ import GUI.orders.Order;
 import GUI.supplies.Material;
 import GUI.supplies.Vendor;
 import GUI.supplies.resupply.Cart;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

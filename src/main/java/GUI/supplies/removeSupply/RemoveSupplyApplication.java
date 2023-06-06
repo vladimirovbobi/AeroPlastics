@@ -1,6 +1,5 @@
 package GUI.supplies.removeSupply;
 
-import GUI.customers.addCustomer.AddCustomerController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

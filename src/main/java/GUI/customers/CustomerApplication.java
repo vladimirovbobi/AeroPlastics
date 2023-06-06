@@ -1,14 +1,11 @@
 package GUI.customers;
 
 import GUI.ViewModel;
-//import GUI.menu.MenuController;
-//import GUI.orders.OrdersApplication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**

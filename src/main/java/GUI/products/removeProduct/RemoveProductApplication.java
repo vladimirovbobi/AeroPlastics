@@ -1,7 +1,6 @@
 package GUI.products.removeProduct;
 
 import GUI.ViewModel;
-import GUI.products.addProduct.AddProductController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

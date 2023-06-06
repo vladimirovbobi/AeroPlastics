@@ -1,11 +1,11 @@
 package GUI.customers.addCustomer;
+
 import GUI.customers.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import GUI.ViewModel;
 import GUI.JavaConnector;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,5 @@
 package GUI.orders.addOrder;
+
 import GUI.Date;
 import GUI.products.Product;
 import GUI.supplies.Material;
@@ -6,15 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.scene.control.CheckBox;
-import GUI.orders.Order;
-
 import GUI.JavaConnector;
 
 /**

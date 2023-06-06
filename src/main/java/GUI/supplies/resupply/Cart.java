@@ -5,8 +5,6 @@ import GUI.JavaConnector;
 import GUI.supplies.Material;
 import GUI.supplies.SupplyOrder;
 import GUI.supplies.Vendor;
-
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.*;

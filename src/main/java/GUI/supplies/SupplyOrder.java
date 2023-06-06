@@ -7,7 +7,6 @@ import java.math.RoundingMode;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 /**
  * The type Supply order.
  */

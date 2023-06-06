@@ -10,7 +10,6 @@ import GUI.supplies.removeSupply.RemoveSupplyApplication;
 import GUI.supplies.resupply.ResupplyApplication;
 import GUI.supplies.resupply.resupplyPop.ResupplyPopApplication;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**

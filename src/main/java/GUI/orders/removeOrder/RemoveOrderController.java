@@ -1,10 +1,10 @@
 package GUI.orders.removeOrder;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import GUI.JavaConnector;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

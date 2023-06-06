@@ -1,6 +1,5 @@
 package GUI.supplies.resupply.resupplyPop;
 
-import GUI.supplies.resupply.ResupplyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

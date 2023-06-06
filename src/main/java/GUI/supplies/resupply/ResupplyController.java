@@ -21,9 +21,7 @@ public class ResupplyController {
     @FXML
     private TextField materialTextField;
     @FXML
-
     private TableView<Vendor> displayTable;
-
     @FXML
     private TableColumn<Vendor, String> nameColumn;
     @FXML

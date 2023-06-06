@@ -1,7 +1,5 @@
 package GUI.products.addProduct;
 
-import GUI.ViewModel;
-import GUI.supplies.resupply.ResupplyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
